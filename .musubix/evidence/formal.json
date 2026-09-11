@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-11T21:50:54.207Z",
+  "totalRequirements": 29,
+  "modeledRequirements": 9,
+  "modeledFraction": 0.3103448275862069,
+  "result": {
+    "valid": true,
+    "abstraction": "Consistency of explicit branch-scoped conditional, exact unit-normalized integer numeric, bounded temporal interval, deterministic state-transition, and controlled unconditional Boolean constraints; not implementation correctness.",
+    "assumptions": [
+      "Exact normalized subject/response pairs denote the same Boolean proposition.",
+      "Explicit Formal JSON fields use only their documented closed-world constraint semantics.",
+      "Temporal constraints model one nonnegative integer response delay in milliseconds within the intersection of declared afterMs/withinMs intervals, not scheduling or liveness.",
+      "Numeric ms/s/min values share an exact millisecond dimension; bytes/kib/mib values share an exact byte dimension; other and incompatible units remain separate.",
+      "State transitions require one target for each declared from-state/event pair; undeclared transitions are unconstrained.",
+      "Copilot supplies candidate requirements; deterministic checks do not establish their truth."
+    ],
+    "literals": [
+      {
+        "requirement": "REQ-EXAMPLE-001",
+        "atom": "[\"system\",\"report its readiness\"]",
+        "positive": true
+      },
+      {
+        "requirement": "REQ-POTTERY-009",
+        "atom": "[\"システム\",\"、接合候補が採用されなかった破片を未接合破片一覧として表示し、既定の統合メッシュ出力の対象から除外\"]",
+        "positive": true
+      },
+      {
+        "requirement": "REQ-POTTERY-017",
+        "atom": "[\"システム\",\"、windowsデスクトップ環境で動作するguiアプリケーションとして提供\"]",
+        "positive": true
+      }
+    ],
+    "constraints": [
+      {
+        "requirement": "REQ-POTTERY-003",
+        "constraint": {
+          "kind": "numeric",
+          "metric": "clustering.agreementRate",
+          "operator": ">=",
+          "value": 95
+        }
+      },
+      {
+        "requirement": "REQ-POTTERY-018",
+        "constraint": {
+          "kind": "numeric",
+          "metric": "matching.precision",
+          "operator": ">=",
+          "value": 90
+        }
+      },
+      {
+        "requirement": "REQ-POTTERY-028",
+        "constraint": {
+          "kind": "numeric",
+          "metric": "matching.recall",
+          "operator": ">=",
+          "value": 85
+        }
+      },
+      {
+        "requirement": "REQ-POTTERY-019",
+        "constraint": {
+          "kind": "numeric",
+          "metric": "processing.time",
+          "operator": "<=",
+          "value": 60,
+          "unit": "min"
+        }
+      },
+      {
+        "requirement": "REQ-POTTERY-025",
+        "constraint": {
+          "kind": "numeric",
+          "metric": "matching.confidenceSeparation",
+          "operator": ">",
+          "value": 0
+        }
+      },
+      {
+        "requirement": "REQ-POTTERY-027",
+        "constraint": {
+          "kind": "numeric",
+          "metric": "pose.translationToleranceMm",
+          "operator": "<=",
+          "value": 1
+        }
+      }
+    ],
+    "unsupported": [
+      "REQ-POTTERY-001",
+      "REQ-POTTERY-002",
+      "REQ-POTTERY-004",
+      "REQ-POTTERY-005",
+      "REQ-POTTERY-006",
+      "REQ-POTTERY-007",
+      "REQ-POTTERY-008",
+      "REQ-POTTERY-010",
+      "REQ-POTTERY-011",
+      "REQ-POTTERY-012",
+      "REQ-POTTERY-013",
+      "REQ-POTTERY-014",
+      "REQ-POTTERY-015",
+      "REQ-POTTERY-016",
+      "REQ-POTTERY-020",
+      "REQ-POTTERY-021",
+      "REQ-POTTERY-022",
+      "REQ-POTTERY-026",
+      "REQ-POTTERY-023",
+      "REQ-POTTERY-024"
+    ],
+    "diagnostics": [
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-001 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-002 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-004 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-005 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-006 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-007 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-008 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-010 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-011 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-012 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-013 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-014 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-015 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-016 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-020 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-021 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-022 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-026 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-023 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      },
+      {
+        "code": "FORMAL_UNSUPPORTED",
+        "severity": "warning",
+        "message": "REQ-POTTERY-024 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+      }
+    ],
+    "consistency": "consistent",
+    "solver": {
+      "requested": "none",
+      "name": "none",
+      "command": "",
+      "version": "",
+      "status": "not-requested",
+      "durationMs": 0,
+      "output": "Solver execution disabled."
+    }
+  },
+  "fingerprints": {
+    ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
+    ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43"
+  }
+}

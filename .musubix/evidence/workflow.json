@@ -64,6 +64,14 @@
       "phase": "complete",
       "status": "completed",
       "recordedAt": "2026-09-11T21:47:56.124Z"
+    },
+    {
+      "skill": "sdd-formal-codegraph",
+      "version": "0.1.8",
+      "provenance": "self-reported",
+      "phase": "complete",
+      "status": "completed",
+      "recordedAt": "2026-09-11T21:51:14.354Z"
     }
   ]
 }

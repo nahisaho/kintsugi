@@ -1,7 +1,764 @@
 {
   "schemaVersion": 1,
-  "status": "skipped",
-  "generatedAt": null,
-  "checks": [],
-  "reason": "No checks have run. Configure commands and run musubix3 gate."
+  "generatedAt": "2026-09-11T21:50:54.318Z",
+  "status": "fail",
+  "checks": [
+    {
+      "name": "policy",
+      "required": true,
+      "status": "pass",
+      "summary": "0 policy violation(s).",
+      "diagnostics": []
+    },
+    {
+      "name": "requirements",
+      "required": true,
+      "status": "pass",
+      "summary": "0 error(s).",
+      "diagnostics": []
+    },
+    {
+      "name": "design",
+      "required": true,
+      "status": "pass",
+      "summary": "0 error(s).",
+      "diagnostics": []
+    },
+    {
+      "name": "constitution",
+      "required": true,
+      "status": "pass",
+      "summary": "0 error(s).",
+      "diagnostics": []
+    },
+    {
+      "name": "trace",
+      "required": true,
+      "status": "fail",
+      "summary": "2 error(s).",
+      "diagnostics": [
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-EXAMPLE-001 lacks implementation.",
+          "path": ".musubix/features/example/requirements.md",
+          "line": 10
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-EXAMPLE-001 lacks tests.",
+          "path": ".musubix/features/example/requirements.md",
+          "line": 10
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-001 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 22
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-001 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 22
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-002 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 29
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-002 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 29
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-003 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 36
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-003 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 36
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-004 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 44
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-004 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 44
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-005 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 51
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-005 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 51
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-006 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 58
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-006 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 58
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-007 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 65
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-007 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 65
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-008 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 72
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-008 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 72
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-009 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 79
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-009 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 79
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-011 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 93
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-011 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 93
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-012 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 100
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-012 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 100
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-013 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 107
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-013 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 107
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-014 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 114
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-014 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 114
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-015 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 121
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-015 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 121
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-016 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 128
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-016 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 128
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-017 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 135
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-017 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 135
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-018 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 142
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-018 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 142
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-028 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 150
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-028 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 150
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-019 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 158
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-019 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 158
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-020 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 166
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-020 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 166
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-021 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 173
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-021 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 173
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-022 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 180
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-022 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 180
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-025 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 187
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-025 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 187
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-026 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 195
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-026 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 195
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-023 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 202
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-023 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 202
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-024 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 209
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-024 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 209
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-027 lacks implementation.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 216
+        },
+        {
+          "code": "TRACE_UNCOVERED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-027 lacks tests.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 216
+        },
+        {
+          "code": "TRACE_COVERAGE",
+          "severity": "error",
+          "message": "implementation link coverage 0 is below 1."
+        },
+        {
+          "code": "TRACE_COVERAGE",
+          "severity": "error",
+          "message": "tests link coverage 0 is below 1."
+        }
+      ]
+    },
+    {
+      "name": "graph",
+      "required": true,
+      "status": "skipped",
+      "summary": "No applicable artifact/input; not evaluated.",
+      "diagnostics": []
+    },
+    {
+      "name": "formal",
+      "required": false,
+      "status": "pass",
+      "summary": "9/29 requirements modeled; consistency consistent; solver not-requested.",
+      "diagnostics": [
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-001 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-002 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-004 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-005 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-006 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-007 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-008 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-010 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-011 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-012 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-013 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-014 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-015 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-016 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-020 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-021 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-022 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-026 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-023 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        },
+        {
+          "code": "FORMAL_UNSUPPORTED",
+          "severity": "warning",
+          "message": "REQ-POTTERY-024 is outside the unconditional English/Japanese Boolean abstraction; it was not checked for consistency."
+        }
+      ],
+      "durationMs": 0
+    },
+    {
+      "name": "workflow",
+      "required": true,
+      "status": "fail",
+      "summary": "8 workflow declaration(s) are not fully reconciled with Copilot invocation events.",
+      "diagnostics": [
+        {
+          "code": "WORKFLOW_INVOCATION_UNVERIFIED",
+          "severity": "error",
+          "message": "Workflow declarations have not been reconciled with a Copilot session log."
+        }
+      ]
+    },
+    {
+      "name": "tdd",
+      "required": false,
+      "status": "skipped",
+      "summary": "No TDD cycle evidence is available.",
+      "diagnostics": []
+    },
+    {
+      "name": "change-history",
+      "required": false,
+      "status": "skipped",
+      "summary": "No staged change chronology evidence is available.",
+      "diagnostics": []
+    },
+    {
+      "name": "change-completeness",
+      "required": false,
+      "status": "skipped",
+      "summary": "No staged change evidence is available.",
+      "diagnostics": []
+    },
+    {
+      "name": "test-identities",
+      "required": false,
+      "status": "skipped",
+      "summary": "No annotated test IDs are available.",
+      "diagnostics": []
+    },
+    {
+      "name": "performance",
+      "required": false,
+      "status": "skipped",
+      "summary": "No deterministic performance budgets are declared.",
+      "diagnostics": []
+    },
+    {
+      "name": "mutation",
+      "required": false,
+      "status": "skipped",
+      "summary": "No mutation evidence is available.",
+      "diagnostics": []
+    },
+    {
+      "name": "model-correspondence",
+      "required": true,
+      "status": "fail",
+      "summary": "0/6 explicitly modeled requirement(s) correspond to current authoritative passing tests.",
+      "diagnostics": [
+        {
+          "code": "MODEL_CORRESPONDENCE_TRACE_STALE",
+          "severity": "error",
+          "message": "Generated trace evidence is missing, stale, or invalid.",
+          "path": ".musubix/evidence/model-correspondence.json"
+        },
+        {
+          "code": "MODEL_CORRESPONDENCE_UNPROVED",
+          "severity": "error",
+          "message": "REQ-POTTERY-003 has no current authoritative passing test evidence.",
+          "path": ".musubix/evidence/model-correspondence.json"
+        },
+        {
+          "code": "MODEL_CORRESPONDENCE_UNPROVED",
+          "severity": "error",
+          "message": "REQ-POTTERY-018 has no current authoritative passing test evidence.",
+          "path": ".musubix/evidence/model-correspondence.json"
+        },
+        {
+          "code": "MODEL_CORRESPONDENCE_UNPROVED",
+          "severity": "error",
+          "message": "REQ-POTTERY-028 has no current authoritative passing test evidence.",
+          "path": ".musubix/evidence/model-correspondence.json"
+        },
+        {
+          "code": "MODEL_CORRESPONDENCE_UNPROVED",
+          "severity": "error",
+          "message": "REQ-POTTERY-019 has no current authoritative passing test evidence.",
+          "path": ".musubix/evidence/model-correspondence.json"
+        },
+        {
+          "code": "MODEL_CORRESPONDENCE_UNPROVED",
+          "severity": "error",
+          "message": "REQ-POTTERY-025 has no current authoritative passing test evidence.",
+          "path": ".musubix/evidence/model-correspondence.json"
+        },
+        {
+          "code": "MODEL_CORRESPONDENCE_UNPROVED",
+          "severity": "error",
+          "message": "REQ-POTTERY-027 has no current authoritative passing test evidence.",
+          "path": ".musubix/evidence/model-correspondence.json"
+        }
+      ]
+    },
+    {
+      "name": "attestation",
+      "required": false,
+      "status": "skipped",
+      "summary": "Local evidence is explicitly unsigned.",
+      "diagnostics": []
+    },
+    {
+      "name": "approval",
+      "required": true,
+      "status": "fail",
+      "summary": "2/3 approval stage(s) are current.",
+      "diagnostics": [
+        {
+          "code": "APPROVAL_MISSING",
+          "severity": "error",
+          "message": "Current release approval is required.",
+          "path": ".musubix/evidence/approvals/release.json"
+        }
+      ]
+    },
+    {
+      "name": "commands",
+      "required": true,
+      "status": "skipped",
+      "summary": "No configured commands; build/test evidence is missing."
+    },
+    {
+      "name": "constitution:RULE-001",
+      "required": true,
+      "status": "fail",
+      "summary": "trace.errors = 2; maximum 0."
+    },
+    {
+      "name": "constitution:RULE-002",
+      "required": true,
+      "status": "skipped",
+      "summary": "commands.failures = 0; maximum 0."
+    },
+    {
+      "name": "constitution:RULE-003",
+      "required": true,
+      "status": "skipped",
+      "summary": "commands.skipped = 1; maximum 0."
+    }
+  ],
+  "metrics": {
+    "requirements.errors": 0,
+    "policy.errors": 0,
+    "design.errors": 0,
+    "trace.errors": 2,
+    "graph.violations": 0,
+    "formal.errors": 0,
+    "formal.modeledFraction": 0.3103448275862069,
+    "commands.failures": 0,
+    "commands.skipped": 1,
+    "tests.annotatedIds": 0,
+    "tests.executedIds": 0,
+    "tdd.cycles": 0,
+    "tdd.errors": 0,
+    "changes.count": 0,
+    "changes.errors": 0,
+    "changes.complete": 0,
+    "changes.completenessErrors": 0,
+    "performance.budgets": 0,
+    "performance.errors": 0,
+    "mutation.requirements": 22,
+    "mutation.coveredRequirements": 0,
+    "mutation.mutants": 0,
+    "mutation.errors": 0,
+    "modelCorrespondence.requirements": 6,
+    "modelCorrespondence.coveredRequirements": 0,
+    "modelCorrespondence.errors": 7,
+    "attestation.errors": 0,
+    "approval.errors": 1,
+    "coverage.design": 1,
+    "coverage.implementation": 0,
+    "coverage.tests": 0
+  },
+  "mode": "full",
+  "feature": null,
+  "changed": null,
+  "impacted": [],
+  "lastChangeAnalysis": null,
+  "fingerprints": {
+    ".gitignore": "30d0127fbb20153a00ea234d413123aaea77e667c7729ec46ee7439ce0e33096",
+    ".musubix/config.json": "d1e83791ff7db28d19908d07ff9d0bf1f82b4ca8b6335fcb45ff9a50d245d7f7",
+    ".musubix/constitution.md": "f8b47fdc486f395bab05223a94821b145cf8df70ffde2c838a28f8d71fe0fa92",
+    ".musubix/decisions/ADR-0001.md": "6e21f1b375cfa1aabdf058b1dc987f94974dc23571fe60e94ba340dc48295b0f",
+    ".musubix/decisions/ADR-0002.md": "0351fdac8a3b99ce1f9e6d2e5463f4151565e318522e0e5dad853045fd51673e",
+    ".musubix/decisions/ADR-0003.md": "92188178e975e7e09eaf5c349c48c8189b865dce3a5b43ad9ed09883c15f77c6",
+    ".musubix/decisions/ADR-0004.md": "c83d39c048a5cf823179a3455285b8e38a466633742228da1e31b9c690ca1f3e",
+    ".musubix/decisions/ADR-0005.md": "62cba05202491ac1b454c5b2602c1346f3984be8a1569183a915300ef045edb3",
+    ".musubix/features/example/design.md": "abcbee85062b3a7f06d0f1034abe89fe27d911abf8397f98024249f60eb8a9de",
+    ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
+    ".musubix/features/pottery-fragment-reassembly/design.md": "c934a17b35187a1f250619b331cfaebe4a1e1a281d184e24632950cd82b291fc",
+    ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43",
+    ".musubix/policy-baseline.json": "ee0893b12f316ed75feb791bb987de9cec0af2f86c4d80a30384bced352a4e8c"
+  }
 }
