@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T21:50:54.318Z",
+  "generatedAt": "2026-09-11T22:03:18.453Z",
   "status": "fail",
   "checks": [
     {
@@ -320,13 +320,6 @@
         {
           "code": "TRACE_UNCOVERED",
           "severity": "warning",
-          "message": "REQ-POTTERY-020 lacks implementation.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 166
-        },
-        {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
           "message": "REQ-POTTERY-020 lacks tests.",
           "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
           "line": 166
@@ -416,37 +409,31 @@
           "line": 209
         },
         {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
-          "message": "REQ-POTTERY-027 lacks implementation.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 216
-        },
-        {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
-          "message": "REQ-POTTERY-027 lacks tests.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 216
+          "code": "TRACE_COVERAGE",
+          "severity": "error",
+          "message": "implementation link coverage 0.07142857142857142 is below 1."
         },
         {
           "code": "TRACE_COVERAGE",
           "severity": "error",
-          "message": "implementation link coverage 0 is below 1."
-        },
-        {
-          "code": "TRACE_COVERAGE",
-          "severity": "error",
-          "message": "tests link coverage 0 is below 1."
+          "message": "tests link coverage 0.03571428571428571 is below 1."
         }
       ]
     },
     {
       "name": "graph",
       "required": true,
-      "status": "skipped",
-      "summary": "No applicable artifact/input; not evaluated.",
-      "diagnostics": []
+      "status": "fail",
+      "summary": "1 error(s).",
+      "diagnostics": [
+        {
+          "code": "GRAPH_UNRESOLVED",
+          "severity": "error",
+          "message": "Unresolved local include doctest_fwd.h.",
+          "path": "third_party/doctest/doctest.h",
+          "line": 3094
+        }
+      ]
     },
     {
       "name": "formal",
@@ -561,7 +548,7 @@
       "name": "workflow",
       "required": true,
       "status": "fail",
-      "summary": "8 workflow declaration(s) are not fully reconciled with Copilot invocation events.",
+      "summary": "9 workflow declaration(s) are not fully reconciled with Copilot invocation events.",
       "diagnostics": [
         {
           "code": "WORKFLOW_INVOCATION_UNVERIFIED",
@@ -572,10 +559,200 @@
     },
     {
       "name": "tdd",
-      "required": false,
-      "status": "skipped",
-      "summary": "No TDD cycle evidence is available.",
-      "diagnostics": []
+      "required": true,
+      "status": "fail",
+      "summary": "1 Red-Green TDD cycle(s) recorded.",
+      "diagnostics": [
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-EXAMPLE-001 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/example/requirements.md",
+          "line": 10
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-001 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 22
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-002 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 29
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-003 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 36
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-004 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 44
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-005 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 51
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-006 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 58
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-007 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 65
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-008 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 72
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-009 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 79
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-011 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 93
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-012 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 100
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-013 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 107
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-014 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 114
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-015 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 121
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-016 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 128
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-017 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 135
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-018 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 142
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-028 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 150
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-019 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 158
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-020 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 166
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-021 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 173
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-022 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 180
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-025 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 187
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-026 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 195
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-023 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 202
+        },
+        {
+          "code": "TDD_REQUIREMENT_UNCOVERED",
+          "severity": "error",
+          "message": "REQ-POTTERY-024 has no valid Red-Green cycle from an authoritative verifying test.",
+          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
+          "line": 209
+        }
+      ]
     },
     {
       "name": "change-history",
@@ -592,11 +769,37 @@
       "diagnostics": []
     },
     {
+      "name": "command:cpp-tests",
+      "required": true,
+      "status": "pass",
+      "summary": "scripts/run_tests.sh: completed, exit 0.",
+      "durationMs": 310,
+      "exitCode": 0,
+      "stdout": "-- Configuring done (0.0s)\n-- Generating done (0.0s)\n-- Build files have been written to: /home/nahisaho/GitHub/kintsugi/build\n[ 40%] Built target pottery_core\n[ 60%] Linking CXX executable pottery_tests\n[100%] Built target pottery_tests\n[doctest] doctest version is \"2.4.11\"\n[doctest] run with \"--help\" for options\n===============================================================================\n[doctest] test cases: 1 | 1 passed | 0 failed | 0 skipped\n[doctest] assertions: 1 | 1 passed | 0 failed |\n[doctest] Status: SUCCESS!\n",
+      "stderr": ""
+    },
+    {
+      "name": "command:cpp-doctest-tdd",
+      "required": false,
+      "status": "pass",
+      "summary": "scripts/run_tdd_test.sh: completed, exit 0.",
+      "durationMs": 5,
+      "exitCode": 0,
+      "stdout": "run_tdd_test.sh: no TEST-ID supplied; no-op (full suite covered by cpp-tests).\n",
+      "stderr": ""
+    },
+    {
       "name": "test-identities",
       "required": false,
       "status": "skipped",
-      "summary": "No annotated test IDs are available.",
-      "diagnostics": []
+      "summary": "No structured command test report is configured.",
+      "diagnostics": [
+        {
+          "code": "TEST_ID_NOT_PASSED",
+          "severity": "error",
+          "message": "TEST-POTTERY-004-001 was linked in source but not reported as passed by a successful structured test command."
+        }
+      ]
     },
     {
       "name": "performance",
@@ -686,8 +889,8 @@
     {
       "name": "commands",
       "required": true,
-      "status": "skipped",
-      "summary": "No configured commands; build/test evidence is missing."
+      "status": "pass",
+      "summary": "2 configured command(s) executed; optional failures are nonblocking."
     },
     {
       "name": "constitution:RULE-001",
@@ -698,14 +901,14 @@
     {
       "name": "constitution:RULE-002",
       "required": true,
-      "status": "skipped",
+      "status": "pass",
       "summary": "commands.failures = 0; maximum 0."
     },
     {
       "name": "constitution:RULE-003",
       "required": true,
-      "status": "skipped",
-      "summary": "commands.skipped = 1; maximum 0."
+      "status": "pass",
+      "summary": "commands.skipped = 0; maximum 0."
     }
   ],
   "metrics": {
@@ -713,15 +916,15 @@
     "policy.errors": 0,
     "design.errors": 0,
     "trace.errors": 2,
-    "graph.violations": 0,
+    "graph.violations": 1,
     "formal.errors": 0,
     "formal.modeledFraction": 0.3103448275862069,
     "commands.failures": 0,
-    "commands.skipped": 1,
-    "tests.annotatedIds": 0,
+    "commands.skipped": 0,
+    "tests.annotatedIds": 1,
     "tests.executedIds": 0,
-    "tdd.cycles": 0,
-    "tdd.errors": 0,
+    "tdd.cycles": 1,
+    "tdd.errors": 27,
     "changes.count": 0,
     "changes.errors": 0,
     "changes.complete": 0,
@@ -738,17 +941,163 @@
     "attestation.errors": 0,
     "approval.errors": 1,
     "coverage.design": 1,
-    "coverage.implementation": 0,
-    "coverage.tests": 0
+    "coverage.implementation": 0.07142857142857142,
+    "coverage.tests": 0.03571428571428571
   },
-  "mode": "full",
+  "mode": "changed",
   "feature": null,
-  "changed": null,
-  "impacted": [],
-  "lastChangeAnalysis": null,
+  "changed": [
+    ".musubix/config.json",
+    ".musubix/evidence/formal.json",
+    ".musubix/evidence/model-correspondence.json",
+    ".musubix/evidence/order.json",
+    ".musubix/evidence/performance.json",
+    ".musubix/evidence/quality.json",
+    ".musubix/evidence/tdd.json",
+    ".musubix/features/example/trace.json",
+    ".musubix/features/pottery-fragment-reassembly/trace.json",
+    ".musubix/reports/tdd/TEST-POTTERY-004-001.build.log",
+    ".musubix/reports/tdd/TEST-POTTERY-004-001.configure.log",
+    ".musubix/reports/tdd/TEST-POTTERY-004-001.json",
+    ".musubix/reports/tdd/TEST-POTTERY-004-001.out",
+    "CMakeLists.txt",
+    "build/CMakeCache.txt",
+    "build/CMakeFiles/3.28.3/CMakeCXXCompiler.cmake",
+    "build/CMakeFiles/3.28.3/CMakeDetermineCompilerABI_CXX.bin",
+    "build/CMakeFiles/3.28.3/CMakeSystem.cmake",
+    "build/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.cpp",
+    "build/CMakeFiles/3.28.3/CompilerIdCXX/a.out",
+    "build/CMakeFiles/CMakeConfigureLog.yaml",
+    "build/CMakeFiles/CMakeDirectoryInformation.cmake",
+    "build/CMakeFiles/Makefile.cmake",
+    "build/CMakeFiles/Makefile2",
+    "build/CMakeFiles/TargetDirectories.txt",
+    "build/CMakeFiles/cmake.check_cache",
+    "build/CMakeFiles/pottery_core.dir/DependInfo.cmake",
+    "build/CMakeFiles/pottery_core.dir/build.make",
+    "build/CMakeFiles/pottery_core.dir/cmake_clean.cmake",
+    "build/CMakeFiles/pottery_core.dir/cmake_clean_target.cmake",
+    "build/CMakeFiles/pottery_core.dir/compiler_depend.make",
+    "build/CMakeFiles/pottery_core.dir/compiler_depend.ts",
+    "build/CMakeFiles/pottery_core.dir/depend.make",
+    "build/CMakeFiles/pottery_core.dir/flags.make",
+    "build/CMakeFiles/pottery_core.dir/link.txt",
+    "build/CMakeFiles/pottery_core.dir/progress.make",
+    "build/CMakeFiles/pottery_core.dir/src/core/pose_conflict.cpp.o",
+    "build/CMakeFiles/pottery_core.dir/src/core/pose_conflict.cpp.o.d",
+    "build/CMakeFiles/pottery_tests.dir/DependInfo.cmake",
+    "build/CMakeFiles/pottery_tests.dir/build.make",
+    "build/CMakeFiles/pottery_tests.dir/cmake_clean.cmake",
+    "build/CMakeFiles/pottery_tests.dir/compiler_depend.make",
+    "build/CMakeFiles/pottery_tests.dir/compiler_depend.ts",
+    "build/CMakeFiles/pottery_tests.dir/depend.make",
+    "build/CMakeFiles/pottery_tests.dir/flags.make",
+    "build/CMakeFiles/pottery_tests.dir/link.txt",
+    "build/CMakeFiles/pottery_tests.dir/progress.make",
+    "build/CMakeFiles/pottery_tests.dir/tests/test_main.cpp.o",
+    "build/CMakeFiles/pottery_tests.dir/tests/test_main.cpp.o.d",
+    "build/CMakeFiles/pottery_tests.dir/tests/test_pose_conflict.cpp.o",
+    "build/CMakeFiles/pottery_tests.dir/tests/test_pose_conflict.cpp.o.d",
+    "build/CMakeFiles/progress.marks",
+    "build/Makefile",
+    "build/cmake_install.cmake",
+    "build/libpottery_core.a",
+    "build/pottery_tests",
+    "scripts/run_tdd_test.sh",
+    "scripts/run_tests.sh",
+    "src/core/pose_conflict.cpp",
+    "src/core/pose_conflict.hpp",
+    "tests/test_main.cpp",
+    "tests/test_pose_conflict.cpp",
+    "third_party/doctest/doctest.h"
+  ],
+  "impacted": [
+    "src/core/pose_conflict.cpp",
+    "src/core/pose_conflict.hpp",
+    "tests/test_main.cpp",
+    "tests/test_pose_conflict.cpp",
+    "third_party/doctest/doctest.h"
+  ],
+  "lastChangeAnalysis": {
+    "baseline": "HEAD",
+    "head": "0ebcf6dd3f9d78d6805204b1b098bd6dd49df02d",
+    "changed": [
+      ".musubix/config.json",
+      ".musubix/evidence/formal.json",
+      ".musubix/evidence/model-correspondence.json",
+      ".musubix/evidence/order.json",
+      ".musubix/evidence/performance.json",
+      ".musubix/evidence/quality.json",
+      ".musubix/evidence/tdd.json",
+      ".musubix/features/example/trace.json",
+      ".musubix/features/pottery-fragment-reassembly/trace.json",
+      ".musubix/reports/tdd/TEST-POTTERY-004-001.build.log",
+      ".musubix/reports/tdd/TEST-POTTERY-004-001.configure.log",
+      ".musubix/reports/tdd/TEST-POTTERY-004-001.json",
+      ".musubix/reports/tdd/TEST-POTTERY-004-001.out",
+      "CMakeLists.txt",
+      "build/CMakeCache.txt",
+      "build/CMakeFiles/3.28.3/CMakeCXXCompiler.cmake",
+      "build/CMakeFiles/3.28.3/CMakeDetermineCompilerABI_CXX.bin",
+      "build/CMakeFiles/3.28.3/CMakeSystem.cmake",
+      "build/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.cpp",
+      "build/CMakeFiles/3.28.3/CompilerIdCXX/a.out",
+      "build/CMakeFiles/CMakeConfigureLog.yaml",
+      "build/CMakeFiles/CMakeDirectoryInformation.cmake",
+      "build/CMakeFiles/Makefile.cmake",
+      "build/CMakeFiles/Makefile2",
+      "build/CMakeFiles/TargetDirectories.txt",
+      "build/CMakeFiles/cmake.check_cache",
+      "build/CMakeFiles/pottery_core.dir/DependInfo.cmake",
+      "build/CMakeFiles/pottery_core.dir/build.make",
+      "build/CMakeFiles/pottery_core.dir/cmake_clean.cmake",
+      "build/CMakeFiles/pottery_core.dir/cmake_clean_target.cmake",
+      "build/CMakeFiles/pottery_core.dir/compiler_depend.make",
+      "build/CMakeFiles/pottery_core.dir/compiler_depend.ts",
+      "build/CMakeFiles/pottery_core.dir/depend.make",
+      "build/CMakeFiles/pottery_core.dir/flags.make",
+      "build/CMakeFiles/pottery_core.dir/link.txt",
+      "build/CMakeFiles/pottery_core.dir/progress.make",
+      "build/CMakeFiles/pottery_core.dir/src/core/pose_conflict.cpp.o",
+      "build/CMakeFiles/pottery_core.dir/src/core/pose_conflict.cpp.o.d",
+      "build/CMakeFiles/pottery_tests.dir/DependInfo.cmake",
+      "build/CMakeFiles/pottery_tests.dir/build.make",
+      "build/CMakeFiles/pottery_tests.dir/cmake_clean.cmake",
+      "build/CMakeFiles/pottery_tests.dir/compiler_depend.make",
+      "build/CMakeFiles/pottery_tests.dir/compiler_depend.ts",
+      "build/CMakeFiles/pottery_tests.dir/depend.make",
+      "build/CMakeFiles/pottery_tests.dir/flags.make",
+      "build/CMakeFiles/pottery_tests.dir/link.txt",
+      "build/CMakeFiles/pottery_tests.dir/progress.make",
+      "build/CMakeFiles/pottery_tests.dir/tests/test_main.cpp.o",
+      "build/CMakeFiles/pottery_tests.dir/tests/test_main.cpp.o.d",
+      "build/CMakeFiles/pottery_tests.dir/tests/test_pose_conflict.cpp.o",
+      "build/CMakeFiles/pottery_tests.dir/tests/test_pose_conflict.cpp.o.d",
+      "build/CMakeFiles/progress.marks",
+      "build/Makefile",
+      "build/cmake_install.cmake",
+      "build/libpottery_core.a",
+      "build/pottery_tests",
+      "scripts/run_tdd_test.sh",
+      "scripts/run_tests.sh",
+      "src/core/pose_conflict.cpp",
+      "src/core/pose_conflict.hpp",
+      "tests/test_main.cpp",
+      "tests/test_pose_conflict.cpp",
+      "third_party/doctest/doctest.h"
+    ],
+    "impacted": [
+      "src/core/pose_conflict.cpp",
+      "src/core/pose_conflict.hpp",
+      "tests/test_main.cpp",
+      "tests/test_pose_conflict.cpp",
+      "third_party/doctest/doctest.h"
+    ],
+    "generatedAt": "2026-09-11T22:03:18.453Z"
+  },
   "fingerprints": {
     ".gitignore": "30d0127fbb20153a00ea234d413123aaea77e667c7729ec46ee7439ce0e33096",
-    ".musubix/config.json": "d1e83791ff7db28d19908d07ff9d0bf1f82b4ca8b6335fcb45ff9a50d245d7f7",
+    ".musubix/config.json": "47b1c6f9bea81522ec0f7c60eec71d528800931bbe718036872aa4a3c7861f2a",
     ".musubix/constitution.md": "f8b47fdc486f395bab05223a94821b145cf8df70ffde2c838a28f8d71fe0fa92",
     ".musubix/decisions/ADR-0001.md": "6e21f1b375cfa1aabdf058b1dc987f94974dc23571fe60e94ba340dc48295b0f",
     ".musubix/decisions/ADR-0002.md": "0351fdac8a3b99ce1f9e6d2e5463f4151565e318522e0e5dad853045fd51673e",
@@ -759,6 +1108,18 @@
     ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
     ".musubix/features/pottery-fragment-reassembly/design.md": "c934a17b35187a1f250619b331cfaebe4a1e1a281d184e24632950cd82b291fc",
     ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43",
-    ".musubix/policy-baseline.json": "ee0893b12f316ed75feb791bb987de9cec0af2f86c4d80a30384bced352a4e8c"
+    ".musubix/policy-baseline.json": "ee0893b12f316ed75feb791bb987de9cec0af2f86c4d80a30384bced352a4e8c",
+    ".musubix/reports/tdd/TEST-POTTERY-004-001.build.log": "3930b4057615be70b16762e566e31f238e849d65bc0d8a1b8ef67e675d79ca11",
+    ".musubix/reports/tdd/TEST-POTTERY-004-001.configure.log": "5b012254f492e4596b2c3dfc1a7aac4fc50a3704d480205bb3e09d0cf4735569",
+    ".musubix/reports/tdd/TEST-POTTERY-004-001.json": "3e0aa74989f0d9e9005f2cd37e3ee5641fdf279de7d619798940b0ec34de76ae",
+    ".musubix/reports/tdd/TEST-POTTERY-004-001.out": "df6e32932203886d00710d04fefe6d929acf67d57412f59457fb7157f1374b4a",
+    "CMakeLists.txt": "09b96da831a524b0a9c118bed50dc7a7b44071b007cd81037839978975f53215",
+    "scripts/run_tdd_test.sh": "bec7128bf286a4fc7cfd22350708f7d679f155343bc8c2477afc4287e4b309e0",
+    "scripts/run_tests.sh": "9d60ca461fc82c47caff933c3e6c54afbb5f5fce291f62c7e606c58edf004e4c",
+    "src/core/pose_conflict.cpp": "11a6ec30420d383019642b9695eebc7a0ae298ee6a4a11a34a37dea3c2208fc8",
+    "src/core/pose_conflict.hpp": "0cae2004535719d24470ae5c137ad33a122b2c35df5d883e6bfb2801a3e319ea",
+    "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
+    "tests/test_pose_conflict.cpp": "d1c0996aefa9a44580e15e79c4d260255395971b70e61554bff022feb501b8d6",
+    "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"
   }
 }

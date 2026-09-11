@@ -2,7 +2,27 @@
   "schemaVersion": 1,
   "language": "auto",
   "qualityProfile": "custom",
-  "commands": [],
+  "commands": [
+    {
+      "name": "cpp-tests",
+      "command": "scripts/run_tests.sh",
+      "args": [],
+      "required": true,
+      "timeoutMs": 120000
+    },
+    {
+      "name": "cpp-doctest-tdd",
+      "command": "scripts/run_tdd_test.sh",
+      "args": [],
+      "tddArgs": ["{testId}"],
+      "tddReport": {
+        "format": "musubix-json",
+        "path": ".musubix/reports/tdd/{testId}.json"
+      },
+      "required": false,
+      "timeoutMs": 120000
+    }
+  ],
   "requiredChecks": [
     "requirements",
     "design",

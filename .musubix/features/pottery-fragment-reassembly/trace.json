@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T21:50:54.141Z",
+  "generatedAt": "2026-09-11T22:03:33.194Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -306,6 +306,18 @@
       "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "line": 216,
       "mandatory": true
+    },
+    {
+      "id": "CODE-POTTERY-004",
+      "kind": "code",
+      "path": "src/core/pose_conflict.hpp",
+      "line": 32
+    },
+    {
+      "id": "TEST-POTTERY-004-001",
+      "kind": "test",
+      "path": "tests/test_pose_conflict.cpp",
+      "line": 9
     }
   ],
   "edges": [
@@ -568,6 +580,21 @@
       "from": "DES-POTTERY-011",
       "to": "REQ-POTTERY-016",
       "relation": "satisfies"
+    },
+    {
+      "from": "CODE-POTTERY-004",
+      "to": "REQ-POTTERY-027",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-004",
+      "to": "DES-POTTERY-004",
+      "relation": "implements"
+    },
+    {
+      "from": "TEST-POTTERY-004-001",
+      "to": "REQ-POTTERY-027",
+      "relation": "verifies"
     }
   ],
   "diagnostics": [],
@@ -580,6 +607,11 @@
     ".musubix/features/example/design.md": "abcbee85062b3a7f06d0f1034abe89fe27d911abf8397f98024249f60eb8a9de",
     ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
     ".musubix/features/pottery-fragment-reassembly/design.md": "c934a17b35187a1f250619b331cfaebe4a1e1a281d184e24632950cd82b291fc",
-    ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43"
+    ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43",
+    "src/core/pose_conflict.cpp": "11a6ec30420d383019642b9695eebc7a0ae298ee6a4a11a34a37dea3c2208fc8",
+    "src/core/pose_conflict.hpp": "0cae2004535719d24470ae5c137ad33a122b2c35df5d883e6bfb2801a3e319ea",
+    "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
+    "tests/test_pose_conflict.cpp": "d1c0996aefa9a44580e15e79c4d260255395971b70e61554bff022feb501b8d6",
+    "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"
   }
 }

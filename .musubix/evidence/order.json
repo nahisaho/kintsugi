@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "sequence": 1,
+      "kind": "tdd",
+      "entityId": "cf36dd7f-0698-4036-8fe7-2c388ffeff32",
+      "phase": "red",
+      "previousSha256": null,
+      "recordSha256": "163daf80fd8efab10fa0ebefbd2d086606cf4ad8640824e1e1c76596d67d142f"
+    },
+    {
+      "sequence": 2,
+      "kind": "tdd",
+      "entityId": "cf36dd7f-0698-4036-8fe7-2c388ffeff32",
+      "phase": "green",
+      "previousSha256": "163daf80fd8efab10fa0ebefbd2d086606cf4ad8640824e1e1c76596d67d142f",
+      "recordSha256": "d321c71080bce544047319cff377c04d1331f70000dd206a78c069265f3831e4"
+    }
+  ]
+}

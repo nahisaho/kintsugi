@@ -1,3 +1,6 @@
 
 # musubix3 generated caches
 /.musubix/cache/
+
+# C++ build output
+/build/
