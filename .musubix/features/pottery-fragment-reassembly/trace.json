@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T22:03:33.194Z",
+  "generatedAt": "2026-09-11T22:55:48.871Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -314,10 +314,34 @@
       "line": 32
     },
     {
+      "id": "CODE-POTTERY-001",
+      "kind": "code",
+      "path": "src/core/scan_importer.hpp",
+      "line": 7
+    },
+    {
       "id": "TEST-POTTERY-004-001",
       "kind": "test",
       "path": "tests/test_pose_conflict.cpp",
       "line": 9
+    },
+    {
+      "id": "TEST-POTTERY-001-001",
+      "kind": "test",
+      "path": "tests/test_scan_importer.cpp",
+      "line": 21
+    },
+    {
+      "id": "TEST-POTTERY-002-001",
+      "kind": "test",
+      "path": "tests/test_scan_importer.cpp",
+      "line": 47
+    },
+    {
+      "id": "TEST-POTTERY-001-002",
+      "kind": "test",
+      "path": "tests/test_scan_importer.cpp",
+      "line": 75
     }
   ],
   "edges": [
@@ -592,8 +616,38 @@
       "relation": "implements"
     },
     {
+      "from": "CODE-POTTERY-001",
+      "to": "REQ-POTTERY-001",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-001",
+      "to": "REQ-POTTERY-002",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-001",
+      "to": "DES-POTTERY-001",
+      "relation": "implements"
+    },
+    {
       "from": "TEST-POTTERY-004-001",
       "to": "REQ-POTTERY-027",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-001-001",
+      "to": "REQ-POTTERY-001",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-002-001",
+      "to": "REQ-POTTERY-002",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-001-002",
+      "to": "REQ-POTTERY-001",
       "relation": "verifies"
     }
   ],
@@ -608,10 +662,14 @@
     ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
     ".musubix/features/pottery-fragment-reassembly/design.md": "c934a17b35187a1f250619b331cfaebe4a1e1a281d184e24632950cd82b291fc",
     ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43",
+    "src/core/fragment_mesh.hpp": "818796440f6d58706d33f156e45bc2e47f87d9f7d7a3dcc6f37c57536fe9e4d5",
     "src/core/pose_conflict.cpp": "11a6ec30420d383019642b9695eebc7a0ae298ee6a4a11a34a37dea3c2208fc8",
     "src/core/pose_conflict.hpp": "0cae2004535719d24470ae5c137ad33a122b2c35df5d883e6bfb2801a3e319ea",
+    "src/core/scan_importer.cpp": "9b37b2f721c12070fc6b34b586e2aa03dfbe6c6b83ba2020ccae3a26b43d4aca",
+    "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
     "tests/test_pose_conflict.cpp": "d1c0996aefa9a44580e15e79c4d260255395971b70e61554bff022feb501b8d6",
+    "tests/test_scan_importer.cpp": "e491e0e0443c189779c8ccc55206c25ef53aaad362fc91b42b0c38f526ee7544",
     "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"
   }
 }

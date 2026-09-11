@@ -30,11 +30,11 @@ EXIT_CODE=$?
 set -e
 
 STATUS="failed"
-if grep -Eq '\[doctest\] test cases: *1 \| 1 passed \| 0 failed' "$RAW_OUTPUT_PATH"; then
+if grep -Eq '\[doctest\][[:space:]]+test cases:[[:space:]]*1[[:space:]]*\|[[:space:]]*1 passed[[:space:]]*\|[[:space:]]*0 failed' "$RAW_OUTPUT_PATH"; then
   if [ "$EXIT_CODE" -eq 0 ]; then
     STATUS="passed"
   fi
-elif grep -Eq '\[doctest\] test cases: *1 \|.*\| [1-9][0-9]* failed' "$RAW_OUTPUT_PATH"; then
+elif grep -Eq '\[doctest\][[:space:]]+test cases:[[:space:]]*1[[:space:]]*\|.*\|[[:space:]]*[1-9][0-9]* failed' "$RAW_OUTPUT_PATH"; then
   STATUS="failed"
 else
   # Zero or more-than-one test case matched: cannot trust the result as a
