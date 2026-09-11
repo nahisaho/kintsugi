@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-11T07:21:31.184Z",
+  "nodes": [
+    {
+      "id": "ADR-0001",
+      "kind": "adr",
+      "path": ".musubix/decisions/ADR-0001.md",
+      "line": 1
+    },
+    {
+      "id": "DES-EXAMPLE-001",
+      "kind": "design",
+      "path": ".musubix/features/example/design.md",
+      "line": 7
+    },
+    {
+      "id": "REQ-EXAMPLE-001",
+      "kind": "requirement",
+      "path": ".musubix/features/example/requirements.md",
+      "line": 10,
+      "mandatory": true
+    }
+  ],
+  "edges": [
+    {
+      "from": "DES-EXAMPLE-001",
+      "to": "REQ-EXAMPLE-001",
+      "relation": "satisfies"
+    },
+    {
+      "from": "ADR-0001",
+      "to": "DES-EXAMPLE-001",
+      "relation": "decides"
+    }
+  ],
+  "diagnostics": [],
+  "fingerprints": {
+    ".musubix/decisions/ADR-0001.md": "6e21f1b375cfa1aabdf058b1dc987f94974dc23571fe60e94ba340dc48295b0f",
+    ".musubix/features/example/design.md": "abcbee85062b3a7f06d0f1034abe89fe27d911abf8397f98024249f60eb8a9de",
+    ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed"
+  }
+}

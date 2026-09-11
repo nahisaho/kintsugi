@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "qualityProfile": "custom",
+  "commands": [],
+  "requiredChecks": [
+    "requirements",
+    "design",
+    "constitution",
+    "trace",
+    "graph",
+    "commands"
+  ],
+  "thresholds": {
+    "design": 1,
+    "implementation": 1,
+    "tests": 1
+  },
+  "architecture": {
+    "forbidCycles": true,
+    "rules": []
+  },
+  "codeGraph": {
+    "mode": "compatible"
+  },
+  "formal": {
+    "solver": "none",
+    "minModeledFraction": 0
+  },
+  "mutation": {
+    "mode": "compatible"
+  },
+  "tdd": {
+    "redPreflightCommands": []
+  },
+  "approval": {
+    "mode": "required"
+  },
+  "workflow": {
+    "mode": "compatible",
+    "maxAgeSeconds": 3600,
+    "maxFutureSkewSeconds": 60
+  },
+  "attestation": {
+    "mode": "local",
+    "maxAgeSeconds": 3600,
+    "maxFutureSkewSeconds": 60,
+    "trustedPublicKeys": [],
+    "githubOidc": {
+      "mode": "off"
+    }
+  },
+  "requiredCommands": []
+}

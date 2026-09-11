@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "stage": "requirements",
+  "artifacts": {
+    ".musubix/constitution.md": "f8b47fdc486f395bab05223a94821b145cf8df70ffde2c838a28f8d71fe0fa92",
+    ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
+    ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43"
+  },
+  "artifactSha256": "88c91967d1376d1def49e167fbbbf34f5c8c830a4db9868f1c9fe40b5bf43070",
+  "approver": "nahisaho",
+  "approvedAt": "2026-09-11T11:23:34.346Z"
+}
