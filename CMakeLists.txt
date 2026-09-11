@@ -13,6 +13,7 @@ add_definitions(${PCL_DEFINITIONS})
 add_library(pottery_core
   src/core/pose_conflict.cpp
   src/core/scan_importer.cpp
+  src/core/fragment_clustering.cpp
 )
 target_include_directories(pottery_core PUBLIC src)
 target_link_libraries(pottery_core PUBLIC ${PCL_LIBRARIES})
@@ -21,6 +22,7 @@ add_executable(pottery_tests
   tests/test_main.cpp
   tests/test_pose_conflict.cpp
   tests/test_scan_importer.cpp
+  tests/test_fragment_clustering.cpp
 )
 target_include_directories(pottery_tests PRIVATE third_party src)
 target_link_libraries(pottery_tests PRIVATE pottery_core)

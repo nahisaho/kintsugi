@@ -351,6 +351,92 @@
         "diagnostics": [],
         "order": 16
       }
+    },
+    {
+      "cycleId": "785213a8-0a0e-459f-a704-4110f8fb40c6",
+      "requirementId": "REQ-POTTERY-003",
+      "testId": "TEST-POTTERY-003-001",
+      "testPath": "tests/test_fragment_clustering.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "red": {
+        "phase": "red",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "failed",
+        "reportSha256": "a9c1bcee8992a5089c8821542a9c8f0f0d6d3bbb61b1bb33d581d83c6efb6701",
+        "commandSha256": "5a8c657ae2977978383551b4e5f1972a2a029b15966e452dee3ef6c0725d272a",
+        "outputSha256": "7b7de03865ecf5801883430578fc792edd32e6beee21f0f73d6bc9cf55c3e40e",
+        "exitCode": 1,
+        "durationMs": 14368,
+        "testFingerprint": "911cf6469579708e44c32d282811f7914acd47a19bec2646df95fb88a163af7a",
+        "sourceFingerprint": "7e3776537d57ad98f9e2f8095dc08c01038a53b35fba135e5bc170f31b6a76d8",
+        "executionId": "005a5ec4-069e-47eb-b8cf-d9309e396c1d",
+        "recordedAt": "2026-09-11T23:22:35.654Z",
+        "diagnostics": [],
+        "order": 17
+      },
+      "green": {
+        "phase": "green",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "passed",
+        "reportSha256": "45a28b737de0ff7606978da814583a76263f71fcd525adabef40c16ab88f827a",
+        "commandSha256": "5a8c657ae2977978383551b4e5f1972a2a029b15966e452dee3ef6c0725d272a",
+        "outputSha256": "53598acf9b36c25191aae317f907838d7da56a9fd9cdfb85c2a46642b12b2c24",
+        "exitCode": 0,
+        "durationMs": 14099,
+        "testFingerprint": "911cf6469579708e44c32d282811f7914acd47a19bec2646df95fb88a163af7a",
+        "sourceFingerprint": "fc7ec042fc6d0dd6e9721b5076b748a73f8f8f885f00fbc6f0d0da9ae46771ba",
+        "executionId": "1a7998d5-8471-4948-88fe-3a29ce0a1e3b",
+        "recordedAt": "2026-09-11T23:24:22.346Z",
+        "diagnostics": [],
+        "order": 19
+      }
+    },
+    {
+      "cycleId": "0282ee38-53f6-44a2-95b4-7d6306f5e574",
+      "requirementId": "REQ-POTTERY-003",
+      "testId": "TEST-POTTERY-003-002",
+      "testPath": "tests/test_fragment_clustering.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "red": {
+        "phase": "red",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "failed",
+        "reportSha256": "1e0a50e42c4c0ada113e0a8f103287ca9f770c5b34bfdf351ed0db180bf47a66",
+        "commandSha256": "7190cee74886231345ab63909a9f1bca5ab09f28d74730838e3cd7e02e41bc13",
+        "outputSha256": "935e23438715f7e5f160c3c94498f47999a39954efcc47740fa54264e7001fa7",
+        "exitCode": 1,
+        "durationMs": 14221,
+        "testFingerprint": "e40757909f26cd3930f1343622c261e66c781b7dd174439d13d14fd31b44fb59",
+        "sourceFingerprint": "5768e388e7970a65a8dd1504f99a94ebcacad291fcdea7af9348b103e5571b45",
+        "executionId": "3d712707-2721-42e0-a7c8-5a55e5c6cc2e",
+        "recordedAt": "2026-09-11T23:23:06.221Z",
+        "diagnostics": [],
+        "order": 18
+      },
+      "green": {
+        "phase": "green",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "passed",
+        "reportSha256": "4a4487467a48e646d60e5d419d895900a38f8401fcfdae8a8aa20c8284485f97",
+        "commandSha256": "7190cee74886231345ab63909a9f1bca5ab09f28d74730838e3cd7e02e41bc13",
+        "outputSha256": "6afcad3e64ab9c31757ef825ad49644cf202e294eba6e2f0b612c42aafe3dc52",
+        "exitCode": 0,
+        "durationMs": 14375,
+        "testFingerprint": "e40757909f26cd3930f1343622c261e66c781b7dd174439d13d14fd31b44fb59",
+        "sourceFingerprint": "4b8c8b240ec669ae0dea5ef3cc116ccd1081b0c0d2a37d0d4e6f2a0c509a4d57",
+        "executionId": "dbc3c963-b84d-4d7d-9580-8d110977670e",
+        "recordedAt": "2026-09-11T23:24:35.863Z",
+        "diagnostics": [],
+        "order": 20
+      }
     }
   ],
   "chain": [
@@ -545,6 +631,54 @@
       "phaseEvidenceSha256": "60c09ff1d9c053fb1359b1597e74c04c8c1ff363f0c2e09abe97da8456f074e3",
       "previousSha256": "c26a00e77f253d11633d79237ce3ac3a0296cf8f21c5b03de9fdd897200a7a40",
       "recordSha256": "654920dac5490ddd6309669e16fae3a6275b2bf696e4cffac831e506ea77dd51"
+    },
+    {
+      "sequence": 17,
+      "cycleId": "785213a8-0a0e-459f-a704-4110f8fb40c6",
+      "requirementId": "REQ-POTTERY-003",
+      "testId": "TEST-POTTERY-003-001",
+      "testPath": "tests/test_fragment_clustering.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "red",
+      "phaseEvidenceSha256": "d23f031f50bcf192b10823483dadb9c17d30d508ba1f85b2dcb042207f9781ad",
+      "previousSha256": "654920dac5490ddd6309669e16fae3a6275b2bf696e4cffac831e506ea77dd51",
+      "recordSha256": "b0749fb61334dce50ee6c19d37fa2e0c4f810e5b2cf63228a78f3888601eab38"
+    },
+    {
+      "sequence": 18,
+      "cycleId": "0282ee38-53f6-44a2-95b4-7d6306f5e574",
+      "requirementId": "REQ-POTTERY-003",
+      "testId": "TEST-POTTERY-003-002",
+      "testPath": "tests/test_fragment_clustering.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "red",
+      "phaseEvidenceSha256": "572610f4114c2a5c63b992495126610625343dc04f1541569867ccea24a2ed12",
+      "previousSha256": "b0749fb61334dce50ee6c19d37fa2e0c4f810e5b2cf63228a78f3888601eab38",
+      "recordSha256": "68b260cc6e1bc14b55aa80022b6602edaa85a5d92295f84321ff80cf43931195"
+    },
+    {
+      "sequence": 19,
+      "cycleId": "785213a8-0a0e-459f-a704-4110f8fb40c6",
+      "requirementId": "REQ-POTTERY-003",
+      "testId": "TEST-POTTERY-003-001",
+      "testPath": "tests/test_fragment_clustering.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "green",
+      "phaseEvidenceSha256": "8bf4021b0d744ecffb5d7972155f9ed1651bc71fae3027e3bb8206e0b06b3dc1",
+      "previousSha256": "68b260cc6e1bc14b55aa80022b6602edaa85a5d92295f84321ff80cf43931195",
+      "recordSha256": "2b9e0581991cd719d92ead253492bc20bfe0b27968bd5c55565a6b683f154403"
+    },
+    {
+      "sequence": 20,
+      "cycleId": "0282ee38-53f6-44a2-95b4-7d6306f5e574",
+      "requirementId": "REQ-POTTERY-003",
+      "testId": "TEST-POTTERY-003-002",
+      "testPath": "tests/test_fragment_clustering.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "green",
+      "phaseEvidenceSha256": "5185ef8fc5f82a5437636ddbca677c2fea6bbcd908d38f3cccb8b5892f7f5b10",
+      "previousSha256": "2b9e0581991cd719d92ead253492bc20bfe0b27968bd5c55565a6b683f154403",
+      "recordSha256": "1f60a97c6aa9bdf511de151308273043e0c3ef3e68dcca16a87bf81748f71b14"
     }
   ]
 }

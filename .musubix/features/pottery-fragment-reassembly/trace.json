@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T23:09:08.474Z",
+  "generatedAt": "2026-09-11T23:24:44.837Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -308,6 +308,12 @@
       "mandatory": true
     },
     {
+      "id": "CODE-POTTERY-002",
+      "kind": "code",
+      "path": "src/core/fragment_clustering.hpp",
+      "line": 9
+    },
+    {
       "id": "CODE-POTTERY-004",
       "kind": "code",
       "path": "src/core/pose_conflict.hpp",
@@ -318,6 +324,18 @@
       "kind": "code",
       "path": "src/core/scan_importer.hpp",
       "line": 7
+    },
+    {
+      "id": "TEST-POTTERY-003-001",
+      "kind": "test",
+      "path": "tests/test_fragment_clustering.cpp",
+      "line": 38
+    },
+    {
+      "id": "TEST-POTTERY-003-002",
+      "kind": "test",
+      "path": "tests/test_fragment_clustering.cpp",
+      "line": 106
     },
     {
       "id": "TEST-POTTERY-004-001",
@@ -624,6 +642,16 @@
       "relation": "satisfies"
     },
     {
+      "from": "CODE-POTTERY-002",
+      "to": "REQ-POTTERY-003",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-002",
+      "to": "DES-POTTERY-002",
+      "relation": "implements"
+    },
+    {
       "from": "CODE-POTTERY-004",
       "to": "REQ-POTTERY-027",
       "relation": "implements"
@@ -647,6 +675,16 @@
       "from": "CODE-POTTERY-001",
       "to": "DES-POTTERY-001",
       "relation": "implements"
+    },
+    {
+      "from": "TEST-POTTERY-003-001",
+      "to": "REQ-POTTERY-003",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-003-002",
+      "to": "REQ-POTTERY-003",
+      "relation": "verifies"
     },
     {
       "from": "TEST-POTTERY-004-001",
@@ -695,11 +733,14 @@
     ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
     ".musubix/features/pottery-fragment-reassembly/design.md": "c934a17b35187a1f250619b331cfaebe4a1e1a281d184e24632950cd82b291fc",
     ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43",
+    "src/core/fragment_clustering.cpp": "599f66035acb9012978b53331c66bf7830b920daa1bdfd96afcd2d2bb2786382",
+    "src/core/fragment_clustering.hpp": "cced8d51cfab39966329fe4af6e60138963616179a7711718e6f0edeb84cdf5e",
     "src/core/fragment_mesh.hpp": "90d450c9ed90230eb5530a36bd02ae36dd4bc6f757a1150124dcad394be9da99",
     "src/core/pose_conflict.cpp": "11a6ec30420d383019642b9695eebc7a0ae298ee6a4a11a34a37dea3c2208fc8",
     "src/core/pose_conflict.hpp": "0cae2004535719d24470ae5c137ad33a122b2c35df5d883e6bfb2801a3e319ea",
     "src/core/scan_importer.cpp": "9da0be01ad9f58d09c828d14d105eef70dbf50bc204aa6a96cdc440a90710278",
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
+    "tests/test_fragment_clustering.cpp": "d772754ec5613a6e2b05ed5750ec38e3fd40f1fa319f58c1916b459d15b09ffc",
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
     "tests/test_pose_conflict.cpp": "d1c0996aefa9a44580e15e79c4d260255395971b70e61554bff022feb501b8d6",
     "tests/test_scan_importer.cpp": "80083f5630d52fcc48aed0112c9dd45122c1fcc1fbdd3f49185796e20a9a2087",

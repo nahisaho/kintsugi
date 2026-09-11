@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "runId": "80d7db23-de9d-4050-87f8-2f34ee95e6d9",
-  "generatedAt": "2026-09-11T23:09:22.514Z",
+  "runId": "048fd69c-61e5-40c6-a3a4-474e93e17559",
+  "generatedAt": "2026-09-11T23:25:01.781Z",
   "formalEvidenceSha256": "c8309e463d2c0872f18419dfee86c7af24e1e3c45a290dc365ba70107f865156",
-  "traceEvidenceSha256": "cf075eb416c35bc7edcb41b75348b8f11db0e88f0f8598f2b554a3712d87b925",
+  "traceEvidenceSha256": "75e5e9823b02a32de670a4d5434a802a80bd082f4c409578f8cdbb1653bfef3a",
   "entries": [
     {
       "requirementId": "REQ-POTTERY-003",
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "18b6d5f7bc102944267b1e9861018c7288f76a9bc018f9ae7de0b542fd3f2ac2",
       "modelSha256": "3ad42492d5c6028e744f8d96df7218d75f08131fcbb239941cbff2eed81176cf",
-      "traceSha256": "cf075eb416c35bc7edcb41b75348b8f11db0e88f0f8598f2b554a3712d87b925",
+      "traceSha256": "75e5e9823b02a32de670a4d5434a802a80bd082f4c409578f8cdbb1653bfef3a",
       "tests": []
     },
     {
@@ -18,7 +18,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "6d8882bc3b6c0bc278b59155d29f4b23e77805373ef68c947ab123eeecb134c6",
       "modelSha256": "8e6ffbd66341f10852a1afe6252dc1c419d6310f67c5e4876d0cfe3dc09d9f9e",
-      "traceSha256": "cf075eb416c35bc7edcb41b75348b8f11db0e88f0f8598f2b554a3712d87b925",
+      "traceSha256": "75e5e9823b02a32de670a4d5434a802a80bd082f4c409578f8cdbb1653bfef3a",
       "tests": []
     },
     {
@@ -26,7 +26,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "3819480a99342575056e708749b7b09670059ea7f97e1ca5e9ffba4f0466a21f",
       "modelSha256": "cc3b808a3661f311f747303563325051db2e8f7fe040b4d6a02f9d05aee13a5f",
-      "traceSha256": "cf075eb416c35bc7edcb41b75348b8f11db0e88f0f8598f2b554a3712d87b925",
+      "traceSha256": "75e5e9823b02a32de670a4d5434a802a80bd082f4c409578f8cdbb1653bfef3a",
       "tests": []
     },
     {
@@ -34,7 +34,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "e9d0251c8f4a38681dbb4e43a2cf5c324d6db78b60a9111d2b4ca211e286dfd9",
       "modelSha256": "417b63dffde87240870e7aa655852b113489dd1ce6ef6cc9f52f444d36f3ca1d",
-      "traceSha256": "cf075eb416c35bc7edcb41b75348b8f11db0e88f0f8598f2b554a3712d87b925",
+      "traceSha256": "75e5e9823b02a32de670a4d5434a802a80bd082f4c409578f8cdbb1653bfef3a",
       "tests": []
     },
     {
@@ -42,7 +42,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "7faecdbfe5a02773e19ae48f300ab3fbfdb88ee541cbf5848294bcf94d190102",
       "modelSha256": "6a27089b53c1e04016e665e295e01abdd14a73038e906d2adc765ede43e9efb8",
-      "traceSha256": "cf075eb416c35bc7edcb41b75348b8f11db0e88f0f8598f2b554a3712d87b925",
+      "traceSha256": "75e5e9823b02a32de670a4d5434a802a80bd082f4c409578f8cdbb1653bfef3a",
       "tests": []
     },
     {
@@ -50,7 +50,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "5a4b604fcd2de80bb97156d838b4a9c4128267a9f95e658af6a00f8dbac7786b",
       "modelSha256": "bf74e873c8ca5a2cd02789316703066710cc1cd1b508e8d2c258a60a412c0e3a",
-      "traceSha256": "cf075eb416c35bc7edcb41b75348b8f11db0e88f0f8598f2b554a3712d87b925",
+      "traceSha256": "75e5e9823b02a32de670a4d5434a802a80bd082f4c409578f8cdbb1653bfef3a",
       "tests": []
     }
   ]
