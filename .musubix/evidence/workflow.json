@@ -40,6 +40,30 @@
       "phase": "complete",
       "status": "completed",
       "recordedAt": "2026-09-11T11:24:25.361Z"
+    },
+    {
+      "skill": "sdd-traceability",
+      "version": "0.1.8",
+      "provenance": "self-reported",
+      "phase": "complete",
+      "status": "completed",
+      "recordedAt": "2026-09-11T11:30:50.454Z"
+    },
+    {
+      "skill": "sdd-traceability",
+      "version": "0.1.8",
+      "provenance": "self-reported",
+      "phase": "complete",
+      "status": "completed",
+      "recordedAt": "2026-09-11T11:34:47.308Z"
+    },
+    {
+      "skill": "sdd-design",
+      "version": "0.1.8",
+      "provenance": "self-reported",
+      "phase": "complete",
+      "status": "completed",
+      "recordedAt": "2026-09-11T21:47:56.124Z"
     }
   ]
 }
