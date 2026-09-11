@@ -1,0 +1,3 @@
+[ 42%] Built target pottery_core
+[ 57%] Linking CXX executable pottery_tests
+[100%] Built target pottery_tests

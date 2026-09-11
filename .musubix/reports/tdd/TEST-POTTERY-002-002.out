@@ -1,0 +1,31 @@
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'rgb'.
+Failed to find match for field 'curvature'.
+[0m[31m2026-09-12 08:08:16.094 (   0.002s) [        2E417AC0]       vtkSTLReader.cxx:657    ERR| vtkSTLReader (0x5815f8cee460): STLReader: error while reading file tests/fixtures/corrupted.stl at line 1: Parse error. Expecting 'solid' found 'this'[0m
+[0m[31m2026-09-12 08:08:16.094 (   0.002s) [        2E417AC0]       vtkExecutive.cxx:752    ERR| vtkCompositeDataPipeline (0x5815f8ceee70): Algorithm vtkSTLReader(0x5815f8cee460) returned failure for request: vtkInformation (0x5815f8cefa30)
+  Debug: Off
+  Modified Time: 138
+  Reference Count: 1
+  Registered Events: (none)
+  Request: REQUEST_DATA
+  FROM_OUTPUT_PORT: 0
+  ALGORITHM_AFTER_FORWARD: 1
+  FORWARD_DIRECTION: 0
+
+[0m
+[pcl::io::vtk2mesh] Given vtkPolyData is misformed (contains nullpointer instead of points).
+[pcl::OBJReader::readHeader] No vertices found!
+[pcl::OBJReader::read] Problem reading header!
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'rgb'.
+Failed to find match for field 'curvature'.
+[doctest] doctest version is "2.4.11"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases: 1 | 1 passed | 0 failed | 6 skipped
+[doctest] assertions: 5 | 5 passed | 0 failed |
+[doctest] Status: SUCCESS!

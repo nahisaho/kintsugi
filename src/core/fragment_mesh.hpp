@@ -17,12 +17,28 @@ struct ColorRGB {
   std::uint8_t b = 0;
 };
 
+// テクスチャUV座標。テクスチャ座標を持たない入力では texCoords は空のままとなる。
+struct Vec2 {
+  double u = 0.0;
+  double v = 0.0;
+};
+
+// 三角形面を構成する頂点インデックス（vertices への添字）。点群には面情報がないため空。
+struct Triangle {
+  std::size_t v0 = 0;
+  std::size_t v1 = 0;
+  std::size_t v2 = 0;
+};
+
 // インポート後の破片形状データ（REQ-POTTERY-001）。
-// 座標は常にミリメートル単位に正規化される。法線・色は入力に含まれない場合は空。
+// 座標は常にミリメートル単位に正規化される。法線・色・テクスチャ座標・面情報は
+// 入力に含まれない場合は空のままとなる。
 struct FragmentMesh {
   std::vector<Vec3> vertices;
   std::vector<Vec3> normals;
   std::vector<ColorRGB> colors;
+  std::vector<Vec2> texCoords;
+  std::vector<Triangle> faces;
   std::string sourceFilePath;
 };
 
