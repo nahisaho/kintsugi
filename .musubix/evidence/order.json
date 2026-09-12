@@ -456,6 +456,38 @@
       "phase": "green",
       "previousSha256": "18d796c3fb65b1032e95d2ffc1ebbe1da851761c1cd22d63155936c2f75fcfee",
       "recordSha256": "47e3daa57a61cface94b1d6654cbec750f42ec2dd8a0ea584fccf0088aaeb459"
+    },
+    {
+      "sequence": 58,
+      "kind": "tdd",
+      "entityId": "d083effc-9c4b-4a68-8c25-68d28c70ebcf",
+      "phase": "red",
+      "previousSha256": "47e3daa57a61cface94b1d6654cbec750f42ec2dd8a0ea584fccf0088aaeb459",
+      "recordSha256": "1d4462e74816805bd74595a86d71afc84a098ab5ed7572c5de017f6861a02635"
+    },
+    {
+      "sequence": 59,
+      "kind": "tdd",
+      "entityId": "b4402d1a-bbc8-4686-b2bb-702c75df6aa0",
+      "phase": "red",
+      "previousSha256": "1d4462e74816805bd74595a86d71afc84a098ab5ed7572c5de017f6861a02635",
+      "recordSha256": "e64663e0b40b0eae9e6f7cf3f423854efdff845c8a93c79d9f45d6ddb310b41d"
+    },
+    {
+      "sequence": 60,
+      "kind": "tdd",
+      "entityId": "d083effc-9c4b-4a68-8c25-68d28c70ebcf",
+      "phase": "green",
+      "previousSha256": "e64663e0b40b0eae9e6f7cf3f423854efdff845c8a93c79d9f45d6ddb310b41d",
+      "recordSha256": "5c4916518a14e0f6538574dd68366eb914b683f2756c8cdf7d086b228eacf418"
+    },
+    {
+      "sequence": 61,
+      "kind": "tdd",
+      "entityId": "b4402d1a-bbc8-4686-b2bb-702c75df6aa0",
+      "phase": "green",
+      "previousSha256": "5c4916518a14e0f6538574dd68366eb914b683f2756c8cdf7d086b228eacf418",
+      "recordSha256": "803095b012f4f4f00d8f5fa7224edc8fb768a10ecf1a46bfbe1546223802e961"
     }
   ]
 }
