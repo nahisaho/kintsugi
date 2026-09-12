@@ -232,12 +232,12 @@ void MainWindow::buildUi() {
   auto* importButton = new QPushButton(QStringLiteral("スキャンをインポート..."), importGroup);
   connect(importButton, &QPushButton::clicked, this, &MainWindow::onImportScans);
   importLayout->addWidget(importButton);
-  auto* clearImportButton = new QPushButton(QStringLiteral("インポート済みデータをクリア"), importGroup);
-  connect(clearImportButton, &QPushButton::clicked, this, &MainWindow::onClearImportedScans);
-  importLayout->addWidget(clearImportButton);
   auto* clusterButton = new QPushButton(QStringLiteral("クラスタリング実行"), importGroup);
   connect(clusterButton, &QPushButton::clicked, this, &MainWindow::onRunClustering);
   importLayout->addWidget(clusterButton);
+  auto* clearImportButton = new QPushButton(QStringLiteral("インポート済みデータをクリア"), importGroup);
+  connect(clearImportButton, &QPushButton::clicked, this, &MainWindow::onClearImportedScans);
+  importLayout->addWidget(clearImportButton);
   clusterCombo_ = new QComboBox(importGroup);
   connect(clusterCombo_, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
           &MainWindow::onClusterSelectionChanged);
