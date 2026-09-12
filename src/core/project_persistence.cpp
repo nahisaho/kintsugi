@@ -11,6 +11,10 @@
 
 #include <nlohmann/json.hpp>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 namespace kintsugi::core {
 
 namespace {
@@ -262,6 +266,27 @@ FragmentSourceRef computeFragmentSourceRef(std::size_t fragmentId, const std::st
   return FragmentSourceRef{fragmentId, filePath, sha256HexOfFile(filePath)};
 }
 
+namespace {
+
+// write-temp-then-renameの最終置換ステップ（REQ-POTTERY-023）。
+// std::rename はPOSIX（Linux/macOS）では既存の宛先ファイルをアトミックに
+// 置換するが、Windowsでは宛先が既に存在すると失敗する（REQ-POTTERY-017が
+// 要求するWindowsデスクトップ環境での動作に反する）。そのためWindows上では
+// MoveFileExW(..., MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH) を
+// 用いて既存ファイルの置換を行う。
+bool atomicReplaceFile(const std::string& tempPath, const std::string& targetPath) {
+#ifdef _WIN32
+  std::wstring tempPathW(tempPath.begin(), tempPath.end());
+  std::wstring targetPathW(targetPath.begin(), targetPath.end());
+  return MoveFileExW(tempPathW.c_str(), targetPathW.c_str(),
+                      MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH) != 0;
+#else
+  return std::rename(tempPath.c_str(), targetPath.c_str()) == 0;
+#endif
+}
+
+}  // namespace
+
 PersistenceError::PersistenceError(std::string targetIn, std::string reasonIn)
     : std::runtime_error(targetIn + ": " + reasonIn), target(std::move(targetIn)), reason(std::move(reasonIn)) {}
 
@@ -287,7 +312,7 @@ void saveProject(const std::string& path, const ProjectState& projectState,
     faultInjectionHookForTesting();
   }
 
-  if (std::rename(tempPath.c_str(), path.c_str()) != 0) {
+  if (!atomicReplaceFile(tempPath, path)) {
     std::remove(tempPath.c_str());
     throw PersistenceError(path, "一時ファイルから正式なプロジェクトファイルへの置換（リネーム）に失敗しました");
   }

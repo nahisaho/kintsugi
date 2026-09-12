@@ -72,6 +72,14 @@
       "phase": "complete",
       "status": "completed",
       "recordedAt": "2026-09-11T21:51:14.354Z"
+    },
+    {
+      "skill": "sdd-quality",
+      "version": "0.1.8",
+      "provenance": "self-reported",
+      "phase": "complete",
+      "status": "completed",
+      "recordedAt": "2026-09-12T04:27:38.444Z"
     }
   ]
 }
