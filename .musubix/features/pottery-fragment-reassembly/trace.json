@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T13:19:21.412Z",
+  "generatedAt": "2026-09-12T13:27:23.965Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -1345,7 +1345,7 @@
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
     "src/gui/gui_command_dispatcher.cpp": "8a259fc9e4809d5e7f0c263ceca262a2b5890e56e04c2c0bf14bffcd1c7e49c2",
     "src/gui/gui_command_dispatcher.hpp": "1220e6af12fb49f996cb8ef187c83c0279dfb6ce493dd90d3b09d2dbb1f49116",
-    "src/gui/main_window.cpp": "883f22d7fb5c978cbe55d872981f561fdefd1932b2f384ba7e1d5811a5cf0c9e",
+    "src/gui/main_window.cpp": "bfcd2adbef84e3e61ba84f436f0e1e1a76a63670b0c40bc62c118eaf0ac87351",
     "src/gui/main_window.hpp": "433312ea21cdf66253f66e19f2f99cc8a2f368472ad5bd562a19768e9378f4d7",
     "src/gui/viewport_camera.cpp": "19b8a95aedf0424c14822d15c864a91f8141370133eabe1446d0d80f1b5e7277",
     "src/gui/viewport_camera.hpp": "ac186c06061a714978b050981f359ca629e9dff4c974d16a53b068b84db21b0f",

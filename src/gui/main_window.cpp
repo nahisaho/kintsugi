@@ -166,29 +166,37 @@ constexpr int kStagingVisibleSlots = 6;
 constexpr double kStagingFrameHalfWidthMm = 35.0;
 constexpr double kStagingFrameMarginMm = kStagingSpacingZ * 0.5;
 
-// 画面左のスタック表示枠（フレーム）を表す矩形の輪郭線アクターを作る。
-// スタック内の何番目からkStagingVisibleSlots件分が現在見えているかを
-// 利用者が把握しやすいよう、Y-Z平面（既定視点で画面に正対する面）上に
-// 白系の枠線を描く。
+// 画面左のスタック表示枠を、破片1件につき1マスとなるよう区切られた
+// グリッド状の枠線アクターとして作る（1マスに複数の破片が重なって
+// 見えないよう、マス目の境界を明示する）。Y-Z平面（既定視点で画面に
+// 正対する面）上にkStagingVisibleSlots個の矩形（マス）を積み上げて描く。
 vtkSmartPointer<vtkActor> buildStagingFrameActor() {
   // 各破片はz = slot * kStagingSpacingZ (slot = 0..kStagingVisibleSlots-1)に
-  // 中心が来るように並ぶため、枠はその範囲を余白付きで包む大きさにする。
-  const double zMin = -kStagingSpacingZ * 0.5 - kStagingFrameMarginMm;
-  const double zMax = (kStagingVisibleSlots - 1) * kStagingSpacingZ + kStagingSpacingZ * 0.5 +
-                       kStagingFrameMarginMm;
-  auto points = vtkSmartPointer<vtkPoints>::New();
-  points->InsertNextPoint(kStagingBaseX, -kStagingFrameHalfWidthMm, zMin);
-  points->InsertNextPoint(kStagingBaseX, kStagingFrameHalfWidthMm, zMin);
-  points->InsertNextPoint(kStagingBaseX, kStagingFrameHalfWidthMm, zMax);
-  points->InsertNextPoint(kStagingBaseX, -kStagingFrameHalfWidthMm, zMax);
+  // 中心が来るように並ぶため、マスの高さはkStagingSpacingZいっぱいまで
+  // とし、隣接するマスとの間にわずかな隙間を設けて区切りを分かりやすく
+  // する。
+  constexpr double kCellGapMm = kStagingFrameMarginMm * 0.4;
+  const double cellHalfHeight = kStagingSpacingZ * 0.5 - kCellGapMm * 0.5;
 
+  auto points = vtkSmartPointer<vtkPoints>::New();
   auto lines = vtkSmartPointer<vtkCellArray>::New();
-  lines->InsertNextCell(5);
-  lines->InsertCellPoint(0);
-  lines->InsertCellPoint(1);
-  lines->InsertCellPoint(2);
-  lines->InsertCellPoint(3);
-  lines->InsertCellPoint(0);
+  for (int slot = 0; slot < kStagingVisibleSlots; ++slot) {
+    const double zCenter = static_cast<double>(slot) * kStagingSpacingZ;
+    const double zMin = zCenter - cellHalfHeight;
+    const double zMax = zCenter + cellHalfHeight;
+    const vtkIdType base = points->GetNumberOfPoints();
+    points->InsertNextPoint(kStagingBaseX, -kStagingFrameHalfWidthMm, zMin);
+    points->InsertNextPoint(kStagingBaseX, kStagingFrameHalfWidthMm, zMin);
+    points->InsertNextPoint(kStagingBaseX, kStagingFrameHalfWidthMm, zMax);
+    points->InsertNextPoint(kStagingBaseX, -kStagingFrameHalfWidthMm, zMax);
+
+    lines->InsertNextCell(5);
+    lines->InsertCellPoint(base + 0);
+    lines->InsertCellPoint(base + 1);
+    lines->InsertCellPoint(base + 2);
+    lines->InsertCellPoint(base + 3);
+    lines->InsertCellPoint(base + 0);
+  }
 
   auto polyData = vtkSmartPointer<vtkPolyData>::New();
   polyData->SetPoints(points);
@@ -812,9 +820,10 @@ void MainWindow::refreshViewport() {
         stagingVisibleSlot[stagingFragmentIds[i]] = visibleSlot;
       }
     }
-    if (!stagingFragmentIds.empty()) {
-      renderer_->AddActor(buildStagingFrameActor());
-    }
+    // 「マッチしない破片」が現在0件であっても、専用の表示スペースが
+    // 常に存在することを利用者が把握できるよう、枠（マス目）は常に描画
+    // する。
+    renderer_->AddActor(buildStagingFrameActor());
 
     for (std::size_t fragmentId : state.fragmentIds) {
       const bool isNonMatching = fragmentsWithCandidate.count(fragmentId) == 0;
