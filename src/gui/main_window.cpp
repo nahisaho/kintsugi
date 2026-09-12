@@ -37,8 +37,6 @@
 #include <vtkRenderWindow.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
-#include <vtkTextActor.h>
-#include <vtkTextProperty.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
 #include <vtkVertexGlyphFilter.h>
@@ -573,7 +571,6 @@ void MainWindow::refreshViewport() {
   }
   renderer_->RemoveAllViewProps();
   fragmentActorIds_.clear();
-  const auto cameraEye = camera_.eyePosition();
   if (orchestrator_) {
     const auto& state = orchestrator_->state();
     for (std::size_t fragmentId : state.fragmentIds) {
@@ -637,69 +634,9 @@ void MainWindow::refreshViewport() {
       renderer_->AddActor(edgeActor);
       renderer_->AddActor(actor);
       // マウスホバー時のツールチップ表示のため、実体アクターと破片IDの
-      // 対応を記録する（境界エッジ用アクターやラベルは対象外）。
+      // 対応を記録する（境界エッジ用アクターは対象外）。破片番号は常時
+      // 表面に表示するのではなく、ホバー時のツールチップのみで示す。
       fragmentActorIds_[actor.Get()] = fragmentId;
-
-      // 破片番号をラベルとして表示する（破片の識別を容易にするため）。
-      // 3Dアクターとして配置すると、曲面破片ではラベル位置が他のポリゴン
-      // （自破片の裏側や隣接破片）にデプス判定で隠れてしまう問題があった。
-      // これを避けるため、vtkTextActor（2Dオーバーレイ）のPositionCoordinate
-      // にワールド座標を設定する方式に変更している。ただし2Dオーバーレイは
-      // 深度バッファを無視するため、そのままでは視点から見て裏側（奥側）の
-      // 破片の番号まで手前の破片を突き抜けて見えてしまう。そこで、破片の
-      // 平均法線（=外向き方向）とカメラ方向の内積を用いた簡易な表裏判定を
-      // 行い、カメラの方を向いていない（裏側を向いている）破片のラベルは
-      // 非表示にする。
-      transformFilter->Update();
-      double bounds[6];
-      transformFilter->GetOutput()->GetBounds(bounds);
-      const double centerX = (bounds[0] + bounds[1]) / 2.0;
-      const double centerY = (bounds[2] + bounds[3]) / 2.0;
-      const double centerZ = (bounds[4] + bounds[5]) / 2.0;
-
-      bool facingCamera = true;
-      if (fragmentId < currentClusterFragments_.size()) {
-        const auto& mesh = currentClusterFragments_[fragmentId];
-        double sumX = 0.0, sumY = 0.0, sumZ = 0.0;
-        for (const auto& normal : mesh.normals) {
-          sumX += normal.x;
-          sumY += normal.y;
-          sumZ += normal.z;
-        }
-        const double normalLength = std::sqrt(sumX * sumX + sumY * sumY + sumZ * sumZ);
-        if (normalLength > 1e-6) {
-          const double localNormal[3] = {sumX / normalLength, sumY / normalLength,
-                                          sumZ / normalLength};
-          double worldNormal[3] = {0.0, 0.0, 0.0};
-          transform->TransformNormal(localNormal, worldNormal);
-
-          const double toCamera[3] = {cameraEye.x - centerX, cameraEye.y - centerY,
-                                       cameraEye.z - centerZ};
-          const double toCameraLength = std::sqrt(
-              toCamera[0] * toCamera[0] + toCamera[1] * toCamera[1] +
-              toCamera[2] * toCamera[2]);
-          if (toCameraLength > 1e-6) {
-            const double dot = (worldNormal[0] * toCamera[0] +
-                                 worldNormal[1] * toCamera[1] +
-                                 worldNormal[2] * toCamera[2]) /
-                                toCameraLength;
-            facingCamera = dot > 0.0;
-          }
-        }
-      }
-
-      auto label = vtkSmartPointer<vtkTextActor>::New();
-      label->SetInput(std::to_string(fragmentId).c_str());
-      label->GetPositionCoordinate()->SetCoordinateSystemToWorld();
-      label->GetPositionCoordinate()->SetValue(centerX, centerY, centerZ);
-      label->GetTextProperty()->SetColor(1.0, 1.0, 1.0);
-      label->GetTextProperty()->SetFontSize(16);
-      label->GetTextProperty()->SetBold(true);
-      label->GetTextProperty()->SetJustificationToCentered();
-      label->GetTextProperty()->SetVerticalJustificationToCentered();
-      label->PickableOff();
-      label->SetVisibility(facingCamera ? 1 : 0);
-      renderer_->AddActor2D(label);
     }
   }
 
