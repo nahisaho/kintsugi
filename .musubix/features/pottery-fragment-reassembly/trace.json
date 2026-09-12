@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T12:48:01.759Z",
+  "generatedAt": "2026-09-12T12:49:33.563Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -1320,7 +1320,7 @@
     ".musubix/decisions/ADR-0005.md": "62cba05202491ac1b454c5b2602c1346f3984be8a1569183a915300ef045edb3",
     ".musubix/features/pottery-fragment-reassembly/design.md": "4023397fbac23a89d74e5a6b9af23ae5bfc3a4ca45063bbffd86530a5b0c0bdb",
     ".musubix/features/pottery-fragment-reassembly/requirements.md": "db9423919b3371549baa1496ec12332d8127205abade237aeb64f3304d9bbcb5",
-    "scripts/generate_demo_scans.py": "e30a68b1279eb3e8c8625dcd0dce38d088622655656b96c332cc2c6cd848460f",
+    "scripts/generate_demo_scans.py": "41a9d857da261029da6e915dbc0b0065390464159b1d0d1d85f87d2d676325e3",
     "src/app/main.cpp": "37f9fa552379c39f8244252e07c3cd2c4172334ee33466495e41cb1c7d00b7e2",
     "src/core/assembly_orchestrator.cpp": "0887afed5cf929e4e2368f9f31352a90e95b50d94eb34fa4bce35ee904101ed5",
     "src/core/assembly_orchestrator.hpp": "df6def172b86c5603233be5d682cc6efe4cf171df3fb52c521dc6beab37b227c",

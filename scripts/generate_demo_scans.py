@@ -73,7 +73,8 @@ def write_obj_fragment(obj_path, mtl_path, mtl_name, points, normals, faces, col
 
 
 def generate(num_fragments: int, out_dir: str, seed: int = 42,
-             points_per_fragment_target: int = 250) -> None:
+             points_per_fragment_target: int = 250,
+             missing_ratio: float = 0.08) -> None:
     rng = np.random.default_rng(seed)
 
     radius = 50.0
@@ -167,9 +168,23 @@ def generate(num_fragments: int, out_dir: str, seed: int = 42,
         (185, 145, 108), (165, 125, 95), (195, 152, 118), (172, 132, 102),
     ]
 
+    # 実際の出土状況を模し、一部の破片を欠損(紛失)として扱い出力しない。
+    # 復元シミュレーションでは全破片が揃っているとは限らないため、
+    # 一定割合をランダムに間引くことで、破片が足りない状態での接合・
+    # 復元処理を検証できるようにする。
+    num_missing = int(round(num_fragments * missing_ratio))
+    missing_indices: set[int] = set()
+    if num_missing > 0:
+        missing_indices = set(
+            rng.choice(num_fragments, size=num_missing, replace=False).tolist())
+
     written = 0
+    skipped_missing = 0
     num_digits = len(str(num_fragments))
     for frag_idx in range(num_fragments):
+        if frag_idx in missing_indices:
+            skipped_missing += 1
+            continue
         face_list = faces_by_fragment.get(frag_idx)
         if not face_list:
             continue
@@ -188,7 +203,8 @@ def generate(num_fragments: int, out_dir: str, seed: int = 42,
                             local_faces, color)
         written += 1
 
-    print(f"wrote {written} fragment files (requested {num_fragments}) "
+    print(f"wrote {written} fragment files (requested {num_fragments}, "
+          f"{skipped_missing} treated as missing/lost) "
           f"from {len(grid_a)} surface points into {out_dir}/")
 
 
@@ -199,8 +215,11 @@ def main():
     parser.add_argument("--out-dir", default="demo_data",
                          help="出力先ディレクトリ(デフォルト: demo_data)")
     parser.add_argument("--seed", type=int, default=42, help="乱数シード")
+    parser.add_argument("--missing-ratio", type=float, default=0.08,
+                         help="欠損(紛失)扱いにして出力しない破片の割合"
+                              "(デフォルト: 0.08 = 約8%)")
     args = parser.parse_args()
-    generate(args.num_fragments, args.out_dir, args.seed)
+    generate(args.num_fragments, args.out_dir, args.seed, missing_ratio=args.missing_ratio)
 
 
 if __name__ == "__main__":
