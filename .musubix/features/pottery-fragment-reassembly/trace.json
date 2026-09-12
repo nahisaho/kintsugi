@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T00:56:16.276Z",
+  "generatedAt": "2026-09-12T01:32:28.978Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -326,6 +326,12 @@
       "line": 12
     },
     {
+      "id": "CODE-POTTERY-006",
+      "kind": "code",
+      "path": "src/core/missing_part_estimation.hpp",
+      "line": 12
+    },
+    {
       "id": "CODE-POTTERY-012",
       "kind": "code",
       "path": "src/core/pose_conflict.hpp",
@@ -408,6 +414,18 @@
       "kind": "test",
       "path": "tests/test_fragment_matching.cpp",
       "line": 157
+    },
+    {
+      "id": "TEST-POTTERY-010-001",
+      "kind": "test",
+      "path": "tests/test_missing_part_estimation.cpp",
+      "line": 58
+    },
+    {
+      "id": "TEST-POTTERY-010-002",
+      "kind": "test",
+      "path": "tests/test_missing_part_estimation.cpp",
+      "line": 97
     },
     {
       "id": "TEST-POTTERY-004-001",
@@ -795,6 +813,16 @@
       "relation": "implements"
     },
     {
+      "from": "CODE-POTTERY-006",
+      "to": "REQ-POTTERY-010",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-006",
+      "to": "DES-POTTERY-006",
+      "relation": "implements"
+    },
+    {
       "from": "CODE-POTTERY-012",
       "to": "REQ-POTTERY-027",
       "relation": "implements"
@@ -895,6 +923,16 @@
       "relation": "verifies"
     },
     {
+      "from": "TEST-POTTERY-010-001",
+      "to": "REQ-POTTERY-010",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-010-002",
+      "to": "REQ-POTTERY-010",
+      "relation": "verifies"
+    },
+    {
       "from": "TEST-POTTERY-004-001",
       "to": "REQ-POTTERY-027",
       "relation": "verifies"
@@ -953,6 +991,8 @@
     "src/core/fragment_matching.cpp": "895f6db27cca5c81e039729e1f3d2947926614d309364701aabab84387ca3cdf",
     "src/core/fragment_matching.hpp": "ab73a29cd863af44feaaed652fb6f72eba85ba48b67ba6ae00709e20f386b6d1",
     "src/core/fragment_mesh.hpp": "90d450c9ed90230eb5530a36bd02ae36dd4bc6f757a1150124dcad394be9da99",
+    "src/core/missing_part_estimation.cpp": "94d8f1b246f50031c4d2c1292662c7b3b95446de5b35abfb321e2a741c24b950",
+    "src/core/missing_part_estimation.hpp": "97b5bcc50883e651103c5152aa3d4b665581847c3f122572f4d2844f19d7d60b",
     "src/core/pose_conflict.cpp": "e51dbf023e5c9df2080692091a8e4df8dae756b245c87e0413d6dbe9fca983e5",
     "src/core/pose_conflict.hpp": "6d89a89dcc3630a9ad4e968837f1e1e932bfc1a6688dd5c73fc0db6f62023166",
     "src/core/scan_importer.cpp": "9da0be01ad9f58d09c828d14d105eef70dbf50bc204aa6a96cdc440a90710278",
@@ -961,6 +1001,7 @@
     "tests/test_fragment_clustering.cpp": "d772754ec5613a6e2b05ed5750ec38e3fd40f1fa319f58c1916b459d15b09ffc",
     "tests/test_fragment_matching.cpp": "5418748f5ce41ce2576d371a34876e4729917a5280603187bba58d2d2c7403f0",
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
+    "tests/test_missing_part_estimation.cpp": "0271eb477c7f2b2ea79e81ca7f5a5ba477fedf7acaebffa7d198ce1f536bb2b2",
     "tests/test_pose_conflict.cpp": "493851499e0703768cca81c0fbacab4a89ce0ea1e0f81c06c531364ca10261da",
     "tests/test_scan_importer.cpp": "80083f5630d52fcc48aed0112c9dd45122c1fcc1fbdd3f49185796e20a9a2087",
     "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"

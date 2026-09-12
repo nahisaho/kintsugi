@@ -16,6 +16,7 @@ add_library(pottery_core
   src/core/fragment_clustering.cpp
   src/core/fragment_matching.cpp
   src/core/assembly_orchestrator.cpp
+  src/core/missing_part_estimation.cpp
 )
 target_include_directories(pottery_core PUBLIC src)
 target_link_libraries(pottery_core PUBLIC ${PCL_LIBRARIES})
@@ -27,6 +28,7 @@ add_executable(pottery_tests
   tests/test_fragment_clustering.cpp
   tests/test_fragment_matching.cpp
   tests/test_assembly_orchestrator.cpp
+  tests/test_missing_part_estimation.cpp
 )
 target_include_directories(pottery_tests PRIVATE third_party src)
 target_link_libraries(pottery_tests PRIVATE pottery_core)
