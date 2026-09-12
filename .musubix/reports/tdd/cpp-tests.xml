@@ -72,7 +72,10 @@
     <TestCase name="TEST-POTTERY-010-001 estimateMissingParts fills only the missing angular range of a partial cylinder" filename="/home/nahisaho/GitHub/kintsugi/tests/test_missing_part_estimation.cpp" line="64">
       <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
     </TestCase>
-    <TestCase name="TEST-POTTERY-010-002 estimateMissingParts returns nullopt for a non-symmetric shape" filename="/home/nahisaho/GitHub/kintsugi/tests/test_missing_part_estimation.cpp" line="102">
+    <TestCase name="TEST-POTTERY-010-003 estimateMissingParts correctly finds the axis for a short, wide (squat) shape" filename="/home/nahisaho/GitHub/kintsugi/tests/test_missing_part_estimation.cpp" line="104">
+      <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-010-002 estimateMissingParts returns nullopt for a non-symmetric shape" filename="/home/nahisaho/GitHub/kintsugi/tests/test_missing_part_estimation.cpp" line="136">
       <OverallResultsAsserts successes="1" failures="0" test_case_success="true"/>
     </TestCase>
     <TestCase name="TEST-POTTERY-016-001 core/gui source tree contains no known network-dependency symbols" filename="/home/nahisaho/GitHub/kintsugi/tests/test_offline_execution.cpp" line="80">
@@ -146,6 +149,6 @@
       <OverallResultsAsserts successes="11" failures="0" test_case_success="true"/>
     </TestCase>
   </TestSuite>
-  <OverallResultsAsserts successes="316" failures="0"/>
-  <OverallResultsTestCases successes="41" failures="0" skipped="0"/>
+  <OverallResultsAsserts successes="320" failures="0"/>
+  <OverallResultsTestCases successes="42" failures="0" skipped="0"/>
 </doctest>

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T09:46:26.118Z",
+  "generatedAt": "2026-09-12T09:55:35.265Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -486,10 +486,16 @@
       "line": 58
     },
     {
-      "id": "TEST-POTTERY-010-002",
+      "id": "TEST-POTTERY-010-003",
       "kind": "test",
       "path": "tests/test_missing_part_estimation.cpp",
       "line": 97
+    },
+    {
+      "id": "TEST-POTTERY-010-002",
+      "kind": "test",
+      "path": "tests/test_missing_part_estimation.cpp",
+      "line": 131
     },
     {
       "id": "TEST-POTTERY-016-001",
@@ -1184,6 +1190,11 @@
       "relation": "verifies"
     },
     {
+      "from": "TEST-POTTERY-010-003",
+      "to": "REQ-POTTERY-010",
+      "relation": "verifies"
+    },
+    {
       "from": "TEST-POTTERY-010-002",
       "to": "REQ-POTTERY-010",
       "relation": "verifies"
@@ -1308,7 +1319,7 @@
     "src/core/fragment_mesh.hpp": "90d450c9ed90230eb5530a36bd02ae36dd4bc6f757a1150124dcad394be9da99",
     "src/core/mesh_export.cpp": "64346c7226dbc8cadab4d888f18991b55c8691831c44ad395ed801e8b5eeb30e",
     "src/core/mesh_export.hpp": "25efec1b060571ffec4fbb7a682553dbd5caf9a79b1b6791911c828c2a92ce36",
-    "src/core/missing_part_estimation.cpp": "94d8f1b246f50031c4d2c1292662c7b3b95446de5b35abfb321e2a741c24b950",
+    "src/core/missing_part_estimation.cpp": "ba7d285c6601dabb53921e91c92112ff1ee49a4f5358f6ea50b3663307438104",
     "src/core/missing_part_estimation.hpp": "97b5bcc50883e651103c5152aa3d4b665581847c3f122572f4d2844f19d7d60b",
     "src/core/offline_execution.cpp": "07abacb20a3d7fb211812e93d7911cf0071036f5c0d377f349a1982bf2c57738",
     "src/core/offline_execution.hpp": "7ba03e0db8dd4c63eb2a02c76b59fa6cb29cca14ddb105b1fe4e09c379f9bf38",
@@ -1332,7 +1343,7 @@
     "tests/test_gui_command_dispatcher.cpp": "65110f666d34e3e018173e27b17dd1a6deb0285c8098a9e9f541ee597450b7a3",
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
     "tests/test_mesh_export.cpp": "b58774b092abb83c1320d3ec723f23376aede3df78e84b4ea2d9dd461308fa93",
-    "tests/test_missing_part_estimation.cpp": "0271eb477c7f2b2ea79e81ca7f5a5ba477fedf7acaebffa7d198ce1f536bb2b2",
+    "tests/test_missing_part_estimation.cpp": "e746584d855633d8238311dc4bdded7d40135ba6c5dd6b951b5d667c517ee34a",
     "tests/test_offline_execution.cpp": "6c2c0f4c94cfbfa5a240c33a785c1a00c581b8cb67a90af1245a54ea160d7727",
     "tests/test_pose_conflict.cpp": "1ce8b1e547314857c6bdb713fff0f0afdfb52ef52a1f34cf4b2347abde4d42f7",
     "tests/test_project_persistence.cpp": "5c333f0f39010b5358941c15cd15ff475a5e95cefe510f5a4cebe546845fca69",

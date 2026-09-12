@@ -94,6 +94,40 @@ TEST_CASE("TEST-POTTERY-010-001 estimateMissingParts fills only the missing angu
   CHECK(anyVertexInMeasuredRange == false);
 }
 
+/** @id TEST-POTTERY-010-003
+ * @verifies REQ-POTTERY-010
+ */
+// 「短くて太い」（高さが直径以下の）回転対称形状に対しても、回転軸推定が
+// PCA最大分散方向ではなく円形断面フィット残差により正しい軸（高さ方向）を
+// 検出し、欠損区間（角度300〜360度側）にのみ推定形状を生成すること。
+// ADR-0005が要求する円柱/円形断面フィットに基づく回転軸推定を検証する。
+TEST_CASE("TEST-POTTERY-010-003 estimateMissingParts correctly finds the axis for a short, wide (squat) shape") {
+  std::vector<FragmentMesh> fragments;
+  // 半径60mm・高さ[-15,15]mm（直径120mm > 高さ30mm、「短くて太い」形状）・
+  // 角度[0,300]度（60度分の欠損くさび形）。
+  fragments.push_back(makeCylindricalShellFragment(60.0, 15.0, 0.0, 300.0, 20, 60));
+
+  AssemblyOrchestrator orchestrator(std::vector<std::size_t>{0});
+  orchestrator.applyManualTransform(0, kIdentityPose);
+
+  const auto result = estimateMissingParts(orchestrator.state(), fragments);
+  REQUIRE(result.has_value());
+  REQUIRE(result->size() == 1);
+  const auto& record = (*result)[0];
+  REQUIRE(record.vertices.size() > 0);
+
+  bool anyVertexInMeasuredRange = false;
+  for (const Vec3& v : record.vertices) {
+    double angleRad = std::atan2(v.y, v.x);
+    if (angleRad < 0.0) angleRad += 2.0 * kPi;
+    const double angleDeg = angleRad * 180.0 / kPi;
+    if (angleDeg > 15.0 && angleDeg < 285.0) {
+      anyVertexInMeasuredRange = true;
+    }
+  }
+  CHECK(anyVertexInMeasuredRange == false);
+}
+
 /** @id TEST-POTTERY-010-002
  * @verifies REQ-POTTERY-010
  */
@@ -109,3 +143,4 @@ TEST_CASE("TEST-POTTERY-010-002 estimateMissingParts returns nullopt for a non-s
   const auto result = estimateMissingParts(orchestrator.state(), fragments);
   CHECK(result.has_value() == false);
 }
+
