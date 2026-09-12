@@ -5,6 +5,13 @@ project(kintsugi_pottery_reassembly CXX C)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# pottery_app（薄いQt/VTK UIシェル、REQ-POTTERY-014/017）用のQt解決。
+# ADR-0002はQt/VTKとのみ規定しバージョンを固定していない。本環境の
+# パッケージ版VTK（libvtk9-qt-dev）はQt5向けにビルドされているため、
+# GUISupportQt/RenderingQtとのQtメジャーバージョン不整合を避けるためQt5を使う。
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets OpenGL)
+set(CMAKE_AUTOMOC ON)
+
 find_package(PCL 1.14 REQUIRED COMPONENTS common io registration kdtree search)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
@@ -13,6 +20,18 @@ add_definitions(${PCL_DEFINITIONS})
 find_package(OpenSSL REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(MINIZIP REQUIRED minizip)
+
+find_package(VTK REQUIRED COMPONENTS
+  CommonCore
+  CommonDataModel
+  FiltersSources
+  FiltersGeneral
+  RenderingCore
+  RenderingOpenGL2
+  InteractionStyle
+  GUISupportQt
+  RenderingQt
+)
 
 add_library(pottery_core
   src/core/pose_conflict.cpp
@@ -51,3 +70,11 @@ add_executable(pottery_tests
 target_include_directories(pottery_tests PRIVATE third_party src)
 target_link_libraries(pottery_tests PRIVATE pottery_core)
 target_compile_definitions(pottery_tests PRIVATE KINTSUGI_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
+
+add_executable(pottery_app
+  src/app/main.cpp
+  src/gui/main_window.cpp
+)
+target_include_directories(pottery_app PRIVATE src)
+target_link_libraries(pottery_app PRIVATE pottery_core Qt5::Widgets ${VTK_LIBRARIES})
+vtk_module_autoinit(TARGETS pottery_app MODULES ${VTK_LIBRARIES})

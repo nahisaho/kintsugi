@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "runId": "87f7baab-5168-4939-a278-7b3727c47a6e",
-  "generatedAt": "2026-09-12T06:13:29.692Z",
+  "runId": "969ecfa7-32e6-4cb8-a8ec-968c26fb7e43",
+  "generatedAt": "2026-09-12T06:37:30.078Z",
   "formalEvidenceSha256": "362059a5e26c230398ea0f97dd9cda2e4c28162dc6ae3952b0f012880018c061",
-  "traceEvidenceSha256": "b4f1ff4d5f2ad916c3eb766954c9050339b6c51bf4c66a92a82f245e73f637d7",
+  "traceEvidenceSha256": "28c9049ed5f40b4a0c116c72ec6f258332f1abe3a17a7e5a63a90a9269944864",
   "entries": [
     {
       "requirementId": "REQ-POTTERY-003",
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "18b6d5f7bc102944267b1e9861018c7288f76a9bc018f9ae7de0b542fd3f2ac2",
       "modelSha256": "3ad42492d5c6028e744f8d96df7218d75f08131fcbb239941cbff2eed81176cf",
-      "traceSha256": "b4f1ff4d5f2ad916c3eb766954c9050339b6c51bf4c66a92a82f245e73f637d7",
+      "traceSha256": "28c9049ed5f40b4a0c116c72ec6f258332f1abe3a17a7e5a63a90a9269944864",
       "tests": [
         {
           "testId": "TEST-POTTERY-003-001",
@@ -39,7 +39,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "6d8882bc3b6c0bc278b59155d29f4b23e77805373ef68c947ab123eeecb134c6",
       "modelSha256": "8e6ffbd66341f10852a1afe6252dc1c419d6310f67c5e4876d0cfe3dc09d9f9e",
-      "traceSha256": "b4f1ff4d5f2ad916c3eb766954c9050339b6c51bf4c66a92a82f245e73f637d7",
+      "traceSha256": "28c9049ed5f40b4a0c116c72ec6f258332f1abe3a17a7e5a63a90a9269944864",
       "tests": [
         {
           "testId": "TEST-POTTERY-018-001",
@@ -58,7 +58,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "3819480a99342575056e708749b7b09670059ea7f97e1ca5e9ffba4f0466a21f",
       "modelSha256": "cc3b808a3661f311f747303563325051db2e8f7fe040b4d6a02f9d05aee13a5f",
-      "traceSha256": "b4f1ff4d5f2ad916c3eb766954c9050339b6c51bf4c66a92a82f245e73f637d7",
+      "traceSha256": "28c9049ed5f40b4a0c116c72ec6f258332f1abe3a17a7e5a63a90a9269944864",
       "tests": [
         {
           "testId": "TEST-POTTERY-018-001",
@@ -77,7 +77,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "7faecdbfe5a02773e19ae48f300ab3fbfdb88ee541cbf5848294bcf94d190102",
       "modelSha256": "6a27089b53c1e04016e665e295e01abdd14a73038e906d2adc765ede43e9efb8",
-      "traceSha256": "b4f1ff4d5f2ad916c3eb766954c9050339b6c51bf4c66a92a82f245e73f637d7",
+      "traceSha256": "28c9049ed5f40b4a0c116c72ec6f258332f1abe3a17a7e5a63a90a9269944864",
       "tests": [
         {
           "testId": "TEST-POTTERY-018-001",
@@ -96,7 +96,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "5a4b604fcd2de80bb97156d838b4a9c4128267a9f95e658af6a00f8dbac7786b",
       "modelSha256": "bf74e873c8ca5a2cd02789316703066710cc1cd1b508e8d2c258a60a412c0e3a",
-      "traceSha256": "b4f1ff4d5f2ad916c3eb766954c9050339b6c51bf4c66a92a82f245e73f637d7",
+      "traceSha256": "28c9049ed5f40b4a0c116c72ec6f258332f1abe3a17a7e5a63a90a9269944864",
       "tests": [
         {
           "testId": "TEST-POTTERY-027-001",

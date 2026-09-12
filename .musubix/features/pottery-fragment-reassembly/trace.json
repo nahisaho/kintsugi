@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T06:12:50.922Z",
+  "generatedAt": "2026-09-12T06:38:17.387Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -1222,6 +1222,7 @@
     ".musubix/decisions/ADR-0005.md": "62cba05202491ac1b454c5b2602c1346f3984be8a1569183a915300ef045edb3",
     ".musubix/features/pottery-fragment-reassembly/design.md": "4023397fbac23a89d74e5a6b9af23ae5bfc3a4ca45063bbffd86530a5b0c0bdb",
     ".musubix/features/pottery-fragment-reassembly/requirements.md": "db9423919b3371549baa1496ec12332d8127205abade237aeb64f3304d9bbcb5",
+    "src/app/main.cpp": "37f9fa552379c39f8244252e07c3cd2c4172334ee33466495e41cb1c7d00b7e2",
     "src/core/assembly_orchestrator.cpp": "5436a1231cee23a08389959f5d6e674e569686c32d4582cd0ad89167383a8e73",
     "src/core/assembly_orchestrator.hpp": "bea728b8a54cc4d3d0678d44d7572f4bb44fedb24a9e890e33dfaf5b80744bab",
     "src/core/fragment_clustering.cpp": "599f66035acb9012978b53331c66bf7830b920daa1bdfd96afcd2d2bb2786382",
@@ -1233,7 +1234,7 @@
     "src/core/mesh_export.hpp": "25efec1b060571ffec4fbb7a682553dbd5caf9a79b1b6791911c828c2a92ce36",
     "src/core/missing_part_estimation.cpp": "94d8f1b246f50031c4d2c1292662c7b3b95446de5b35abfb321e2a741c24b950",
     "src/core/missing_part_estimation.hpp": "97b5bcc50883e651103c5152aa3d4b665581847c3f122572f4d2844f19d7d60b",
-    "src/core/offline_execution.cpp": "9a7c0ed6d6239ab08cae71039f18c0f9f1c8394f72c3985e21f1dc17342e8d41",
+    "src/core/offline_execution.cpp": "07abacb20a3d7fb211812e93d7911cf0071036f5c0d377f349a1982bf2c57738",
     "src/core/offline_execution.hpp": "7ba03e0db8dd4c63eb2a02c76b59fa6cb29cca14ddb105b1fe4e09c379f9bf38",
     "src/core/pose_conflict.cpp": "e51dbf023e5c9df2080692091a8e4df8dae756b245c87e0413d6dbe9fca983e5",
     "src/core/pose_conflict.hpp": "6d89a89dcc3630a9ad4e968837f1e1e932bfc1a6688dd5c73fc0db6f62023166",
@@ -1245,6 +1246,8 @@
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
     "src/gui/gui_command_dispatcher.cpp": "8a259fc9e4809d5e7f0c263ceca262a2b5890e56e04c2c0bf14bffcd1c7e49c2",
     "src/gui/gui_command_dispatcher.hpp": "1220e6af12fb49f996cb8ef187c83c0279dfb6ce493dd90d3b09d2dbb1f49116",
+    "src/gui/main_window.cpp": "9797e33cb38c8574a9124f9f7b2008c85b04ce86861feaefa91fc678eaa11bc6",
+    "src/gui/main_window.hpp": "d10b13d4dbd0f392575e00a2136fdc7d66cad5dbfde6da8009ced4c11ac7f473",
     "src/gui/viewport_camera.cpp": "bf47697e48859e9d054a657cfbdcd9f1173aa64334f9fdc11a70f27b97a825fb",
     "src/gui/viewport_camera.hpp": "ac186c06061a714978b050981f359ca629e9dff4c974d16a53b068b84db21b0f",
     "tests/test_assembly_orchestrator.cpp": "f9cc790df73ec6a3f5414504794785d52f733c45e4abba92fc43d306358fcfb7",

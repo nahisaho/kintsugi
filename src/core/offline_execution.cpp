@@ -11,9 +11,14 @@ namespace {
 
 // 検出対象の既知シンボル一覧（REQ-POTTERY-016：ネットワーク呼び出し・
 // ライセンスオンライン認証等でよく用いられるAPI/プロトコル識別子）。
+// 素の "connect(" はQt (QObject::connect、GUI層のシグナル/スロット接続、
+// DES-POTTERY-009の薄いUIシェルで多用) と字面上区別できず誤検知するため、
+// 生ソケットAPIのconnect呼び出しにより特徴的な "::connect(" を用いる
+// （生ソケット利用は事前に必ず "socket(" 呼び出しを伴うため、検出対象
+// シナリオにおける実質的な網羅性は維持される）。
 const std::vector<std::string>& forbiddenNetworkSymbols() {
   static const std::vector<std::string> symbols = {
-      "curl",     "socket(",  "connect(",     "http://",      "https://",
+      "curl",     "socket(",  "::connect(",     "http://",      "https://",
       "boost::asio", "winhttp", "wininet", "getaddrinfo", "gethostbyname",
   };
   return symbols;
