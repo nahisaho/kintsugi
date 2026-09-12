@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """デモ用スキャンデータ(PCD)を生成するスクリプト。
 
-テーパー付き円柱(壺)の表面を、多数の不定形な破片(デフォルト100個)に
-分割した点群を生成する。各破片が隣接破片と自然な境界で接するよう、
-角度・高さ空間上のジッター付きグリッド種点によるVoronoi分割で破片形状を
-決定する(単純な角度スライスではなく、より実際の破損片に近い不定形の
-破片群になる)。
+古典的な壺（土器）のシルエット（底部→胴部の膨らみ→肩→首→口縁）を持つ
+曲面を、多数の不定形な破片(デフォルト100個)に分割した点群を生成する。
+各破片が隣接破片と自然な境界で接するよう、角度・高さ空間上のジッター付き
+グリッド種点によるVoronoi分割で破片形状を決定する(単純な角度スライスでは
+なく、より実際の破損片に近い不定形の破片群になる)。
 
 使い方:
     python3 scripts/generate_demo_scans.py                # 100破片を生成
@@ -43,6 +43,31 @@ def write_pcd(path, points, normals, colors):
             )
 
 
+def vessel_radius_profile(t: np.ndarray, radius: float) -> np.ndarray:
+    """壺（土器）らしいシルエットを表す半径プロファイル。
+
+    tは高さ方向の正規化パラメータ(0=底面, 1=口縁)。底部から膨らんで最大径
+    となる胴部を経て、肩部ですぼまり、首部で最も細くなった後、口縁で
+    わずかに開く、という古典的な壺の輪郭を、区分アンカー点のCatmull-Rom
+    風のコサイン補間で滑らかに表現する。単純な円柱よりも実際の土器の
+    シルエットに近い形状になる。
+    """
+    # (t, 半径/radius) のアンカー点。
+    anchors_t = np.array([0.00, 0.06, 0.35, 0.72, 0.88, 1.00])
+    anchors_r = np.array([0.32, 0.50, 1.00, 0.55, 0.34, 0.42])
+
+    result = np.zeros_like(t)
+    for i in range(len(anchors_t) - 1):
+        t0, t1 = anchors_t[i], anchors_t[i + 1]
+        r0, r1 = anchors_r[i], anchors_r[i + 1]
+        mask = (t >= t0) & (t <= t1 if i == len(anchors_t) - 2 else t < t1)
+        local = np.clip((t[mask] - t0) / (t1 - t0), 0.0, 1.0)
+        # コサイン補間(区間端で滑らかに接続し、単純な折れ線にならないようにする)。
+        smooth = (1.0 - np.cos(local * np.pi)) / 2.0
+        result[mask] = r0 + (r1 - r0) * smooth
+    return result * radius
+
+
 def generate(num_fragments: int, out_dir: str, seed: int = 42,
              points_per_fragment_target: int = 250) -> None:
     rng = np.random.default_rng(seed)
@@ -62,13 +87,28 @@ def generate(num_fragments: int, out_dir: str, seed: int = 42,
     grid_a = grid_a.ravel()
     grid_h = grid_h.ravel()
 
-    # ろくろ成形のような緩いテーパー(下がすぼまり、中央が膨らむ壺形状)。
-    profile = radius * (1.0 - 0.15 * np.cos(np.pi * (grid_h / height)))
+    # 壺（土器）らしいシルエット（底部→胴部膨らみ→肩→首→口縁）のプロファイル。
+    t_param = grid_h / height
+    profile = vessel_radius_profile(t_param, radius)
+
+    # 法線は、プロファイル半径の高さ方向の傾き(dr/dh)を考慮し、断面の
+    # 半径方向だけでなく表面の傾斜も反映した向きにする(単純な水平法線より
+    # 実際の3Dスキャン法線に近い)。
+    dt = 1e-4
+    profile_plus = vessel_radius_profile(np.clip(t_param + dt, 0.0, 1.0), radius)
+    profile_minus = vessel_radius_profile(np.clip(t_param - dt, 0.0, 1.0), radius)
+    dr_dh = (profile_plus - profile_minus) / (2.0 * dt * height)
+
     noise = rng.normal(0, 0.3, size=(len(grid_a), 3))
     xs = profile * np.cos(grid_a) + noise[:, 0]
     ys = profile * np.sin(grid_a) + noise[:, 1]
     zs = grid_h + noise[:, 2]
-    normals = np.stack([np.cos(grid_a), np.sin(grid_a), np.zeros_like(grid_a)], axis=1)
+
+    radial = np.stack([np.cos(grid_a), np.sin(grid_a), np.zeros_like(grid_a)], axis=1)
+    vertical = np.zeros_like(radial)
+    vertical[:, 2] = 1.0
+    normals = radial - dr_dh[:, None] * vertical
+    normals /= np.linalg.norm(normals, axis=1, keepdims=True)
 
     # 破片形状を決める種点を、角度×高さのジッター付きグリッド上に配置する
     # (単純格子だと破片境界が直線的すぎるため、行ごとの角度オフセットと
