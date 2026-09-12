@@ -39,8 +39,8 @@ Depends-On: DES-POTTERY-003
 ## DES-POTTERY-005: 組み立てオーケストレーター
 Responsibilities: クラスタリング済みの器物候補に属する全破片（接合候補を持たない破片を含む）と算出済み接合候補の全量を単一の権威ある組み立て状態（AssemblyState：全破片の一覧、各破片の採用済み接合・姿勢・未接合状態、却下候補一覧を保持）として保持・更新する唯一の書き込み主体となる。完全自動モード（信頼度70以上の候補を降順・同点は破片ID対昇順で走査し、DES-POTTERY-004の基準で矛盾しない候補のみを順次採用、矛盾候補は却下候補としてAssemblyStateに記録）、半自動モード（候補を信頼度順・根拠付きで一覧表示し、利用者が明示的なコマンドで候補を採否・姿勢選択するとAssemblyStateへ反映）、手動微調整（ドラッグ操作等による姿勢更新コマンドを受け取りAssemblyStateへ反映し隙間・重なりを再評価）の3モードを提供する。候補採否・姿勢変更操作の取り消し（undo）・やり直し（redo）をAssemblyStateの変更履歴として管理し、候補採用前にDES-POTTERY-004経由で採用済み候補との矛盾を判定し利用者に警告する。DES-POTTERY-007・DES-POTTERY-008は本コンポーネントが保持するAssemblyStateのみを参照し、独自に破片・候補の帰属を推測しない。
 Interfaces: runFullAuto(assemblyState: AssemblyState) -> AssemblyState； presentCandidates(assemblyState: AssemblyState) -> CandidateListView； acceptCandidate(candidateId, selectedPose) -> AssemblyState | ConflictWarning； rejectCandidate(candidateId) -> AssemblyState； applyManualTransform(fragmentId, transform) -> AssemblyState； undo() -> AssemblyState； redo() -> AssemblyState
-Constraints: AssemblyStateは器物候補内の全破片（接合候補ゼロの破片を含む）を初期状態から漏れなく保持し、以後のいかなる操作でも破片が消失しない。PFR-BENCH-HW-001上でPFR-BENCH-100（破片100点）に対しクラスタリング開始から完全自動組み立て結果生成完了まで60分以内（REQ-POTTERY-019）。acceptCandidateはDES-POTTERY-004の矛盾判定を経ずに候補を採用してはならない。
-Requirements: REQ-POTTERY-006, REQ-POTTERY-007, REQ-POTTERY-008, REQ-POTTERY-019, REQ-POTTERY-020, REQ-POTTERY-022, REQ-POTTERY-026, REQ-POTTERY-027
+Constraints: AssemblyStateは器物候補内の全破片（接合候補ゼロの破片を含む）を初期状態から漏れなく保持し、以後のいかなる操作でも破片が消失しない。PFR-BENCH-HW-001上でPFR-BENCH-100（破片100点）に対しクラスタリング開始から完全自動組み立て結果生成完了まで60分以内（旧REQ-POTTERY-019、本リリースではスコープ外化・requirements.md「対象外」節およびGitHub Issue #1参照）。acceptCandidateはDES-POTTERY-004の矛盾判定を経ずに候補を採用してはならない。
+Requirements: REQ-POTTERY-006, REQ-POTTERY-007, REQ-POTTERY-008, REQ-POTTERY-020, REQ-POTTERY-022, REQ-POTTERY-026, REQ-POTTERY-027
 ADRs: none — 3モードの挙動と貪欲採用順序は各要求（REQ-006/007/008等）が直接規定しており、接合候補の算出アルゴリズム自体の選定はADR-0003で既に扱っているため、本コンポーネント固有の新たな設計判断は存在しない。
 Depends-On: DES-POTTERY-003, DES-POTTERY-004
 

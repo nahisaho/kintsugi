@@ -31,6 +31,6 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 -- looking for PCL_REGISTRATION
 -- looking for PCL_KDTREE
 -- looking for PCL_SEARCH
--- Configuring done (46.4s)
+-- Configuring done (36.8s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/nahisaho/GitHub/kintsugi/build

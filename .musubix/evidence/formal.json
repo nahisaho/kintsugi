@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T04:26:21.510Z",
-  "totalRequirements": 29,
-  "modeledRequirements": 9,
-  "modeledFraction": 0.3103448275862069,
+  "generatedAt": "2026-09-12T06:06:41.385Z",
+  "totalRequirements": 27,
+  "modeledRequirements": 7,
+  "modeledFraction": 0.25925925925925924,
   "result": {
     "valid": true,
     "abstraction": "Consistency of explicit branch-scoped conditional, exact unit-normalized integer numeric, bounded temporal interval, deterministic state-transition, and controlled unconditional Boolean constraints; not implementation correctness.",
@@ -16,11 +16,6 @@
       "Copilot supplies candidate requirements; deterministic checks do not establish their truth."
     ],
     "literals": [
-      {
-        "requirement": "REQ-EXAMPLE-001",
-        "atom": "[\"system\",\"report its readiness\"]",
-        "positive": true
-      },
       {
         "requirement": "REQ-POTTERY-009",
         "atom": "[\"システム\",\"、接合候補が採用されなかった破片を未接合破片一覧として表示し、既定の統合メッシュ出力の対象から除外\"]",
@@ -58,16 +53,6 @@
           "metric": "matching.recall",
           "operator": ">=",
           "value": 85
-        }
-      },
-      {
-        "requirement": "REQ-POTTERY-019",
-        "constraint": {
-          "kind": "numeric",
-          "metric": "processing.time",
-          "operator": "<=",
-          "value": 60,
-          "unit": "min"
         }
       },
       {
@@ -225,7 +210,6 @@
     }
   },
   "fingerprints": {
-    ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
-    ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43"
+    ".musubix/features/pottery-fragment-reassembly/requirements.md": "db9423919b3371549baa1496ec12332d8127205abade237aeb64f3304d9bbcb5"
   }
 }

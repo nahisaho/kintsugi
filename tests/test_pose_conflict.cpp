@@ -10,11 +10,11 @@ using kintsugi::core::Vec3;
 using kintsugi::core::isConflicting;
 using kintsugi::core::propagatePose;
 
-/** @id TEST-POTTERY-004-001
+/** @id TEST-POTTERY-027-001
  * @verifies REQ-POTTERY-027
  */
 // 並進差が1.0mmを超え、回転差が2度以内のとき、姿勢矛盾と判定されること。
-TEST_CASE("TEST-POTTERY-004-001 translation difference over 1.0mm is a conflict") {
+TEST_CASE("TEST-POTTERY-027-001 translation difference over 1.0mm is a conflict") {
   PropagatedPose poseA{Vec3{0.0, 0.0, 0.0}, Quaternion{1.0, 0.0, 0.0, 0.0}};
   PropagatedPose poseB{Vec3{1.5, 0.0, 0.0}, Quaternion{1.0, 0.0, 0.0, 0.0}};
 

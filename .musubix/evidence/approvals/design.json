@@ -8,12 +8,10 @@
     ".musubix/decisions/ADR-0003.md": "92188178e975e7e09eaf5c349c48c8189b865dce3a5b43ad9ed09883c15f77c6",
     ".musubix/decisions/ADR-0004.md": "c83d39c048a5cf823179a3455285b8e38a466633742228da1e31b9c690ca1f3e",
     ".musubix/decisions/ADR-0005.md": "62cba05202491ac1b454c5b2602c1346f3984be8a1569183a915300ef045edb3",
-    ".musubix/features/example/design.md": "abcbee85062b3a7f06d0f1034abe89fe27d911abf8397f98024249f60eb8a9de",
-    ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
-    ".musubix/features/pottery-fragment-reassembly/design.md": "c934a17b35187a1f250619b331cfaebe4a1e1a281d184e24632950cd82b291fc",
-    ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43"
+    ".musubix/features/pottery-fragment-reassembly/design.md": "4023397fbac23a89d74e5a6b9af23ae5bfc3a4ca45063bbffd86530a5b0c0bdb",
+    ".musubix/features/pottery-fragment-reassembly/requirements.md": "db9423919b3371549baa1496ec12332d8127205abade237aeb64f3304d9bbcb5"
   },
-  "artifactSha256": "f43448926cd8e83a203699e2e44924768faa9d4909e85e2e3aea2e8f17f9c338",
+  "artifactSha256": "6b2978e552a2cc9acaf77270b257abf4ab93547d63d34bb18f4778f878fa03ae",
   "approver": "nahisaho",
-  "approvedAt": "2026-09-11T21:47:59.434Z"
+  "approvedAt": "2026-09-12T05:09:56.103Z"
 }

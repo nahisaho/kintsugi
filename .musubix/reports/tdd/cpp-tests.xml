@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctest binary="/home/nahisaho/GitHub/kintsugi/build/pottery_tests" version="2.4.11">
+  <Options order_by="file" rand_seed="0" first="0" last="4294967295" abort_after="0" subcase_filter_levels="2147483647" case_sensitive="false" no_throw="false" no_skip="false"/>
+  <TestSuite>
+    <TestCase name="TEST-POTTERY-006-001 runFullAuto accepts non-conflicting high-confidence candidates and rejects conflicts" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="38">
+      <OverallResultsAsserts successes="11" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-020-001 acceptCandidate returns ConflictWarning without mutating state on conflict" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="71">
+      <OverallResultsAsserts successes="8" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-007-001 presentCandidates sorts by confidence and explicit accept/reject updates state" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="100">
+      <OverallResultsAsserts successes="13" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-008-001 applyManualTransform overrides propagated pose" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="134">
+      <OverallResultsAsserts successes="6" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-022-001 undo reverts the most recent operation" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="156">
+      <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-026-001 redo reapplies an undone operation" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="177">
+      <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-003-001: PFR-BENCH-CLUSTER-001代替データセットで正解ラベルとの一致率が95%以上となる" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_clustering.cpp" line="41">
+      <OverallResultsAsserts successes="26" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-003-002: 所属信頼度70未満の破片は未分類破片として区別される" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_clustering.cpp" line="109">
+      <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-004-002: 破片の組ごとに接合候補は常に1件のみ算出される" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="66">
+      <OverallResultsAsserts successes="8" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-018-001: PFR-BENCH-001代替データセットで採用閾値70以上の候補の適合率90%以上・再現率85%以上・信頼度中央値分離を満たす" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="104">
+      <OverallResultsAsserts successes="25" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-005-001: 色・模様情報が付与されている場合、色不一致の破片対は信頼度が低下する" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="160">
+      <OverallResultsAsserts successes="6" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-017-001 GuiCommandDispatcher delegates accept/reject/drag/undo/redo to the assembly orchestrator" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="36">
+      <SubCase name="accepting a non-conflicting candidate updates the assembly state with no conflict warning" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="42">
+      </SubCase>
+      <SubCase name="rejecting a candidate records it as a user-rejected candidate" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="50">
+      </SubCase>
+      <SubCase name="a manual drag operation is reflected as a manual pose override" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="56">
+      </SubCase>
+      <SubCase name="undo reverts the last dispatched operation and redo reapplies it" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="63">
+      </SubCase>
+      <SubCase name="accepting a conflicting candidate surfaces a conflict warning and leaves the state unchanged" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="71">
+      </SubCase>
+      <OverallResultsAsserts successes="12" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-011-001 exportIntegratedMesh (STL) includes only confirmed fragments and is externally readable" filename="/home/nahisaho/GitHub/kintsugi/tests/test_mesh_export.cpp" line="67">
+      <OverallResultsAsserts successes="5" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-011-002 exportIntegratedMesh (OBJ) includes only confirmed fragments and is externally readable" filename="/home/nahisaho/GitHub/kintsugi/tests/test_mesh_export.cpp" line="99">
+      <OverallResultsAsserts successes="6" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-010-001 estimateMissingParts fills only the missing angular range of a partial cylinder" filename="/home/nahisaho/GitHub/kintsugi/tests/test_missing_part_estimation.cpp" line="64">
+      <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-010-002 estimateMissingParts returns nullopt for a non-symmetric shape" filename="/home/nahisaho/GitHub/kintsugi/tests/test_missing_part_estimation.cpp" line="102">
+      <OverallResultsAsserts successes="1" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-016-001 core/gui source tree contains no known network-dependency symbols" filename="/home/nahisaho/GitHub/kintsugi/tests/test_offline_execution.cpp" line="80">
+      <OverallResultsAsserts successes="2" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-016-002 full import-to-export-and-persist pipeline completes without error" filename="/home/nahisaho/GitHub/kintsugi/tests/test_offline_execution.cpp" line="101">
+      <OverallResultsAsserts successes="8" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-027-001 translation difference over 1.0mm is a conflict" filename="/home/nahisaho/GitHub/kintsugi/tests/test_pose_conflict.cpp" line="17">
+      <OverallResultsAsserts successes="1" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-027-002 propagatePose composes candidate pose with anchored fragment pose" filename="/home/nahisaho/GitHub/kintsugi/tests/test_pose_conflict.cpp" line="30">
+      <OverallResultsAsserts successes="8" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-015-001 saveProject/loadProject round-trip restores full project state" filename="/home/nahisaho/GitHub/kintsugi/tests/test_project_persistence.cpp" line="80">
+      <OverallResultsAsserts successes="23" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-024-001 loadProject reports missing and modified referenced scan data per fragment" filename="/home/nahisaho/GitHub/kintsugi/tests/test_project_persistence.cpp" line="131">
+      <OverallResultsAsserts successes="7" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-023-001 interrupted save preserves previously saved project file" filename="/home/nahisaho/GitHub/kintsugi/tests/test_project_persistence.cpp" line="176">
+      <OverallResultsAsserts successes="3" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-021-001 saveProject reports target and reason on internal error without corrupting prior save" filename="/home/nahisaho/GitHub/kintsugi/tests/test_project_persistence.cpp" line="212">
+      <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-021-002 saveProject reports target and reason when temp file cannot be created" filename="/home/nahisaho/GitHub/kintsugi/tests/test_project_persistence.cpp" line="249">
+      <OverallResultsAsserts successes="3" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-009-001 buildUnmatchedFragmentReport aggregates cluster-internal and unclassified unmatched fragments" filename="/home/nahisaho/GitHub/kintsugi/tests/test_report_aggregation.cpp" line="51">
+      <OverallResultsAsserts successes="6" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-013-001 buildJoinReport lists every accepted join across clusters with its confidence score" filename="/home/nahisaho/GitHub/kintsugi/tests/test_report_aggregation.cpp" line="74">
+      <OverallResultsAsserts successes="5" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-012-001 buildPoseExport includes every imported fragment with identifier, pose, and join state" filename="/home/nahisaho/GitHub/kintsugi/tests/test_report_aggregation.cpp" line="106">
+      <OverallResultsAsserts successes="9" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-001-001: 単位情報なしの点群は既定でミリメートルとして、法線・色を保持したまま読み込まれる" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="24">
+      <OverallResultsAsserts successes="14" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-002-001: 破損・非対応形式・ジオメトリ欠如の各ファイルはエラー報告され、既に読み込み済みの他破片には影響しない" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="50">
+      <OverallResultsAsserts successes="6" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-001-002: 明示的にセンチメートル単位を指定した場合、座標がミリメートルへ換算されて読み込まれる" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="78">
+      <OverallResultsAsserts successes="6" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-001-003: STL形式のメッシュは頂点座標と三角面が既定ミリメートルとして読み込まれる" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="94">
+      <OverallResultsAsserts successes="12" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-001-004: OBJ形式のメッシュは頂点・面・テクスチャ座標・MTL由来の頂点色を保持したまま既定ミリメートルとして読み込まれる" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="117">
+      <OverallResultsAsserts successes="15" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-002-002: 破損したSTL/OBJファイルはエラーとして報告され、既存の読込済み破片には影響しない" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="146">
+      <OverallResultsAsserts successes="5" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-014-001 ViewportCamera reflects rotate/zoom/pan viewpoint operations" filename="/home/nahisaho/GitHub/kintsugi/tests/test_viewport_camera.cpp" line="25">
+      <SubCase name="rotate changes azimuth/elevation and therefore the eye position" filename="/home/nahisaho/GitHub/kintsugi/tests/test_viewport_camera.cpp" line="30">
+      </SubCase>
+      <SubCase name="rotate clamps elevation to avoid gimbal lock" filename="/home/nahisaho/GitHub/kintsugi/tests/test_viewport_camera.cpp" line="40">
+      </SubCase>
+      <SubCase name="zoom in reduces distance from the focal point, zoom out increases it" filename="/home/nahisaho/GitHub/kintsugi/tests/test_viewport_camera.cpp" line="47">
+      </SubCase>
+      <SubCase name="zoom never reduces distance below the minimum threshold" filename="/home/nahisaho/GitHub/kintsugi/tests/test_viewport_camera.cpp" line="54">
+      </SubCase>
+      <SubCase name="pan moves the focal point (and therefore the eye position) in the view plane" filename="/home/nahisaho/GitHub/kintsugi/tests/test_viewport_camera.cpp" line="61">
+      </SubCase>
+      <OverallResultsAsserts successes="11" failures="0" test_case_success="true"/>
+    </TestCase>
+  </TestSuite>
+  <OverallResultsAsserts successes="291" failures="0"/>
+  <OverallResultsTestCases successes="35" failures="0" skipped="0"/>
+</doctest>

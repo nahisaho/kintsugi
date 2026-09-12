@@ -3,10 +3,9 @@
   "stage": "requirements",
   "artifacts": {
     ".musubix/constitution.md": "f8b47fdc486f395bab05223a94821b145cf8df70ffde2c838a28f8d71fe0fa92",
-    ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
-    ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43"
+    ".musubix/features/pottery-fragment-reassembly/requirements.md": "db9423919b3371549baa1496ec12332d8127205abade237aeb64f3304d9bbcb5"
   },
-  "artifactSha256": "88c91967d1376d1def49e167fbbbf34f5c8c830a4db9868f1c9fe40b5bf43070",
+  "artifactSha256": "12f44faea00161a7ee734fd186eb3530977c19898e320875ebbc42a0e154d98a",
   "approver": "nahisaho",
-  "approvedAt": "2026-09-11T11:23:34.346Z"
+  "approvedAt": "2026-09-12T05:09:55.497Z"
 }

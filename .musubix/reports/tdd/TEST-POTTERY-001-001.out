@@ -2,6 +2,6 @@ Failed to find match for field 'curvature'.
 [doctest] doctest version is "2.4.11"
 [doctest] run with "--help" for options
 ===============================================================================
-[doctest] test cases:  1 |  1 passed | 0 failed | 1 skipped
+[doctest] test cases:  1 |  1 passed | 0 failed | 34 skipped
 [doctest] assertions: 14 | 14 passed | 0 failed |
 [doctest] Status: SUCCESS!

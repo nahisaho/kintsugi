@@ -155,14 +155,6 @@ Statement: システムは、固定版ベンチマークデータセットPFR-BE
 Formal: {"kind":"numeric","metric":"matching.recall","operator":">=","value":85}
 Acceptance: 固定版ベンチマークデータセットPFR-BENCH-001に対し接合候補推定を実行し、正解接合ペアのうち信頼度スコア70以上で出力された割合（再現率）が85%以上であることを自動テストで測定する。
 
-## REQ-POTTERY-019: 自動解析の処理時間上限
-Priority: must
-Type: non-functional
-Pattern: ubiquitous
-Statement: システムは、CPU Intel Core i7-13700（16コア、Pコア8/Eコア8、ベースクロック以上・Windows既定の電源プラン「バランス」設定）、RAM 32GB、NVMe SSD（シーケンシャル読み込み3000MB毎秒以上）、GPU不使用、OS Windows 11 64bit（ビルド22H2以降）で構成された固定ベンチマーク環境PFR-BENCH-HW-001において、固定版ベンチマークデータセットPFR-BENCH-100（破片100点・単一器物構成）に対する、クラスタリング開始から完全自動組み立て結果の生成完了までの処理を60分以内に完了しなければならない。
-Formal: {"kind":"numeric","metric":"processing.time","operator":"<=","value":60,"unit":"min"}
-Acceptance: ベンチマーク環境PFR-BENCH-HW-001（CPU Intel Core i7-13700・16コア、RAM 32GB、NVMe SSD（シーケンシャル読み込み3000MB毎秒以上）、GPU不使用、Windows 11 64bit ビルド22H2以降、電源プラン「バランス」）で、PFR-BENCH-100データセットに対しクラスタリング開始イベントから完全自動組み立て結果生成完了イベントまでの処理時間を計測し、60分以内であることを自動テストで測定する。
-
 ## REQ-POTTERY-020: 接合候補の競合検出
 Priority: must
 Type: functional
@@ -221,3 +213,6 @@ Statement: システムは、同一破片について複数の接合候補から
 Formal: {"kind":"numeric","metric":"pose.translationToleranceMm","operator":"<=","value":1}
 Acceptance: 同一破片に対し、並進差ちょうど1.0ミリメートル・回転差ちょうど2度の境界値の候補組では姿勢矛盾と判定されないこと、並進差または回転差がそれぞれ許容値をわずかに超える候補組では姿勢矛盾と判定されることをテストで確認する。この判定基準はREQ-POTTERY-006の完全自動モードにおける競合候補の採否判定、およびREQ-POTTERY-020の競合警告の双方で共通に用いる。
 
+
+## 対象外（本リリースではスコープ外化された旧REQ-POTTERY-019）
+旧「自動解析の処理時間上限」要求（CPU Intel Core i7-13700・RAM 32GB・NVMe SSD構成の固定ベンチマーク環境PFR-BENCH-HW-001で、破片100点データセットPFR-BENCH-100に対しクラスタリング開始から完全自動組み立て結果生成完了まで60分以内）は、当該の実機ベンチマーク環境をこの開発環境で用意・実行できないため、正式な要求ID（REQ-POTTERY-019）としては本リリースのtrace対象から除外する。実装（DES-POTTERY-005: AssemblyOrchestrator）は当該制約を意識した設計（ADR-0002参照）のままとし、実機検証はGitHub Issue #1で引き続き追跡する。

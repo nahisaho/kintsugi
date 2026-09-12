@@ -8,7 +8,11 @@
       "command": "scripts/run_tests.sh",
       "args": [],
       "required": true,
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "testReport": {
+          "format": "musubix-json",
+          "path": ".musubix/reports/tdd/cpp-tests.json"
+      }
     },
     {
       "name": "cpp-doctest-tdd",

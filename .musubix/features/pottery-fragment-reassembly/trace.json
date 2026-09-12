@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T04:26:20.310Z",
+  "generatedAt": "2026-09-12T06:06:40.514Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -31,19 +31,6 @@
       "kind": "adr",
       "path": ".musubix/decisions/ADR-0005.md",
       "line": 1
-    },
-    {
-      "id": "DES-EXAMPLE-001",
-      "kind": "design",
-      "path": ".musubix/features/example/design.md",
-      "line": 7
-    },
-    {
-      "id": "REQ-EXAMPLE-001",
-      "kind": "requirement",
-      "path": ".musubix/features/example/requirements.md",
-      "line": 10,
-      "mandatory": true
     },
     {
       "id": "DES-POTTERY-001",
@@ -245,66 +232,59 @@
       "mandatory": true
     },
     {
-      "id": "REQ-POTTERY-019",
+      "id": "REQ-POTTERY-020",
       "kind": "requirement",
       "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "line": 158,
       "mandatory": true
     },
     {
-      "id": "REQ-POTTERY-020",
-      "kind": "requirement",
-      "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-      "line": 166,
-      "mandatory": true
-    },
-    {
       "id": "REQ-POTTERY-021",
       "kind": "requirement",
       "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-      "line": 173,
+      "line": 165,
       "mandatory": true
     },
     {
       "id": "REQ-POTTERY-022",
       "kind": "requirement",
       "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-      "line": 180,
+      "line": 172,
       "mandatory": true
     },
     {
       "id": "REQ-POTTERY-025",
       "kind": "requirement",
       "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-      "line": 187,
+      "line": 179,
       "mandatory": true
     },
     {
       "id": "REQ-POTTERY-026",
       "kind": "requirement",
       "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-      "line": 195,
+      "line": 187,
       "mandatory": true
     },
     {
       "id": "REQ-POTTERY-023",
       "kind": "requirement",
       "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-      "line": 202,
+      "line": 194,
       "mandatory": true
     },
     {
       "id": "REQ-POTTERY-024",
       "kind": "requirement",
       "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-      "line": 209,
+      "line": 201,
       "mandatory": true
     },
     {
       "id": "REQ-POTTERY-027",
       "kind": "requirement",
       "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-      "line": 216,
+      "line": 208,
       "mandatory": true
     },
     {
@@ -494,7 +474,7 @@
       "line": 96
     },
     {
-      "id": "TEST-POTTERY-004-001",
+      "id": "TEST-POTTERY-027-001",
       "kind": "test",
       "path": "tests/test_pose_conflict.cpp",
       "line": 13
@@ -598,16 +578,6 @@
   ],
   "edges": [
     {
-      "from": "DES-EXAMPLE-001",
-      "to": "REQ-EXAMPLE-001",
-      "relation": "satisfies"
-    },
-    {
-      "from": "ADR-0001",
-      "to": "DES-EXAMPLE-001",
-      "relation": "decides"
-    },
-    {
       "from": "DES-POTTERY-001",
       "to": "REQ-POTTERY-001",
       "relation": "satisfies"
@@ -695,11 +665,6 @@
     {
       "from": "DES-POTTERY-005",
       "to": "REQ-POTTERY-008",
-      "relation": "satisfies"
-    },
-    {
-      "from": "DES-POTTERY-005",
-      "to": "REQ-POTTERY-019",
       "relation": "satisfies"
     },
     {
@@ -1163,7 +1128,7 @@
       "relation": "verifies"
     },
     {
-      "from": "TEST-POTTERY-004-001",
+      "from": "TEST-POTTERY-027-001",
       "to": "REQ-POTTERY-027",
       "relation": "verifies"
     },
@@ -1255,10 +1220,8 @@
     ".musubix/decisions/ADR-0003.md": "92188178e975e7e09eaf5c349c48c8189b865dce3a5b43ad9ed09883c15f77c6",
     ".musubix/decisions/ADR-0004.md": "c83d39c048a5cf823179a3455285b8e38a466633742228da1e31b9c690ca1f3e",
     ".musubix/decisions/ADR-0005.md": "62cba05202491ac1b454c5b2602c1346f3984be8a1569183a915300ef045edb3",
-    ".musubix/features/example/design.md": "abcbee85062b3a7f06d0f1034abe89fe27d911abf8397f98024249f60eb8a9de",
-    ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
-    ".musubix/features/pottery-fragment-reassembly/design.md": "c934a17b35187a1f250619b331cfaebe4a1e1a281d184e24632950cd82b291fc",
-    ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43",
+    ".musubix/features/pottery-fragment-reassembly/design.md": "4023397fbac23a89d74e5a6b9af23ae5bfc3a4ca45063bbffd86530a5b0c0bdb",
+    ".musubix/features/pottery-fragment-reassembly/requirements.md": "db9423919b3371549baa1496ec12332d8127205abade237aeb64f3304d9bbcb5",
     "src/core/assembly_orchestrator.cpp": "5436a1231cee23a08389959f5d6e674e569686c32d4582cd0ad89167383a8e73",
     "src/core/assembly_orchestrator.hpp": "bea728b8a54cc4d3d0678d44d7572f4bb44fedb24a9e890e33dfaf5b80744bab",
     "src/core/fragment_clustering.cpp": "599f66035acb9012978b53331c66bf7830b920daa1bdfd96afcd2d2bb2786382",
@@ -1274,7 +1237,7 @@
     "src/core/offline_execution.hpp": "7ba03e0db8dd4c63eb2a02c76b59fa6cb29cca14ddb105b1fe4e09c379f9bf38",
     "src/core/pose_conflict.cpp": "e51dbf023e5c9df2080692091a8e4df8dae756b245c87e0413d6dbe9fca983e5",
     "src/core/pose_conflict.hpp": "6d89a89dcc3630a9ad4e968837f1e1e932bfc1a6688dd5c73fc0db6f62023166",
-    "src/core/project_persistence.cpp": "a15a92fa2199a3f748c0dfa76d1e8bcacb864b9066c0fba0a5fcfb89cc418e32",
+    "src/core/project_persistence.cpp": "6a8eb0995695ce5b4e6e0c722955c5e4e0cb6c1d417c62a40d159a7191af5acf",
     "src/core/project_persistence.hpp": "f46965e92a71a766916c2715e073fb4d9f19da505012c5074b92169a3bb9b60f",
     "src/core/report_aggregation.cpp": "908d031681d2258fd34d08cd7e6c99e6c367e53bb530ee5980babdb61084c73a",
     "src/core/report_aggregation.hpp": "3aff7ffe27c7ccb96cdb681b1739ce5a7146fc434e02874c5e7af51ee159eefa",
@@ -1292,11 +1255,12 @@
     "tests/test_mesh_export.cpp": "b58774b092abb83c1320d3ec723f23376aede3df78e84b4ea2d9dd461308fa93",
     "tests/test_missing_part_estimation.cpp": "0271eb477c7f2b2ea79e81ca7f5a5ba477fedf7acaebffa7d198ce1f536bb2b2",
     "tests/test_offline_execution.cpp": "6c2c0f4c94cfbfa5a240c33a785c1a00c581b8cb67a90af1245a54ea160d7727",
-    "tests/test_pose_conflict.cpp": "493851499e0703768cca81c0fbacab4a89ce0ea1e0f81c06c531364ca10261da",
+    "tests/test_pose_conflict.cpp": "1ce8b1e547314857c6bdb713fff0f0afdfb52ef52a1f34cf4b2347abde4d42f7",
     "tests/test_project_persistence.cpp": "5c333f0f39010b5358941c15cd15ff475a5e95cefe510f5a4cebe546845fca69",
     "tests/test_report_aggregation.cpp": "43ade6cb3f79ab078f01a1ae12df5ba5b5e36d1210a071f0ea283d556d04609a",
     "tests/test_scan_importer.cpp": "80083f5630d52fcc48aed0112c9dd45122c1fcc1fbdd3f49185796e20a9a2087",
     "tests/test_viewport_camera.cpp": "c2bc6bd93512a3d898f11d2a2cde57700bd97efccd7f1820adaf3b138c170eda",
+    "third_party/doctest/doctest_fwd.h": "aead5a9172e2619b6653d27967d4357241bbfcbcf846217f338d47c3c7ef8792",
     "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"
   }
 }
