@@ -526,11 +526,13 @@ void MainWindow::refreshViewport() {
       // 破片番号をラベルとして3D空間内に表示する（破片の識別を容易に
       // するため）。vtkBillboardTextActor3Dは常にカメラの方を向くため、
       // 視点を変えても番号が読みやすい。曲面破片ではバウンディングボックス
-      // 中心が破片自体の表面より内側（裏側）に位置することがあり、その
-      // 場合ラベルが破片本体に隠れて表示されない問題があった。これを防ぐ
-      // ため、頂点法線の平均（=破片の外向き方向）に沿ってラベル位置を
-      // バウンディングボックスの外側へオフセットし、常に表面より手前に
-      // 出るようにする。
+      // 中心が破片自体の表面よりわずかに内側（裏側）に位置することがあり、
+      // その場合ラベルが破片本体に隠れて表示されない問題があった。これを
+      // 防ぐため、頂点法線の平均（=破片の外向き方向）に沿ってラベル位置を
+      // ごくわずかに表面の外側へオフセットする。オフセット量は破片の
+      // バウンディングボックス対角線に比例した小さな値とし、ラベルが
+      // 破片から離れて浮いて見えないよう、あくまで表面に貼り付いたように
+      // 見える範囲にとどめる。
       transformFilter->Update();
       double bounds[6];
       transformFilter->GetOutput()->GetBounds(bounds);
@@ -559,7 +561,8 @@ void MainWindow::refreshViewport() {
           haveNormal = true;
         }
       }
-      const double offsetDistance = haveNormal ? std::max(diagonal * 0.5, 3.0) : 0.0;
+      const double offsetDistance =
+          haveNormal ? std::min(std::max(diagonal * 0.06, 1.0), 4.0) : 0.0;
       const double labelX = centerX + outwardNormal[0] * offsetDistance;
       const double labelY = centerY + outwardNormal[1] * offsetDistance;
       const double labelZ = centerZ + outwardNormal[2] * offsetDistance;
