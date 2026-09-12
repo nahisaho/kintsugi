@@ -3,6 +3,7 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
+#include <string>
 
 #include <QComboBox>
 #include <QDoubleSpinBox>
@@ -19,6 +20,7 @@
 
 #include <QVTKOpenGLNativeWidget.h>
 #include <vtkActor.h>
+#include <vtkBillboardTextActor3D.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkFeatureEdges.h>
@@ -32,6 +34,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+#include <vtkTextProperty.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
 #include <vtkVertexGlyphFilter.h>
@@ -519,6 +522,27 @@ void MainWindow::refreshViewport() {
       edgeActor->GetProperty()->SetLineWidth(3.0);
       renderer_->AddActor(edgeActor);
       renderer_->AddActor(actor);
+
+      // 破片番号をラベルとして3D空間内に表示する（破片の識別を容易に
+      // するため）。vtkBillboardTextActor3Dは常にカメラの方を向くため、
+      // 視点を変えても番号が読みやすい。
+      transformFilter->Update();
+      double bounds[6];
+      transformFilter->GetOutput()->GetBounds(bounds);
+      const double centerX = (bounds[0] + bounds[1]) / 2.0;
+      const double centerY = (bounds[2] + bounds[3]) / 2.0;
+      const double centerZ = (bounds[4] + bounds[5]) / 2.0;
+
+      auto label = vtkSmartPointer<vtkBillboardTextActor3D>::New();
+      label->SetInput(std::to_string(fragmentId).c_str());
+      label->SetPosition(centerX, centerY, centerZ);
+      label->GetTextProperty()->SetColor(1.0, 1.0, 1.0);
+      label->GetTextProperty()->SetFontSize(18);
+      label->GetTextProperty()->SetBold(true);
+      label->GetTextProperty()->SetJustificationToCentered();
+      label->GetTextProperty()->SetVerticalJustificationToCentered();
+      label->PickableOff();
+      renderer_->AddActor(label);
     }
   }
 
