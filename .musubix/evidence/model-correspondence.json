@@ -1,36 +1,46 @@
 {
   "schemaVersion": 1,
-  "runId": "3bf1ae0d-ff29-4734-a262-650eee8e5687",
-  "generatedAt": "2026-09-12T06:49:40.327Z",
+  "runId": "ade0b666-ebb8-4345-ba90-f90aae4086fa",
+  "generatedAt": "2026-09-12T07:27:52.677Z",
   "formalEvidenceSha256": "362059a5e26c230398ea0f97dd9cda2e4c28162dc6ae3952b0f012880018c061",
-  "traceEvidenceSha256": "93c99a4dd3cddef13873e78993105d73d7170b827d87fe600bf4162089c4fc61",
+  "traceEvidenceSha256": "9ee8ada12ebbd7f66fb99505033d4bb2612983a0e4080867f0a0afc3e28bb8eb",
   "entries": [
     {
       "requirementId": "REQ-POTTERY-003",
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "18b6d5f7bc102944267b1e9861018c7288f76a9bc018f9ae7de0b542fd3f2ac2",
       "modelSha256": "3ad42492d5c6028e744f8d96df7218d75f08131fcbb239941cbff2eed81176cf",
-      "traceSha256": "93c99a4dd3cddef13873e78993105d73d7170b827d87fe600bf4162089c4fc61",
+      "traceSha256": "9ee8ada12ebbd7f66fb99505033d4bb2612983a0e4080867f0a0afc3e28bb8eb",
       "tests": [
         {
           "testId": "TEST-POTTERY-003-001",
           "testPath": "tests/test_fragment_clustering.cpp",
-          "testSha256": "d772754ec5613a6e2b05ed5750ec38e3fd40f1fa319f58c1916b459d15b09ffc",
+          "testSha256": "31950fe92d8f35a398e3706ce649e355ed24eb05285f3be48741746e71f8e8c5",
           "commandName": "cpp-tests",
           "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
           "reportPath": ".musubix/reports/tdd/cpp-tests.json",
-          "reportSha256": "76e33b4ffe36db48c8ae0747925410052f47f4a219c60266e67bcfe1d43dfcf7",
-          "provenanceSha256": "81670f45e581b05d0eff3c74894297ba1c0eb56336572d94b449d22bbab44ba8"
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "5cdcf5581711265089e47fc7000241d9e4654336e18520660a2c1ef7250ab91b"
         },
         {
           "testId": "TEST-POTTERY-003-002",
           "testPath": "tests/test_fragment_clustering.cpp",
-          "testSha256": "d772754ec5613a6e2b05ed5750ec38e3fd40f1fa319f58c1916b459d15b09ffc",
+          "testSha256": "31950fe92d8f35a398e3706ce649e355ed24eb05285f3be48741746e71f8e8c5",
           "commandName": "cpp-tests",
           "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
           "reportPath": ".musubix/reports/tdd/cpp-tests.json",
-          "reportSha256": "76e33b4ffe36db48c8ae0747925410052f47f4a219c60266e67bcfe1d43dfcf7",
-          "provenanceSha256": "5b4e043badfd7e4cfae5d8ecc43e69dd1a229b8d1b7bc7be4c5bba6895dad0bf"
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "349784da182c37eda266fe1e7e2e0d5e2301ba017ab7a09605fac00f83056af8"
+        },
+        {
+          "testId": "TEST-POTTERY-003-003",
+          "testPath": "tests/test_fragment_clustering.cpp",
+          "testSha256": "31950fe92d8f35a398e3706ce649e355ed24eb05285f3be48741746e71f8e8c5",
+          "commandName": "cpp-tests",
+          "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
+          "reportPath": ".musubix/reports/tdd/cpp-tests.json",
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "5aee76bd0de36af8ac641e7c78073af18254c1d0e9dfb6bd2de35ade1c71320e"
         }
       ]
     },
@@ -39,17 +49,37 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "6d8882bc3b6c0bc278b59155d29f4b23e77805373ef68c947ab123eeecb134c6",
       "modelSha256": "8e6ffbd66341f10852a1afe6252dc1c419d6310f67c5e4876d0cfe3dc09d9f9e",
-      "traceSha256": "93c99a4dd3cddef13873e78993105d73d7170b827d87fe600bf4162089c4fc61",
+      "traceSha256": "9ee8ada12ebbd7f66fb99505033d4bb2612983a0e4080867f0a0afc3e28bb8eb",
       "tests": [
         {
           "testId": "TEST-POTTERY-018-001",
           "testPath": "tests/test_fragment_matching.cpp",
-          "testSha256": "5418748f5ce41ce2576d371a34876e4729917a5280603187bba58d2d2c7403f0",
+          "testSha256": "b2e79cd4742564790a00df10833bcde504c4640594153ca212d6ea57e25a8199",
           "commandName": "cpp-tests",
           "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
           "reportPath": ".musubix/reports/tdd/cpp-tests.json",
-          "reportSha256": "76e33b4ffe36db48c8ae0747925410052f47f4a219c60266e67bcfe1d43dfcf7",
-          "provenanceSha256": "17024e694ce797b41bf14980e881fea161cd606e6abad826de060608e1a6ce75"
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "35b350ee6c3320ba56ad19e941396f187ebb70ac701dbc6667a4716a1ad9b6df"
+        },
+        {
+          "testId": "TEST-POTTERY-005-002",
+          "testPath": "tests/test_fragment_matching.cpp",
+          "testSha256": "b2e79cd4742564790a00df10833bcde504c4640594153ca212d6ea57e25a8199",
+          "commandName": "cpp-tests",
+          "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
+          "reportPath": ".musubix/reports/tdd/cpp-tests.json",
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "858728694a2047b80cb9a46910e31322a0e58c1b03f35f584134859fd5cad3cc"
+        },
+        {
+          "testId": "TEST-POTTERY-018-002",
+          "testPath": "tests/test_fragment_matching.cpp",
+          "testSha256": "b2e79cd4742564790a00df10833bcde504c4640594153ca212d6ea57e25a8199",
+          "commandName": "cpp-tests",
+          "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
+          "reportPath": ".musubix/reports/tdd/cpp-tests.json",
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "ebd09b1dc1b979df252b207e222af84aa9d2e595c3d4d512af4a384fb6e9971e"
         }
       ]
     },
@@ -58,17 +88,17 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "3819480a99342575056e708749b7b09670059ea7f97e1ca5e9ffba4f0466a21f",
       "modelSha256": "cc3b808a3661f311f747303563325051db2e8f7fe040b4d6a02f9d05aee13a5f",
-      "traceSha256": "93c99a4dd3cddef13873e78993105d73d7170b827d87fe600bf4162089c4fc61",
+      "traceSha256": "9ee8ada12ebbd7f66fb99505033d4bb2612983a0e4080867f0a0afc3e28bb8eb",
       "tests": [
         {
           "testId": "TEST-POTTERY-018-001",
           "testPath": "tests/test_fragment_matching.cpp",
-          "testSha256": "5418748f5ce41ce2576d371a34876e4729917a5280603187bba58d2d2c7403f0",
+          "testSha256": "b2e79cd4742564790a00df10833bcde504c4640594153ca212d6ea57e25a8199",
           "commandName": "cpp-tests",
           "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
           "reportPath": ".musubix/reports/tdd/cpp-tests.json",
-          "reportSha256": "76e33b4ffe36db48c8ae0747925410052f47f4a219c60266e67bcfe1d43dfcf7",
-          "provenanceSha256": "17024e694ce797b41bf14980e881fea161cd606e6abad826de060608e1a6ce75"
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "35b350ee6c3320ba56ad19e941396f187ebb70ac701dbc6667a4716a1ad9b6df"
         }
       ]
     },
@@ -77,17 +107,27 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "7faecdbfe5a02773e19ae48f300ab3fbfdb88ee541cbf5848294bcf94d190102",
       "modelSha256": "6a27089b53c1e04016e665e295e01abdd14a73038e906d2adc765ede43e9efb8",
-      "traceSha256": "93c99a4dd3cddef13873e78993105d73d7170b827d87fe600bf4162089c4fc61",
+      "traceSha256": "9ee8ada12ebbd7f66fb99505033d4bb2612983a0e4080867f0a0afc3e28bb8eb",
       "tests": [
         {
           "testId": "TEST-POTTERY-018-001",
           "testPath": "tests/test_fragment_matching.cpp",
-          "testSha256": "5418748f5ce41ce2576d371a34876e4729917a5280603187bba58d2d2c7403f0",
+          "testSha256": "b2e79cd4742564790a00df10833bcde504c4640594153ca212d6ea57e25a8199",
           "commandName": "cpp-tests",
           "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
           "reportPath": ".musubix/reports/tdd/cpp-tests.json",
-          "reportSha256": "76e33b4ffe36db48c8ae0747925410052f47f4a219c60266e67bcfe1d43dfcf7",
-          "provenanceSha256": "17024e694ce797b41bf14980e881fea161cd606e6abad826de060608e1a6ce75"
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "35b350ee6c3320ba56ad19e941396f187ebb70ac701dbc6667a4716a1ad9b6df"
+        },
+        {
+          "testId": "TEST-POTTERY-018-002",
+          "testPath": "tests/test_fragment_matching.cpp",
+          "testSha256": "b2e79cd4742564790a00df10833bcde504c4640594153ca212d6ea57e25a8199",
+          "commandName": "cpp-tests",
+          "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
+          "reportPath": ".musubix/reports/tdd/cpp-tests.json",
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "ebd09b1dc1b979df252b207e222af84aa9d2e595c3d4d512af4a384fb6e9971e"
         }
       ]
     },
@@ -96,7 +136,7 @@
       "requirementPath": ".musubix/features/pottery-fragment-reassembly/requirements.md",
       "formalSha256": "5a4b604fcd2de80bb97156d838b4a9c4128267a9f95e658af6a00f8dbac7786b",
       "modelSha256": "bf74e873c8ca5a2cd02789316703066710cc1cd1b508e8d2c258a60a412c0e3a",
-      "traceSha256": "93c99a4dd3cddef13873e78993105d73d7170b827d87fe600bf4162089c4fc61",
+      "traceSha256": "9ee8ada12ebbd7f66fb99505033d4bb2612983a0e4080867f0a0afc3e28bb8eb",
       "tests": [
         {
           "testId": "TEST-POTTERY-027-001",
@@ -105,8 +145,8 @@
           "commandName": "cpp-tests",
           "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
           "reportPath": ".musubix/reports/tdd/cpp-tests.json",
-          "reportSha256": "76e33b4ffe36db48c8ae0747925410052f47f4a219c60266e67bcfe1d43dfcf7",
-          "provenanceSha256": "faa746e73aca0462f1f2841402a70b990b9e1ee1b258b7413313003a0c04d2af"
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "cfe92e5d239881245f182fb7ce5d4e17d39d2d3ed756224e3c7f9d30cf9ba1b3"
         },
         {
           "testId": "TEST-POTTERY-027-002",
@@ -115,8 +155,8 @@
           "commandName": "cpp-tests",
           "commandSha256": "7c2c8a2611b7dd708d12721cbe34a214ce29124a3bacc486e26495eea36307cb",
           "reportPath": ".musubix/reports/tdd/cpp-tests.json",
-          "reportSha256": "76e33b4ffe36db48c8ae0747925410052f47f4a219c60266e67bcfe1d43dfcf7",
-          "provenanceSha256": "c1cae3ee71131747c3fe4f504ede64010a8978fe496c90172adb57a368edb726"
+          "reportSha256": "f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0",
+          "provenanceSha256": "cfeb592bcb611289b6e1a3bf8d982eb61806828fc5b81d2ef543b3bc72115ebc"
         }
       ]
     }

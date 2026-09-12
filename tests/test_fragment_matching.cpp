@@ -58,6 +58,29 @@ FragmentMesh applyRigidTransform(const FragmentMesh& mesh, double tx, double ty,
   return out;
 }
 
+// 破断面（バンプのある破断面パッチ）に、曲率がほぼ0の平坦な外面（釉薬面等）を
+// 同一座標で追加した破片を生成する。この外面は器物由来の破片であれば形状が
+// 共通しがちだが、接合の正否とは無関係であり、破断面限定ICP（Issue #4）が
+// 正しく機能していない場合、この共通形状に引きずられて無関係な破片対の
+// 信頼度が誤って閾値を超えてしまう。
+FragmentMesh makeFragmentWithSharedOuterCap(double fractureRadius, double fractureArcDeg,
+                                             int fractureN, double fractureZScale, int seed,
+                                             double capSize, int capN) {
+  FragmentMesh mesh =
+      makeFracturePatch(fractureRadius, fractureArcDeg, fractureN, fractureZScale, seed);
+  // 外面は破断面より原点から十分離れた位置に、全破片共通の平坦格子として配置する。
+  for (int i = 0; i < capN; ++i) {
+    for (int j = 0; j < capN; ++j) {
+      Vec3 v;
+      v.x = 200.0 + capSize * static_cast<double>(i) / (capN - 1);
+      v.y = 200.0 + capSize * static_cast<double>(j) / (capN - 1);
+      v.z = 500.0;
+      mesh.vertices.push_back(v);
+    }
+  }
+  return mesh;
+}
+
 }  // namespace
 
 /** @id TEST-POTTERY-004-002
@@ -184,3 +207,38 @@ TEST_CASE("TEST-POTTERY-005-001: 色・模様情報が付与されている場�
         matchingColorResult.front().evidence.colorScore.value());
   CHECK(mismatchedColorResult.front().confidenceScore < matchingColorResult.front().confidenceScore);
 }
+
+/** @id TEST-POTTERY-005-002
+ * @verifies REQ-POTTERY-005, REQ-POTTERY-018
+ */
+TEST_CASE(
+    "TEST-POTTERY-005-002: "
+    "全破片に共通する平坦な外面（破断面ではない領域）を含む破片対で、"
+    "破断面限定ICPにより無関係な破片対の信頼度が70未満に保たれる（Issue #4）") {
+  // fragmentA・fragmentBは互いに全く異なる破断面（seedが大きく異なる）を持つが、
+  // 曲率がほぼ0の共通した平坦な外面を同一座標に含む。破断面限定ICPが機能して
+  // いなければ、この共通外面に引きずられて無関係なペアの信頼度が誤って
+  // 閾値70を超えてしまう可能性がある。
+  FragmentMesh fragmentA = makeFragmentWithSharedOuterCap(30.0, 40.0, 6, 15.0, 1, 40.0, 10);
+  FragmentMesh fragmentB = makeFragmentWithSharedOuterCap(30.0, 40.0, 6, 15.0, 97, 40.0, 10);
+
+  std::vector<JoinCandidate> result = computeJoinCandidates({fragmentA, fragmentB});
+
+  REQUIRE(result.size() == 1);
+  CHECK(result.front().confidenceScore < 70.0);
+}
+
+/** @id TEST-POTTERY-018-002
+ * @verifies REQ-POTTERY-018, REQ-POTTERY-025
+ */
+TEST_CASE("TEST-POTTERY-018-002: ICP収束状態が接合候補の根拠として公開される") {
+  auto base = makeFracturePatch(30.0, 40.0, 6, 15.0, 1);
+  auto transformed = applyRigidTransform(base, 5.0, -3.0, 2.0, 0.3);
+
+  std::vector<JoinCandidate> result = computeJoinCandidates({base, transformed});
+
+  REQUIRE(result.size() == 1);
+  // 良好に収束するはずの単純なケースでは、収束状態がtrueとして公開される。
+  CHECK(result.front().evidence.icpConverged == true);
+}
+

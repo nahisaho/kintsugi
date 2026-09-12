@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T06:59:17.530Z",
+  "generatedAt": "2026-09-12T07:27:00.212Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -423,19 +423,31 @@
       "id": "TEST-POTTERY-004-002",
       "kind": "test",
       "path": "tests/test_fragment_matching.cpp",
-      "line": 63
+      "line": 86
     },
     {
       "id": "TEST-POTTERY-018-001",
       "kind": "test",
       "path": "tests/test_fragment_matching.cpp",
-      "line": 101
+      "line": 124
     },
     {
       "id": "TEST-POTTERY-005-001",
       "kind": "test",
       "path": "tests/test_fragment_matching.cpp",
-      "line": 157
+      "line": 180
+    },
+    {
+      "id": "TEST-POTTERY-005-002",
+      "kind": "test",
+      "path": "tests/test_fragment_matching.cpp",
+      "line": 211
+    },
+    {
+      "id": "TEST-POTTERY-018-002",
+      "kind": "test",
+      "path": "tests/test_fragment_matching.cpp",
+      "line": 231
     },
     {
       "id": "TEST-POTTERY-017-001",
@@ -1104,6 +1116,26 @@
       "relation": "verifies"
     },
     {
+      "from": "TEST-POTTERY-005-002",
+      "to": "REQ-POTTERY-005",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-005-002",
+      "to": "REQ-POTTERY-018",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-018-002",
+      "to": "REQ-POTTERY-018",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-018-002",
+      "to": "REQ-POTTERY-025",
+      "relation": "verifies"
+    },
+    {
       "from": "TEST-POTTERY-017-001",
       "to": "REQ-POTTERY-017",
       "relation": "verifies"
@@ -1238,8 +1270,8 @@
     "src/core/assembly_orchestrator.hpp": "bea728b8a54cc4d3d0678d44d7572f4bb44fedb24a9e890e33dfaf5b80744bab",
     "src/core/fragment_clustering.cpp": "0b4fe4b8a30047005b8f7c8e8f5930de0670b89d72e906746fcd6960588589a2",
     "src/core/fragment_clustering.hpp": "cced8d51cfab39966329fe4af6e60138963616179a7711718e6f0edeb84cdf5e",
-    "src/core/fragment_matching.cpp": "895f6db27cca5c81e039729e1f3d2947926614d309364701aabab84387ca3cdf",
-    "src/core/fragment_matching.hpp": "ab73a29cd863af44feaaed652fb6f72eba85ba48b67ba6ae00709e20f386b6d1",
+    "src/core/fragment_matching.cpp": "ccedb14823ae36f1b4a32b25e31cc9ef7f9c8cfe5762ab01b550154c5f0bd20b",
+    "src/core/fragment_matching.hpp": "2389914cb1bb43b62c987077cd873d5e7d4e0ecf4ae2a9f854129ffa620aaa2e",
     "src/core/fragment_mesh.hpp": "90d450c9ed90230eb5530a36bd02ae36dd4bc6f757a1150124dcad394be9da99",
     "src/core/mesh_export.cpp": "64346c7226dbc8cadab4d888f18991b55c8691831c44ad395ed801e8b5eeb30e",
     "src/core/mesh_export.hpp": "25efec1b060571ffec4fbb7a682553dbd5caf9a79b1b6791911c828c2a92ce36",
@@ -1263,7 +1295,7 @@
     "src/gui/viewport_camera.hpp": "ac186c06061a714978b050981f359ca629e9dff4c974d16a53b068b84db21b0f",
     "tests/test_assembly_orchestrator.cpp": "f9cc790df73ec6a3f5414504794785d52f733c45e4abba92fc43d306358fcfb7",
     "tests/test_fragment_clustering.cpp": "31950fe92d8f35a398e3706ce649e355ed24eb05285f3be48741746e71f8e8c5",
-    "tests/test_fragment_matching.cpp": "5418748f5ce41ce2576d371a34876e4729917a5280603187bba58d2d2c7403f0",
+    "tests/test_fragment_matching.cpp": "b2e79cd4742564790a00df10833bcde504c4640594153ca212d6ea57e25a8199",
     "tests/test_gui_command_dispatcher.cpp": "65110f666d34e3e018173e27b17dd1a6deb0285c8098a9e9f541ee597450b7a3",
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
     "tests/test_mesh_export.cpp": "b58774b092abb83c1320d3ec723f23376aede3df78e84b4ea2d9dd461308fa93",

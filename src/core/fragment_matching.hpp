@@ -16,9 +16,12 @@ namespace kintsugi::core {
 
 // 接合候補の根拠。shapeScore は破断面形状の一致度（0〜100）。colorScore は
 // 破片双方に色情報がある場合のみ算出される色・模様連続性スコア（0〜100）。
+// icpConverged は破断面点群に対するICPが収束したかどうか（Issue #4:
+// 収束状態が信頼度算出へ反映されるようになった。未収束時はshapeScoreが0となる）。
 struct JoinEvidence {
   double shapeScore = 0.0;
   std::optional<double> colorScore;
+  bool icpConverged = true;
 };
 
 // 破片対ごとに算出される唯一の推定接合候補（信頼度最上位の姿勢1件のみ）。

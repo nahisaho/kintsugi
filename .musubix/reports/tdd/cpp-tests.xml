@@ -26,14 +26,23 @@
     <TestCase name="TEST-POTTERY-003-002: 所属信頼度70未満の破片は未分類破片として区別される" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_clustering.cpp" line="109">
       <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
     </TestCase>
-    <TestCase name="TEST-POTTERY-004-002: 破片の組ごとに接合候補は常に1件のみ算出される" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="66">
+    <TestCase name="TEST-POTTERY-003-003: A-B・B-Cが70以上でもA-Cが70未満の推移的併合パターンで、vesselCandidateに含まれる全破片の所属信頼度が70以上である（Issue #3）" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_clustering.cpp" line="131">
+      <OverallResultsAsserts successes="0" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-004-002: 破片の組ごとに接合候補は常に1件のみ算出される" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="89">
       <OverallResultsAsserts successes="8" failures="0" test_case_success="true"/>
     </TestCase>
-    <TestCase name="TEST-POTTERY-018-001: PFR-BENCH-001代替データセットで採用閾値70以上の候補の適合率90%以上・再現率85%以上・信頼度中央値分離を満たす" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="104">
+    <TestCase name="TEST-POTTERY-018-001: PFR-BENCH-001代替データセットで採用閾値70以上の候補の適合率90%以上・再現率85%以上・信頼度中央値分離を満たす" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="127">
       <OverallResultsAsserts successes="25" failures="0" test_case_success="true"/>
     </TestCase>
-    <TestCase name="TEST-POTTERY-005-001: 色・模様情報が付与されている場合、色不一致の破片対は信頼度が低下する" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="160">
+    <TestCase name="TEST-POTTERY-005-001: 色・模様情報が付与されている場合、色不一致の破片対は信頼度が低下する" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="183">
       <OverallResultsAsserts successes="6" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-005-002: 全破片に共通する平坦な外面（破断面ではない領域）を含む破片対で、破断面限定ICPにより無関係な破片対の信頼度が70未満に保たれる（Issue #4）" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="214">
+      <OverallResultsAsserts successes="2" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-018-002: ICP収束状態が接合候補の根拠として公開される" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="234">
+      <OverallResultsAsserts successes="2" failures="0" test_case_success="true"/>
     </TestCase>
     <TestCase name="TEST-POTTERY-017-001 GuiCommandDispatcher delegates accept/reject/drag/undo/redo to the assembly orchestrator" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="36">
       <SubCase name="accepting a non-conflicting candidate updates the assembly state with no conflict warning" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="42">
@@ -128,6 +137,6 @@
       <OverallResultsAsserts successes="11" failures="0" test_case_success="true"/>
     </TestCase>
   </TestSuite>
-  <OverallResultsAsserts successes="291" failures="0"/>
-  <OverallResultsTestCases successes="35" failures="0" skipped="0"/>
+  <OverallResultsAsserts successes="295" failures="0"/>
+  <OverallResultsTestCases successes="38" failures="0" skipped="0"/>
 </doctest>

@@ -1634,6 +1634,159 @@
         "diagnostics": [],
         "order": 158
       }
+    },
+    {
+      "cycleId": "eaa93073-76b3-4722-8be7-8da7f64623c1",
+      "requirementId": "REQ-POTTERY-018",
+      "testId": "TEST-POTTERY-018-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "red": {
+        "phase": "red",
+        "valid": false,
+        "scoped": true,
+        "resultObserved": false,
+        "commandSha256": "263633e61a5d17a3a10c9dcf078ffdceddb559df81ed9a10a2daedfa6c5d6bf1",
+        "outputSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "exitCode": 2,
+        "durationMs": 49559,
+        "testFingerprint": "a8627d3e111fd56d78f46ffa07b935cc9fb1ba4d19b68887b2eabda760afee2f",
+        "sourceFingerprint": "1c160c894e7ae51d49f82d7aac3654b6fcc2b2f51a21b7c86d0c9022c0f96a8a",
+        "executionId": "47fdb0da-a5aa-4c78-b1d1-32287d03ae86",
+        "recordedAt": "2026-09-12T07:17:52.815Z",
+        "diagnostics": [
+          {
+            "code": "TDD_REPORT_MISSING",
+            "severity": "error",
+            "message": "TEST-POTTERY-018-002 did not produce a fresh structured TDD report.",
+            "path": ".musubix/reports/tdd/TEST-POTTERY-018-002.json"
+          }
+        ],
+        "order": 165
+      }
+    },
+    {
+      "cycleId": "ac434e19-f182-4068-a302-c5a6677a361a",
+      "requirementId": "REQ-POTTERY-005",
+      "testId": "TEST-POTTERY-005-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "red": {
+        "phase": "red",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "failed",
+        "reportSha256": "1be55fe3192b1f30d23bff2bb0781755ecffa1a0bfb6758d7bb821c939081ee9",
+        "commandSha256": "a91e5c9210ff59709e8826873a363c3e7b2836e2f909cd949835366a40a47bea",
+        "outputSha256": "0b7cad69889b005e31616f416c3df2ff9d695bcce9b64b5fdc5c59474e3a6d53",
+        "exitCode": 1,
+        "durationMs": 62492,
+        "testFingerprint": "9bb03d8d50571d239a2edf21dd83687f608c7b51c61bbb20f911c58bfb304939",
+        "sourceFingerprint": "18a1cfc56083b490b0d61df90cb2a8a0ee163f05ff30620f6c3707d868137ed7",
+        "executionId": "09647295-79c0-47e0-ba38-ee9fd556d2c2",
+        "recordedAt": "2026-09-12T07:19:24.627Z",
+        "diagnostics": [],
+        "order": 166
+      },
+      "green": {
+        "phase": "green",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "passed",
+        "reportSha256": "6be57a81b80eb19eefc18c1263bf2f58cd7eb57295bd8d8a37d19e335a12cdf0",
+        "commandSha256": "a91e5c9210ff59709e8826873a363c3e7b2836e2f909cd949835366a40a47bea",
+        "outputSha256": "8410d83697e551a0f654e3dd1e95b670a72abe84cdf7518b50a36c8946a9b6a3",
+        "exitCode": 0,
+        "durationMs": 65473,
+        "testFingerprint": "9bb03d8d50571d239a2edf21dd83687f608c7b51c61bbb20f911c58bfb304939",
+        "sourceFingerprint": "7e2d7cacba068d76a64b76ff5288dfd23727c95fe5e01e4d499d1abba6ddbaf6",
+        "executionId": "73dfa0e0-f432-4fcd-b943-3a89c242a68c",
+        "recordedAt": "2026-09-12T07:20:33.617Z",
+        "diagnostics": [],
+        "order": 167
+      }
+    },
+    {
+      "cycleId": "c95afa3a-fc6a-44ea-881f-a0641eb8d007",
+      "requirementId": "REQ-POTTERY-018",
+      "testId": "TEST-POTTERY-018-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "red": {
+        "phase": "red",
+        "valid": false,
+        "scoped": true,
+        "resultObserved": false,
+        "testStatus": "passed",
+        "reportSha256": "1c322fd2f7bed2e26b16e33b6cd01feb8aabf33dc28ea923c9bff5306e2f498c",
+        "commandSha256": "263633e61a5d17a3a10c9dcf078ffdceddb559df81ed9a10a2daedfa6c5d6bf1",
+        "outputSha256": "fbd8198ea0bf245bd8789e41f38b79f93cfe6b3a3d0d81d723cf3a1625cae369",
+        "exitCode": 0,
+        "durationMs": 51620,
+        "testFingerprint": "a8627d3e111fd56d78f46ffa07b935cc9fb1ba4d19b68887b2eabda760afee2f",
+        "sourceFingerprint": "89048ae08b208e0f51e1d793489acc4084508b92040ec64f75fa86a93ace1714",
+        "executionId": "d8b90f8b-2816-44a2-b89e-f0c5590ca1e6",
+        "recordedAt": "2026-09-12T07:21:29.001Z",
+        "diagnostics": [
+          {
+            "code": "TDD_TARGET_RESULT",
+            "severity": "error",
+            "message": "red requires TEST-POTTERY-018-002 to report failed, observed passed.",
+            "path": ".musubix/reports/tdd/TEST-POTTERY-018-002.json"
+          },
+          {
+            "code": "TDD_PHASE_RESULT",
+            "severity": "error",
+            "message": "red requires a completed command with nonzero exit status."
+          }
+        ],
+        "order": 168
+      }
+    },
+    {
+      "cycleId": "66ff77bf-2ed8-4b07-9737-b19ff18b051b",
+      "requirementId": "REQ-POTTERY-018",
+      "testId": "TEST-POTTERY-018-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "red": {
+        "phase": "red",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "failed",
+        "reportSha256": "a307023cca32e5ce28a2bb6048700c24b98163764ef0a7c04ac2607989574f73",
+        "commandSha256": "263633e61a5d17a3a10c9dcf078ffdceddb559df81ed9a10a2daedfa6c5d6bf1",
+        "outputSha256": "027612afe6e22d2a8ced04a59f1570113dc9e85e990851c08120fad8be5ea762",
+        "exitCode": 1,
+        "durationMs": 61051,
+        "testFingerprint": "a8627d3e111fd56d78f46ffa07b935cc9fb1ba4d19b68887b2eabda760afee2f",
+        "sourceFingerprint": "dc327f20f6e1d410a8cd936faacb21f6c6fe0d151e15ef9eb901020199293198",
+        "executionId": "a5fc0e42-105d-424f-81f3-7201efb022fb",
+        "recordedAt": "2026-09-12T07:25:34.133Z",
+        "diagnostics": [],
+        "order": 169
+      },
+      "green": {
+        "phase": "green",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "passed",
+        "reportSha256": "1c322fd2f7bed2e26b16e33b6cd01feb8aabf33dc28ea923c9bff5306e2f498c",
+        "commandSha256": "263633e61a5d17a3a10c9dcf078ffdceddb559df81ed9a10a2daedfa6c5d6bf1",
+        "outputSha256": "fbd8198ea0bf245bd8789e41f38b79f93cfe6b3a3d0d81d723cf3a1625cae369",
+        "exitCode": 0,
+        "durationMs": 59651,
+        "testFingerprint": "a8627d3e111fd56d78f46ffa07b935cc9fb1ba4d19b68887b2eabda760afee2f",
+        "sourceFingerprint": "4c58d66418c04d83f3333d6c9eccda4d46166391b615b4ffc7ebeb1c6429f79f",
+        "executionId": "9c781aef-206d-4420-a1c9-bdaa39299412",
+        "recordedAt": "2026-09-12T07:26:36.633Z",
+        "diagnostics": [],
+        "order": 170
+      }
     }
   ],
   "chain": [
@@ -2548,6 +2701,78 @@
       "phaseEvidenceSha256": "3b2168fb16723ec74fda919bd599b2aa154ecc5c298db1abcd6d3c959d10a650",
       "previousSha256": "1c954d0323433d7680a1d06d3dc2a28c8c33cadc35c4b365dae0b12555adccf3",
       "recordSha256": "e4a1ec4334ae1ee36f5c1ce297600dac75e8023741f07ecb130271094d686ae0"
+    },
+    {
+      "sequence": 77,
+      "cycleId": "eaa93073-76b3-4722-8be7-8da7f64623c1",
+      "requirementId": "REQ-POTTERY-018",
+      "testId": "TEST-POTTERY-018-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "red",
+      "phaseEvidenceSha256": "3edfa6ab8305c6c5af409324ab86b8269975745cd8231d09a8601471ea3d87cc",
+      "previousSha256": "e4a1ec4334ae1ee36f5c1ce297600dac75e8023741f07ecb130271094d686ae0",
+      "recordSha256": "f6e53a329a90380fd8428cda68bc9f1dc4d16a17b4ed5865f551742623cd9dba"
+    },
+    {
+      "sequence": 78,
+      "cycleId": "ac434e19-f182-4068-a302-c5a6677a361a",
+      "requirementId": "REQ-POTTERY-005",
+      "testId": "TEST-POTTERY-005-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "red",
+      "phaseEvidenceSha256": "a3eeaec08862af4ce97ad3eccc4a545e34323675ce3f6808498ba8f566317e42",
+      "previousSha256": "f6e53a329a90380fd8428cda68bc9f1dc4d16a17b4ed5865f551742623cd9dba",
+      "recordSha256": "009e283f1b3c7cff38d49015652296b5eeaf526d8d5f1fd3f58496851129dd58"
+    },
+    {
+      "sequence": 79,
+      "cycleId": "ac434e19-f182-4068-a302-c5a6677a361a",
+      "requirementId": "REQ-POTTERY-005",
+      "testId": "TEST-POTTERY-005-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "green",
+      "phaseEvidenceSha256": "d158d90269dda26a7f4042fcdaf930b3f7ed94aea867f1dd615dee8b58b2093f",
+      "previousSha256": "009e283f1b3c7cff38d49015652296b5eeaf526d8d5f1fd3f58496851129dd58",
+      "recordSha256": "4f82b569b1fd039da4ca25005691a7396758f9fcb2c7b800484decccc9308ddd"
+    },
+    {
+      "sequence": 80,
+      "cycleId": "c95afa3a-fc6a-44ea-881f-a0641eb8d007",
+      "requirementId": "REQ-POTTERY-018",
+      "testId": "TEST-POTTERY-018-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "red",
+      "phaseEvidenceSha256": "0ec0a9d3921ce6fc0e29e1293d1bfa457ed9defb57d4c27bc5d46f680f5833a0",
+      "previousSha256": "4f82b569b1fd039da4ca25005691a7396758f9fcb2c7b800484decccc9308ddd",
+      "recordSha256": "eae368180bad39e9a295784f062a12740753e67223b6267035df304ef51a9bbb"
+    },
+    {
+      "sequence": 81,
+      "cycleId": "66ff77bf-2ed8-4b07-9737-b19ff18b051b",
+      "requirementId": "REQ-POTTERY-018",
+      "testId": "TEST-POTTERY-018-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "red",
+      "phaseEvidenceSha256": "ab8452e6f272a48a2d43bb8486cbec68440af57be3b91de29becc662bc8738f8",
+      "previousSha256": "eae368180bad39e9a295784f062a12740753e67223b6267035df304ef51a9bbb",
+      "recordSha256": "58a601e2cba28eddc138e5ff444d3dc61b88b70fcea53e94686249f97ef8131e"
+    },
+    {
+      "sequence": 82,
+      "cycleId": "66ff77bf-2ed8-4b07-9737-b19ff18b051b",
+      "requirementId": "REQ-POTTERY-018",
+      "testId": "TEST-POTTERY-018-002",
+      "testPath": "tests/test_fragment_matching.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "green",
+      "phaseEvidenceSha256": "e1140849fd1cc499d14496003d2db3c6db10dfac0af00e62f0a8f1722b2482bf",
+      "previousSha256": "58a601e2cba28eddc138e5ff444d3dc61b88b70fcea53e94686249f97ef8131e",
+      "recordSha256": "5da7ccb1abbe9978260fcbe46dd92757e4c3f978e322ffa42d85a985c730b63b"
     }
   ]
 }
