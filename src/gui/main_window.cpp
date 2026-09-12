@@ -20,7 +20,6 @@
 
 #include <QVTKOpenGLNativeWidget.h>
 #include <vtkActor.h>
-#include <vtkBillboardTextActor3D.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkFeatureEdges.h>
@@ -34,6 +33,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+#include <vtkTextActor.h>
 #include <vtkTextProperty.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
@@ -523,60 +523,31 @@ void MainWindow::refreshViewport() {
       renderer_->AddActor(edgeActor);
       renderer_->AddActor(actor);
 
-      // 破片番号をラベルとして3D空間内に表示する（破片の識別を容易に
-      // するため）。vtkBillboardTextActor3Dは常にカメラの方を向くため、
-      // 視点を変えても番号が読みやすい。曲面破片ではバウンディングボックス
-      // 中心が破片自体の表面よりわずかに内側（裏側）に位置することがあり、
-      // その場合ラベルが破片本体に隠れて表示されない問題があった。これを
-      // 防ぐため、頂点法線の平均（=破片の外向き方向）に沿ってラベル位置を
-      // ごくわずかに表面の外側へオフセットする。オフセット量は破片の
-      // バウンディングボックス対角線に比例した小さな値とし、ラベルが
-      // 破片から離れて浮いて見えないよう、あくまで表面に貼り付いたように
-      // 見える範囲にとどめる。
+      // 破片番号をラベルとして表示する（破片の識別を容易にするため）。
+      // 3Dアクターとして配置すると、曲面破片ではラベル位置が他のポリゴン
+      // （自破片の裏側や隣接破片）にデプス判定で隠れてしまう問題があった。
+      // これを避けるため、vtkTextActor（2Dオーバーレイ）のPositionCoordinate
+      // にワールド座標を設定する方式に変更する。2Dオーバーレイは3Dシーンの
+      // 深度バッファの影響を受けず、常にポリゴンより手前（最前面）に描画
+      // されるため、どの破片の番号も隠れずに常に見える。
       transformFilter->Update();
       double bounds[6];
       transformFilter->GetOutput()->GetBounds(bounds);
       const double centerX = (bounds[0] + bounds[1]) / 2.0;
       const double centerY = (bounds[2] + bounds[3]) / 2.0;
       const double centerZ = (bounds[4] + bounds[5]) / 2.0;
-      const double diagonal = std::sqrt(
-          (bounds[1] - bounds[0]) * (bounds[1] - bounds[0]) +
-          (bounds[3] - bounds[2]) * (bounds[3] - bounds[2]) +
-          (bounds[5] - bounds[4]) * (bounds[5] - bounds[4]));
 
-      double outwardNormal[3] = {0.0, 0.0, 0.0};
-      bool haveNormal = false;
-      if (fragmentId < currentClusterFragments_.size()) {
-        const auto& mesh = currentClusterFragments_[fragmentId];
-        double sumX = 0.0, sumY = 0.0, sumZ = 0.0;
-        for (const auto& normal : mesh.normals) {
-          sumX += normal.x;
-          sumY += normal.y;
-          sumZ += normal.z;
-        }
-        const double length = std::sqrt(sumX * sumX + sumY * sumY + sumZ * sumZ);
-        if (length > 1e-6) {
-          const double localNormal[3] = {sumX / length, sumY / length, sumZ / length};
-          transform->TransformNormal(localNormal, outwardNormal);
-          haveNormal = true;
-        }
-      }
-      const double offsetDistance =
-          haveNormal ? std::min(std::max(diagonal * 0.06, 1.0), 4.0) : 0.0;
-      const double labelX = centerX + outwardNormal[0] * offsetDistance;
-      const double labelY = centerY + outwardNormal[1] * offsetDistance;
-      const double labelZ = centerZ + outwardNormal[2] * offsetDistance;
-
-      auto label = vtkSmartPointer<vtkBillboardTextActor3D>::New();
+      auto label = vtkSmartPointer<vtkTextActor>::New();
       label->SetInput(std::to_string(fragmentId).c_str());
-      label->SetPosition(labelX, labelY, labelZ);
+      label->GetPositionCoordinate()->SetCoordinateSystemToWorld();
+      label->GetPositionCoordinate()->SetValue(centerX, centerY, centerZ);
       label->GetTextProperty()->SetColor(1.0, 1.0, 1.0);
-      label->GetTextProperty()->SetFontSize(18);
+      label->GetTextProperty()->SetFontSize(16);
       label->GetTextProperty()->SetBold(true);
       label->GetTextProperty()->SetJustificationToCentered();
       label->GetTextProperty()->SetVerticalJustificationToCentered();
       label->PickableOff();
-      renderer_->AddActor(label);
+      renderer_->AddActor2D(label);
     }
   }
 
