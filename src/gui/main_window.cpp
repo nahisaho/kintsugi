@@ -3,21 +3,23 @@
 #include <cmath>
 #include <fstream>
 #include <functional>
+#include <limits>
 #include <sstream>
 #include <string>
+#include <unordered_set>
 
 #include <QComboBox>
-#include <QDoubleSpinBox>
 #include <QEvent>
 #include <QFileDialog>
 #include <QGroupBox>
 #include <QHBoxLayout>
+#include <QKeySequence>
 #include <QLabel>
 #include <QListWidget>
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QPushButton>
-#include <QSpinBox>
+#include <QShortcut>
 #include <QToolTip>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -148,6 +150,40 @@ vtkSmartPointer<vtkMatrix4x4> buildTransformMatrix(const kintsugi::core::Propaga
   return matrix;
 }
 
+// 「マッチしない破片」（接合候補が一つも存在しない破片）を並べる画面左の
+// スタック配置のパラメータ。カメラの既定姿勢（azimuth=0, elevation=0,
+// Z軸を鉛直上向き）では、視点から見て画面左は世界座標のY軸方向のうち
+// 焦点から見て+X側にあたるため、+X方向へ壺本体の外側まで離した位置に、
+// Z軸方向へ一定間隔で積み上げて配置する。
+constexpr double kStagingBaseX = 130.0;
+constexpr double kStagingSpacingZ = 35.0;
+
+// マウスドラッグ操作中、スクリーン座標(displayX, displayY)を、指定した
+// 基準奥行き(referenceDepth、vtkRenderer::WorldToDisplay()のZ成分と同じ
+// 正規化デバイス座標系の値)における世界座標へ変換する。ドラッグ開始時に
+// ピックした点と同じ奥行きの平面上を、破片がカメラ正面に平行移動する
+// ように見えるドラッグ操作を実現するための標準的なVTKの手法。
+kintsugi::core::Vec3 displayToWorldAtDepth(vtkRenderer* renderer, double displayX, double displayY,
+                                            double referenceDepth) {
+  renderer->SetDisplayPoint(displayX, displayY, referenceDepth);
+  renderer->DisplayToWorld();
+  double world[4];
+  renderer->GetWorldPoint(world);
+  if (std::abs(world[3]) > 1e-9) {
+    return kintsugi::core::Vec3{world[0] / world[3], world[1] / world[3], world[2] / world[3]};
+  }
+  return kintsugi::core::Vec3{world[0], world[1], world[2]};
+}
+
+// 世界座標の1点に対応する、displayToWorldAtDepth()で使う基準奥行き値を求める。
+double worldToDisplayDepth(vtkRenderer* renderer, const kintsugi::core::Vec3& worldPoint) {
+  renderer->SetWorldPoint(worldPoint.x, worldPoint.y, worldPoint.z, 1.0);
+  renderer->WorldToDisplay();
+  double display[3];
+  renderer->GetDisplayPoint(display);
+  return display[2];
+}
+
 }  // namespace
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
@@ -194,14 +230,46 @@ void MainWindow::buildUi() {
   auto* panel = new QWidget(central);
   auto* panelLayout = new QVBoxLayout(panel);
 
-  // 視点操作ナビゲーター（REQ-POTTERY-014の回転・拡大縮小・移動をボタン
-  // 操作で行えるようにする）。
-  auto* navGroup = new QGroupBox(QStringLiteral("視点操作"), panel);
-  auto* navLayout = new QVBoxLayout(navGroup);
   constexpr double kPanStepMm = 20.0;
   constexpr double kZoomInFactor = 1.2;
   constexpr double kZoomOutFactor = 1.0 / kZoomInFactor;
   constexpr double kRotateStepDeg = 15.0;
+
+  auto* importGroup = new QGroupBox(QStringLiteral("1. インポート・クラスタリング"), panel);
+  auto* importLayout = new QVBoxLayout(importGroup);
+  auto* importButton = new QPushButton(QStringLiteral("スキャンをインポート..."), importGroup);
+  connect(importButton, &QPushButton::clicked, this, &MainWindow::onImportScans);
+  importLayout->addWidget(importButton);
+  auto* clearImportButton = new QPushButton(QStringLiteral("インポート済みデータをクリア"), importGroup);
+  connect(clearImportButton, &QPushButton::clicked, this, &MainWindow::onClearImportedScans);
+  importLayout->addWidget(clearImportButton);
+  auto* clusterButton = new QPushButton(QStringLiteral("クラスタリング実行"), importGroup);
+  connect(clusterButton, &QPushButton::clicked, this, &MainWindow::onRunClustering);
+  importLayout->addWidget(clusterButton);
+  clusterCombo_ = new QComboBox(importGroup);
+  connect(clusterCombo_, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+          &MainWindow::onClusterSelectionChanged);
+  importLayout->addWidget(clusterCombo_);
+  panelLayout->addWidget(importGroup);
+
+  auto* candidateGroup = new QGroupBox(QStringLiteral("2. 接合候補"), panel);
+  auto* candidateLayout = new QVBoxLayout(candidateGroup);
+  candidateList_ = new QListWidget(candidateGroup);
+  candidateLayout->addWidget(candidateList_);
+  auto* candidateButtons = new QHBoxLayout();
+  auto* acceptButton = new QPushButton(QStringLiteral("採用"), candidateGroup);
+  connect(acceptButton, &QPushButton::clicked, this, &MainWindow::onAcceptSelectedCandidate);
+  candidateButtons->addWidget(acceptButton);
+  auto* rejectButton = new QPushButton(QStringLiteral("却下"), candidateGroup);
+  connect(rejectButton, &QPushButton::clicked, this, &MainWindow::onRejectSelectedCandidate);
+  candidateButtons->addWidget(rejectButton);
+  candidateLayout->addLayout(candidateButtons);
+  panelLayout->addWidget(candidateGroup);
+
+  // 視点操作ナビゲーター（REQ-POTTERY-014の回転・拡大縮小・移動をボタン
+  // 操作で行えるようにする）。接合候補パネルの下に配置する。
+  auto* navGroup = new QGroupBox(QStringLiteral("視点操作"), panel);
+  auto* navLayout = new QVBoxLayout(navGroup);
 
   auto* zoomRow = new QHBoxLayout();
   auto* zoomInButton = new QPushButton(QStringLiteral("前進"), navGroup);
@@ -253,71 +321,13 @@ void MainWindow::buildUi() {
   navLayout->addLayout(rotateRow);
   panelLayout->addWidget(navGroup);
 
-  auto* importGroup = new QGroupBox(QStringLiteral("1. インポート・クラスタリング"), panel);
-  auto* importLayout = new QVBoxLayout(importGroup);
-  auto* importButton = new QPushButton(QStringLiteral("スキャンをインポート..."), importGroup);
-  connect(importButton, &QPushButton::clicked, this, &MainWindow::onImportScans);
-  importLayout->addWidget(importButton);
-  auto* clearImportButton = new QPushButton(QStringLiteral("インポート済みデータをクリア"), importGroup);
-  connect(clearImportButton, &QPushButton::clicked, this, &MainWindow::onClearImportedScans);
-  importLayout->addWidget(clearImportButton);
-  auto* clusterButton = new QPushButton(QStringLiteral("クラスタリング実行"), importGroup);
-  connect(clusterButton, &QPushButton::clicked, this, &MainWindow::onRunClustering);
-  importLayout->addWidget(clusterButton);
-  clusterCombo_ = new QComboBox(importGroup);
-  connect(clusterCombo_, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-          &MainWindow::onClusterSelectionChanged);
-  importLayout->addWidget(clusterCombo_);
-  panelLayout->addWidget(importGroup);
-
-  auto* candidateGroup = new QGroupBox(QStringLiteral("2. 接合候補"), panel);
-  auto* candidateLayout = new QVBoxLayout(candidateGroup);
-  candidateList_ = new QListWidget(candidateGroup);
-  candidateLayout->addWidget(candidateList_);
-  auto* candidateButtons = new QHBoxLayout();
-  auto* acceptButton = new QPushButton(QStringLiteral("採用"), candidateGroup);
-  connect(acceptButton, &QPushButton::clicked, this, &MainWindow::onAcceptSelectedCandidate);
-  candidateButtons->addWidget(acceptButton);
-  auto* rejectButton = new QPushButton(QStringLiteral("却下"), candidateGroup);
-  connect(rejectButton, &QPushButton::clicked, this, &MainWindow::onRejectSelectedCandidate);
-  candidateButtons->addWidget(rejectButton);
-  candidateLayout->addLayout(candidateButtons);
-  panelLayout->addWidget(candidateGroup);
-
-  auto* manualGroup = new QGroupBox(QStringLiteral("3. 手動微調整（REQ-POTTERY-008）"), panel);
-  auto* manualLayout = new QVBoxLayout(manualGroup);
-  auto* fragmentRow = new QHBoxLayout();
-  fragmentRow->addWidget(new QLabel(QStringLiteral("破片ID:"), manualGroup));
-  dragFragmentSpin_ = new QSpinBox(manualGroup);
-  dragFragmentSpin_->setRange(0, 100000);
-  fragmentRow->addWidget(dragFragmentSpin_);
-  manualLayout->addLayout(fragmentRow);
-  auto* dxyzRow = new QHBoxLayout();
-  dragDxSpin_ = new QDoubleSpinBox(manualGroup);
-  dragDxSpin_->setRange(-100000.0, 100000.0);
-  dragDxSpin_->setPrefix(QStringLiteral("dx="));
-  dragDySpin_ = new QDoubleSpinBox(manualGroup);
-  dragDySpin_->setRange(-100000.0, 100000.0);
-  dragDySpin_->setPrefix(QStringLiteral("dy="));
-  dragDzSpin_ = new QDoubleSpinBox(manualGroup);
-  dragDzSpin_->setRange(-100000.0, 100000.0);
-  dragDzSpin_->setPrefix(QStringLiteral("dz="));
-  dxyzRow->addWidget(dragDxSpin_);
-  dxyzRow->addWidget(dragDySpin_);
-  dxyzRow->addWidget(dragDzSpin_);
-  manualLayout->addLayout(dxyzRow);
-  auto* applyDragButton = new QPushButton(QStringLiteral("手動移動を適用"), manualGroup);
-  connect(applyDragButton, &QPushButton::clicked, this, &MainWindow::onApplyManualDrag);
-  manualLayout->addWidget(applyDragButton);
-  auto* undoRedoRow = new QHBoxLayout();
-  auto* undoButton = new QPushButton(QStringLiteral("元に戻す(undo)"), manualGroup);
-  connect(undoButton, &QPushButton::clicked, this, &MainWindow::onUndo);
-  undoRedoRow->addWidget(undoButton);
-  auto* redoButton = new QPushButton(QStringLiteral("やり直す(redo)"), manualGroup);
-  connect(redoButton, &QPushButton::clicked, this, &MainWindow::onRedo);
-  undoRedoRow->addWidget(redoButton);
-  manualLayout->addLayout(undoRedoRow);
-  panelLayout->addWidget(manualGroup);
+  // 手動微調整（REQ-POTTERY-008）は、専用パネルではなく3Dビューア上での
+  // マウスドラッグ操作（beginFragmentDrag/updateFragmentDrag/endFragmentDrag）
+  // で行う。取り消し・やり直しはCtrl+Z/Ctrl+Yのショートカットから行える。
+  auto* undoShortcut = new QShortcut(QKeySequence::Undo, this);
+  connect(undoShortcut, &QShortcut::activated, this, &MainWindow::onUndo);
+  auto* redoShortcut = new QShortcut(QKeySequence::Redo, this);
+  connect(redoShortcut, &QShortcut::activated, this, &MainWindow::onRedo);
 
   auto* exportGroup = new QGroupBox(QStringLiteral("4. 出力"), panel);
   auto* exportLayout = new QVBoxLayout(exportGroup);
@@ -427,7 +437,6 @@ void MainWindow::onClusterSelectionChanged(int index) {
   }
   orchestrator_ = std::make_unique<AssemblyOrchestrator>(fragmentIds);
   dispatcher_ = std::make_unique<GuiCommandDispatcher>(*orchestrator_);
-  dragFragmentSpin_->setRange(0, fragmentIds.empty() ? 0 : static_cast<int>(fragmentIds.size()) - 1);
   refreshCandidateList();
   refreshViewport();
 }
@@ -505,19 +514,6 @@ void MainWindow::onRejectSelectedCandidate() {
   refreshViewport();
 }
 
-void MainWindow::onApplyManualDrag() {
-  if (!dispatcher_) {
-    setStatusMessage(QStringLiteral("先にクラスタリングを実行してください。"));
-    return;
-  }
-  PropagatedPose transform;
-  transform.translationMm =
-      Vec3{dragDxSpin_->value(), dragDySpin_->value(), dragDzSpin_->value()};
-  dispatcher_->applyManualDrag(static_cast<std::size_t>(dragFragmentSpin_->value()), transform);
-  setStatusMessage(QStringLiteral("手動微調整を適用しました。"));
-  refreshViewport();
-}
-
 void MainWindow::onUndo() {
   if (!dispatcher_) {
     return;
@@ -587,9 +583,25 @@ void MainWindow::onZoomView(double factor) {
 }
 
 bool MainWindow::eventFilter(QObject* watched, QEvent* event) {
-  if (watched == viewportWidget_ && event->type() == QEvent::MouseMove) {
-    auto* mouseEvent = static_cast<QMouseEvent*>(event);
-    showFragmentTooltipAt(mouseEvent->pos());
+  if (watched == viewportWidget_) {
+    if (event->type() == QEvent::MouseMove) {
+      auto* mouseEvent = static_cast<QMouseEvent*>(event);
+      if (draggingFragment_) {
+        updateFragmentDrag(mouseEvent->pos());
+      } else {
+        showFragmentTooltipAt(mouseEvent->pos());
+      }
+    } else if (event->type() == QEvent::MouseButtonPress) {
+      auto* mouseEvent = static_cast<QMouseEvent*>(event);
+      if (mouseEvent->button() == Qt::LeftButton) {
+        beginFragmentDrag(mouseEvent->pos());
+      }
+    } else if (event->type() == QEvent::MouseButtonRelease) {
+      auto* mouseEvent = static_cast<QMouseEvent*>(event);
+      if (mouseEvent->button() == Qt::LeftButton && draggingFragment_) {
+        endFragmentDrag();
+      }
+    }
   }
   return QMainWindow::eventFilter(watched, event);
 }
@@ -618,14 +630,98 @@ void MainWindow::showFragmentTooltipAt(const QPoint& widgetPos) {
                       QStringLiteral("破片 #%1").arg(it->second), viewportWidget_);
 }
 
+void MainWindow::beginFragmentDrag(const QPoint& widgetPos) {
+  // マウスドラッグによる破片の手動フィット確認（REQ-POTTERY-008）。
+  // クリックした破片をピックできた場合のみドラッグを開始する。
+  if (!renderer_ || !viewportWidget_ || !dispatcher_) {
+    return;
+  }
+  const int vtkY = viewportWidget_->height() - widgetPos.y();
+  auto picker = vtkSmartPointer<vtkPropPicker>::New();
+  if (picker->PickProp(widgetPos.x(), vtkY, renderer_) == 0) {
+    return;
+  }
+  vtkActor* pickedActor = picker->GetActor();
+  const auto actorIt = fragmentActorIds_.find(pickedActor);
+  if (actorIt == fragmentActorIds_.end()) {
+    return;
+  }
+  const std::size_t fragmentId = actorIt->second;
+  const auto poseIt = displayedPoses_.find(fragmentId);
+  if (poseIt == displayedPoses_.end()) {
+    return;
+  }
+  double pickPos[3];
+  picker->GetPickPosition(pickPos);
+  const kintsugi::core::Vec3 worldPick{pickPos[0], pickPos[1], pickPos[2]};
+
+  draggingFragment_ = true;
+  draggingFragmentId_ = fragmentId;
+  draggingRotation_ = poseIt->second.rotation;
+  draggingCurrentTranslation_ = poseIt->second.translationMm;
+  draggingLastWorldPoint_ = worldPick;
+  draggingReferenceDepth_ = worldToDisplayDepth(renderer_, worldPick);
+  QToolTip::hideText();
+}
+
+void MainWindow::updateFragmentDrag(const QPoint& widgetPos) {
+  // ドラッグ開始時にピックした点と同じ奥行きの平面上で破片を追従させる。
+  // マウスボタンを離すまではdispatcher_へは反映せず、見た目のみ即時更新
+  // する（undoスタックを細かい移動量で埋めないため）。
+  if (!renderer_ || !viewportWidget_) {
+    return;
+  }
+  const double vtkY = viewportWidget_->height() - widgetPos.y();
+  const kintsugi::core::Vec3 worldPoint =
+      displayToWorldAtDepth(renderer_, widgetPos.x(), vtkY, draggingReferenceDepth_);
+  draggingCurrentTranslation_.x += worldPoint.x - draggingLastWorldPoint_.x;
+  draggingCurrentTranslation_.y += worldPoint.y - draggingLastWorldPoint_.y;
+  draggingCurrentTranslation_.z += worldPoint.z - draggingLastWorldPoint_.z;
+  draggingLastWorldPoint_ = worldPoint;
+  liveDragTranslations_[draggingFragmentId_] = draggingCurrentTranslation_;
+  refreshViewport();
+}
+
+void MainWindow::endFragmentDrag() {
+  // ドラッグ確定：最終位置をdispatcher_->applyManualDrag()で一度だけ反映し、
+  // undo/redoの1操作として記録する（REQ-POTTERY-008/REQ-POTTERY-026）。
+  const bool wasDragging = draggingFragment_;
+  draggingFragment_ = false;
+  if (!wasDragging || !dispatcher_) {
+    return;
+  }
+  kintsugi::core::PropagatedPose transform;
+  transform.translationMm = draggingCurrentTranslation_;
+  transform.rotation = draggingRotation_;
+  dispatcher_->applyManualDrag(draggingFragmentId_, transform);
+  liveDragTranslations_.erase(draggingFragmentId_);
+  setStatusMessage(
+      QStringLiteral("マウスドラッグで破片 #%1 を移動しました。").arg(draggingFragmentId_));
+  refreshViewport();
+}
+
 void MainWindow::refreshViewport() {
   if (!renderer_) {
     return;
   }
   renderer_->RemoveAllViewProps();
   fragmentActorIds_.clear();
+  displayedPoses_.clear();
   if (orchestrator_) {
     const auto& state = orchestrator_->state();
+
+    // 接合候補計算（currentCandidates_）で一件も候補が得られなかった破片は
+    // 「マッチしない破片」（壺本体とは別由来と想定）とみなし、画面左に
+    // 一列にまとめて表示する。接合候補が1件以上ある破片は、未接合でも
+    // 従来通りスキャン取得時の元の座標のまま表示し、器物全体の形状を
+    // 視覚的に把握できるようにする。
+    std::unordered_set<std::size_t> fragmentsWithCandidate;
+    for (const auto& candidate : currentCandidates_) {
+      fragmentsWithCandidate.insert(candidate.fragmentIdA);
+      fragmentsWithCandidate.insert(candidate.fragmentIdB);
+    }
+
+    std::size_t stagingSlot = 0;
     for (std::size_t fragmentId : state.fragmentIds) {
       vtkSmartPointer<vtkPolyData> polyData;
       if (fragmentId < currentClusterFragments_.size()) {
@@ -637,16 +733,32 @@ void MainWindow::refreshViewport() {
         polyData = sphere->GetOutput();
       }
 
-      auto transform = vtkSmartPointer<vtkTransform>::New();
-      if (const auto pose = state.resolvedPose(fragmentId)) {
-        transform->SetMatrix(buildTransformMatrix(*pose));
+      kintsugi::core::PropagatedPose displayPose;
+      const auto resolvedPose = state.resolvedPose(fragmentId);
+      const bool isNonMatching = fragmentsWithCandidate.count(fragmentId) == 0;
+      if (resolvedPose) {
+        // 採用済み接合、またはマウスドラッグ等による手動姿勢設定済み
+        // （元がマッチしない破片としてスタック配置されていた場合を含む）。
+        displayPose = *resolvedPose;
+      } else if (isNonMatching) {
+        // マッチしない破片：画面左に一列にスタック配置する。
+        displayPose.translationMm =
+            Vec3{kStagingBaseX, 0.0, static_cast<double>(stagingSlot) * kStagingSpacingZ};
+        ++stagingSlot;
       }
-      // 未接合破片は、変換を適用せずスキャン取得時の元の座標のまま表示する。
-      // これにより、破片が元の器物内でのおおよその位置関係を保持している
-      // スキャンデータ（デモデータ等）では、接合前でも器物全体の形状を
-      // 視覚的に把握できる（REQ-POTTERY-014の「組み立て結果を3Dビューア
-      // 上に表示」に対する、未接合状態でも意味のある可視化を行うための
-      // 実装判断）。
+      // resolvedPoseもなく、接合候補が存在する未接合破片は、変換を適用
+      // せずスキャン取得時の元の座標のまま表示する（displayPoseは恒等姿勢
+      // のまま）。
+      const auto liveIt = liveDragTranslations_.find(fragmentId);
+      if (liveIt != liveDragTranslations_.end()) {
+        // ドラッグ中の破片は、確定前の見た目としてライブの並進値で上書き
+        // する（回転は元のまま）。
+        displayPose.translationMm = liveIt->second;
+      }
+      displayedPoses_[fragmentId] = displayPose;
+
+      auto transform = vtkSmartPointer<vtkTransform>::New();
+      transform->SetMatrix(buildTransformMatrix(displayPose));
       auto transformFilter = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
       transformFilter->SetTransform(transform);
       transformFilter->SetInputData(polyData);
@@ -659,6 +771,8 @@ void MainWindow::refreshViewport() {
       const bool joined = state.hasAcceptedJoin(fragmentId);
       if (joined) {
         actor->GetProperty()->SetColor(0.2, 0.7, 0.3);
+      } else if (isNonMatching) {
+        actor->GetProperty()->SetColor(0.55, 0.55, 0.6);
       } else {
         actor->GetProperty()->SetColor(0.7, 0.4, 0.2);
       }
@@ -686,9 +800,10 @@ void MainWindow::refreshViewport() {
       edgeActor->GetProperty()->SetLineWidth(3.0);
       renderer_->AddActor(edgeActor);
       renderer_->AddActor(actor);
-      // マウスホバー時のツールチップ表示のため、実体アクターと破片IDの
-      // 対応を記録する（境界エッジ用アクターは対象外）。破片番号は常時
-      // 表面に表示するのではなく、ホバー時のツールチップのみで示す。
+      // マウスホバー時のツールチップ表示、およびマウスドラッグ開始時の
+      // 破片特定のため、実体アクターと破片IDの対応を記録する（境界エッジ
+      // 用アクターは対象外）。破片番号は常時表面に表示するのではなく、
+      // ホバー時のツールチップのみで示す。
       fragmentActorIds_[actor.Get()] = fragmentId;
     }
   }
