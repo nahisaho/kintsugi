@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T01:32:28.978Z",
+  "generatedAt": "2026-09-12T01:45:42.985Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -344,6 +344,12 @@
       "line": 58
     },
     {
+      "id": "CODE-POTTERY-007",
+      "kind": "code",
+      "path": "src/core/report_aggregation.hpp",
+      "line": 13
+    },
+    {
       "id": "CODE-POTTERY-001",
       "kind": "code",
       "path": "src/core/scan_importer.hpp",
@@ -438,6 +444,24 @@
       "kind": "test",
       "path": "tests/test_pose_conflict.cpp",
       "line": 24
+    },
+    {
+      "id": "TEST-POTTERY-009-001",
+      "kind": "test",
+      "path": "tests/test_report_aggregation.cpp",
+      "line": 46
+    },
+    {
+      "id": "TEST-POTTERY-013-001",
+      "kind": "test",
+      "path": "tests/test_report_aggregation.cpp",
+      "line": 69
+    },
+    {
+      "id": "TEST-POTTERY-012-001",
+      "kind": "test",
+      "path": "tests/test_report_aggregation.cpp",
+      "line": 101
     },
     {
       "id": "TEST-POTTERY-001-001",
@@ -843,6 +867,26 @@
       "relation": "implements"
     },
     {
+      "from": "CODE-POTTERY-007",
+      "to": "REQ-POTTERY-009",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-007",
+      "to": "REQ-POTTERY-012",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-007",
+      "to": "REQ-POTTERY-013",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-007",
+      "to": "DES-POTTERY-007",
+      "relation": "implements"
+    },
+    {
       "from": "CODE-POTTERY-001",
       "to": "REQ-POTTERY-001",
       "relation": "implements"
@@ -943,6 +987,21 @@
       "relation": "verifies"
     },
     {
+      "from": "TEST-POTTERY-009-001",
+      "to": "REQ-POTTERY-009",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-013-001",
+      "to": "REQ-POTTERY-013",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-012-001",
+      "to": "REQ-POTTERY-012",
+      "relation": "verifies"
+    },
+    {
       "from": "TEST-POTTERY-001-001",
       "to": "REQ-POTTERY-001",
       "relation": "verifies"
@@ -995,6 +1054,8 @@
     "src/core/missing_part_estimation.hpp": "97b5bcc50883e651103c5152aa3d4b665581847c3f122572f4d2844f19d7d60b",
     "src/core/pose_conflict.cpp": "e51dbf023e5c9df2080692091a8e4df8dae756b245c87e0413d6dbe9fca983e5",
     "src/core/pose_conflict.hpp": "6d89a89dcc3630a9ad4e968837f1e1e932bfc1a6688dd5c73fc0db6f62023166",
+    "src/core/report_aggregation.cpp": "908d031681d2258fd34d08cd7e6c99e6c367e53bb530ee5980babdb61084c73a",
+    "src/core/report_aggregation.hpp": "3aff7ffe27c7ccb96cdb681b1739ce5a7146fc434e02874c5e7af51ee159eefa",
     "src/core/scan_importer.cpp": "9da0be01ad9f58d09c828d14d105eef70dbf50bc204aa6a96cdc440a90710278",
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
     "tests/test_assembly_orchestrator.cpp": "f9cc790df73ec6a3f5414504794785d52f733c45e4abba92fc43d306358fcfb7",
@@ -1003,6 +1064,7 @@
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
     "tests/test_missing_part_estimation.cpp": "0271eb477c7f2b2ea79e81ca7f5a5ba477fedf7acaebffa7d198ce1f536bb2b2",
     "tests/test_pose_conflict.cpp": "493851499e0703768cca81c0fbacab4a89ce0ea1e0f81c06c531364ca10261da",
+    "tests/test_report_aggregation.cpp": "43ade6cb3f79ab078f01a1ae12df5ba5b5e36d1210a071f0ea283d556d04609a",
     "tests/test_scan_importer.cpp": "80083f5630d52fcc48aed0112c9dd45122c1fcc1fbdd3f49185796e20a9a2087",
     "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"
   }
