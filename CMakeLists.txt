@@ -10,6 +10,10 @@ include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
+find_package(OpenSSL REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(MINIZIP REQUIRED minizip)
+
 add_library(pottery_core
   src/core/pose_conflict.cpp
   src/core/scan_importer.cpp
@@ -19,11 +23,14 @@ add_library(pottery_core
   src/core/missing_part_estimation.cpp
   src/core/report_aggregation.cpp
   src/core/mesh_export.cpp
+  src/core/project_persistence.cpp
   src/gui/viewport_camera.cpp
   src/gui/gui_command_dispatcher.cpp
 )
 target_include_directories(pottery_core PUBLIC src)
+target_include_directories(pottery_core PRIVATE ${MINIZIP_INCLUDE_DIRS})
 target_link_libraries(pottery_core PUBLIC ${PCL_LIBRARIES})
+target_link_libraries(pottery_core PRIVATE OpenSSL::Crypto ${MINIZIP_LIBRARIES})
 
 add_executable(pottery_tests
   tests/test_main.cpp
@@ -37,6 +44,7 @@ add_executable(pottery_tests
   tests/test_mesh_export.cpp
   tests/test_viewport_camera.cpp
   tests/test_gui_command_dispatcher.cpp
+  tests/test_project_persistence.cpp
 )
 target_include_directories(pottery_tests PRIVATE third_party src)
 target_link_libraries(pottery_tests PRIVATE pottery_core)

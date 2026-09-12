@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T02:33:17.378Z",
+  "generatedAt": "2026-09-12T03:32:34.244Z",
   "status": "fail",
   "checks": [
     {
@@ -54,20 +54,6 @@
         {
           "code": "TRACE_UNCOVERED",
           "severity": "warning",
-          "message": "REQ-POTTERY-015 lacks implementation.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 121
-        },
-        {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
-          "message": "REQ-POTTERY-015 lacks tests.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 121
-        },
-        {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
           "message": "REQ-POTTERY-016 lacks implementation.",
           "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
           "line": 128
@@ -87,56 +73,14 @@
           "line": 158
         },
         {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
-          "message": "REQ-POTTERY-021 lacks implementation.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 173
-        },
-        {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
-          "message": "REQ-POTTERY-021 lacks tests.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 173
-        },
-        {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
-          "message": "REQ-POTTERY-023 lacks implementation.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 202
-        },
-        {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
-          "message": "REQ-POTTERY-023 lacks tests.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 202
-        },
-        {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
-          "message": "REQ-POTTERY-024 lacks implementation.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 209
-        },
-        {
-          "code": "TRACE_UNCOVERED",
-          "severity": "warning",
-          "message": "REQ-POTTERY-024 lacks tests.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 209
+          "code": "TRACE_COVERAGE",
+          "severity": "error",
+          "message": "implementation link coverage 0.9285714285714286 is below 1."
         },
         {
           "code": "TRACE_COVERAGE",
           "severity": "error",
-          "message": "implementation link coverage 0.7857142857142857 is below 1."
-        },
-        {
-          "code": "TRACE_COVERAGE",
-          "severity": "error",
-          "message": "tests link coverage 0.75 is below 1."
+          "message": "tests link coverage 0.8928571428571429 is below 1."
         }
       ]
     },
@@ -281,7 +225,7 @@
       "name": "tdd",
       "required": true,
       "status": "fail",
-      "summary": "34 Red-Green TDD cycle(s) recorded.",
+      "summary": "39 Red-Green TDD cycle(s) recorded.",
       "diagnostics": [
         {
           "code": "TDD_REQUIREMENT_UNCOVERED",
@@ -289,13 +233,6 @@
           "message": "REQ-EXAMPLE-001 has no valid Red-Green cycle from an authoritative verifying test.",
           "path": ".musubix/features/example/requirements.md",
           "line": 10
-        },
-        {
-          "code": "TDD_REQUIREMENT_UNCOVERED",
-          "severity": "error",
-          "message": "REQ-POTTERY-015 has no valid Red-Green cycle from an authoritative verifying test.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 121
         },
         {
           "code": "TDD_REQUIREMENT_UNCOVERED",
@@ -310,27 +247,6 @@
           "message": "REQ-POTTERY-019 has no valid Red-Green cycle from an authoritative verifying test.",
           "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
           "line": 158
-        },
-        {
-          "code": "TDD_REQUIREMENT_UNCOVERED",
-          "severity": "error",
-          "message": "REQ-POTTERY-021 has no valid Red-Green cycle from an authoritative verifying test.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 173
-        },
-        {
-          "code": "TDD_REQUIREMENT_UNCOVERED",
-          "severity": "error",
-          "message": "REQ-POTTERY-023 has no valid Red-Green cycle from an authoritative verifying test.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 202
-        },
-        {
-          "code": "TDD_REQUIREMENT_UNCOVERED",
-          "severity": "error",
-          "message": "REQ-POTTERY-024 has no valid Red-Green cycle from an authoritative verifying test.",
-          "path": ".musubix/features/pottery-fragment-reassembly/requirements.md",
-          "line": 209
         },
         {
           "code": "TDD_LEGACY_OR_UNSCOPED_EVIDENCE",
@@ -371,17 +287,17 @@
       "required": true,
       "status": "pass",
       "summary": "scripts/run_tests.sh: completed, exit 0.",
-      "durationMs": 39792,
+      "durationMs": 43380,
       "exitCode": 0,
-      "stdout": "-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n-- Could NOT find Pcap (missing: PCAP_LIBRARIES PCAP_INCLUDE_DIRS) \n-- Found flann version 1.9.2\n-- looking for PCL_COMMON\n-- looking for PCL_OCTREE\n-- looking for PCL_IO\n-- looking for PCL_SAMPLE_CONSENSUS\n-- looking for PCL_FILTERS\n-- looking for PCL_2D\n-- looking for PCL_FEATURES\n-- looking for PCL_REGISTRATION\n-- looking for PCL_KDTREE\n-- looking for PCL_SEARCH\n-- Configuring done (39.6s)\n-- Generating done (0.0s)\n-- Build files have been written to: /home/nahisaho/GitHub/kintsugi/build\n[ 47%] Built target pottery_core\n[100%] Built target pottery_tests\n[doctest] doctest version is \"2.4.11\"\n[doctest] run with \"--help\" for options\n===============================================================================\n[doctest] test cases:  28 |  28 passed | 0 failed | 0 skipped\n[doctest] assertions: 241 | 241 passed | 0 failed |\n[doctest] Status: SUCCESS!\n",
-      "stderr": "** WARNING ** io features related to pcap will be disabled\nCMake Warning (dev) at /usr/lib/x86_64-linux-gnu/cmake/pcl/Modules/FindFLANN.cmake:45 (find_package):\n  Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT\n  variables.  Run \"cmake --help-policy CMP0144\" for policy details.  Use the\n  cmake_policy command to set the policy and suppress this warning.\n\n  CMake variable FLANN_ROOT is set to:\n\n    /usr\n\n  For compatibility, find_package is ignoring the variable, but code in a\n  .cmake module might still use it.\nCall Stack (most recent call first):\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)\n  CMakeLists.txt:8 (find_package)\nThis warning is for project developers.  Use -Wno-dev to suppress it.\n\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n[pcl::PCDReader::readHeader] number of points is zero.\n[pcl::PCDReader::readHeader] no HEIGHT given, setting to 1 (unorganized).\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n\u001b[0m\u001b[31m2026-09-12 11:33:17.080 (   0.016s) [        55D49AC0]       vtkSTLReader.cxx:657    ERR| vtkSTLReader (0x5d9d65579060): STLReader: error while reading file tests/fixtures/corrupted.stl at line 1: Parse error. Expecting 'solid' found 'this'\u001b[0m\n\u001b[0m\u001b[31m2026-09-12 11:33:17.080 (   0.016s) [        55D49AC0]       vtkExecutive.cxx:752    ERR| vtkCompositeDataPipeline (0x5d9d65579c70): Algorithm vtkSTLReader(0x5d9d65579060) returned failure for request: vtkInformation (0x5d9d65580390)\n  Debug: Off\n  Modified Time: 568\n  Reference Count: 1\n  Registered Events: (none)\n  Request: REQUEST_DATA\n  FROM_OUTPUT_PORT: 0\n  ALGORITHM_AFTER_FORWARD: 1\n  FORWARD_DIRECTION: 0\n\n\u001b[0m\n[pcl::io::vtk2mesh] Given vtkPolyData is misformed (contains nullpointer instead of points).\n[pcl::OBJReader::readHeader] No vertices found!\n[pcl::OBJReader::read] Problem reading header!\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n"
+      "stdout": "-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n-- Could NOT find Pcap (missing: PCAP_LIBRARIES PCAP_INCLUDE_DIRS) \n-- Found flann version 1.9.2\n-- looking for PCL_COMMON\n-- looking for PCL_OCTREE\n-- looking for PCL_IO\n-- looking for PCL_SAMPLE_CONSENSUS\n-- looking for PCL_FILTERS\n-- looking for PCL_2D\n-- looking for PCL_FEATURES\n-- looking for PCL_REGISTRATION\n-- looking for PCL_KDTREE\n-- looking for PCL_SEARCH\n-- Configuring done (43.1s)\n-- Generating done (0.0s)\n-- Build files have been written to: /home/nahisaho/GitHub/kintsugi/build\n[ 48%] Built target pottery_core\n[100%] Built target pottery_tests\n[doctest] doctest version is \"2.4.11\"\n[doctest] run with \"--help\" for options\n===============================================================================\n[doctest] test cases:  33 |  33 passed | 0 failed | 0 skipped\n[doctest] assertions: 281 | 281 passed | 0 failed |\n[doctest] Status: SUCCESS!\n",
+      "stderr": "** WARNING ** io features related to pcap will be disabled\nCMake Warning (dev) at /usr/lib/x86_64-linux-gnu/cmake/pcl/Modules/FindFLANN.cmake:45 (find_package):\n  Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT\n  variables.  Run \"cmake --help-policy CMP0144\" for policy details.  Use the\n  cmake_policy command to set the policy and suppress this warning.\n\n  CMake variable FLANN_ROOT is set to:\n\n    /usr\n\n  For compatibility, find_package is ignoring the variable, but code in a\n  .cmake module might still use it.\nCall Stack (most recent call first):\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)\n  CMakeLists.txt:8 (find_package)\nThis warning is for project developers.  Use -Wno-dev to suppress it.\n\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n[pcl::PCDReader::readHeader] number of points is zero.\n[pcl::PCDReader::readHeader] no HEIGHT given, setting to 1 (unorganized).\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n\u001b[0m\u001b[31m2026-09-12 12:32:33.940 (   0.023s) [        58850F80]       vtkSTLReader.cxx:657    ERR| vtkSTLReader (0x5fe9b6260a30): STLReader: error while reading file tests/fixtures/corrupted.stl at line 1: Parse error. Expecting 'solid' found 'this'\u001b[0m\n\u001b[0m\u001b[31m2026-09-12 12:32:33.940 (   0.023s) [        58850F80]       vtkExecutive.cxx:752    ERR| vtkCompositeDataPipeline (0x5fe9b6266b40): Algorithm vtkSTLReader(0x5fe9b6260a30) returned failure for request: vtkInformation (0x5fe9b6289000)\n  Debug: Off\n  Modified Time: 568\n  Reference Count: 1\n  Registered Events: (none)\n  Request: REQUEST_DATA\n  FROM_OUTPUT_PORT: 0\n  ALGORITHM_AFTER_FORWARD: 1\n  FORWARD_DIRECTION: 0\n\n\u001b[0m\n[pcl::io::vtk2mesh] Given vtkPolyData is misformed (contains nullpointer instead of points).\n[pcl::OBJReader::readHeader] No vertices found!\n[pcl::OBJReader::read] Problem reading header!\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n"
     },
     {
       "name": "command:cpp-doctest-tdd",
       "required": false,
       "status": "pass",
       "summary": "scripts/run_tdd_test.sh: completed, exit 0.",
-      "durationMs": 6,
+      "durationMs": 5,
       "exitCode": 0,
       "stdout": "run_tdd_test.sh: no TEST-ID supplied; no-op (full suite covered by cpp-tests).\n",
       "stderr": ""
@@ -481,6 +397,31 @@
           "code": "TEST_ID_NOT_PASSED",
           "severity": "error",
           "message": "TEST-POTTERY-027-002 was linked in source but not reported as passed by a successful structured test command."
+        },
+        {
+          "code": "TEST_ID_NOT_PASSED",
+          "severity": "error",
+          "message": "TEST-POTTERY-015-001 was linked in source but not reported as passed by a successful structured test command."
+        },
+        {
+          "code": "TEST_ID_NOT_PASSED",
+          "severity": "error",
+          "message": "TEST-POTTERY-024-001 was linked in source but not reported as passed by a successful structured test command."
+        },
+        {
+          "code": "TEST_ID_NOT_PASSED",
+          "severity": "error",
+          "message": "TEST-POTTERY-023-001 was linked in source but not reported as passed by a successful structured test command."
+        },
+        {
+          "code": "TEST_ID_NOT_PASSED",
+          "severity": "error",
+          "message": "TEST-POTTERY-021-001 was linked in source but not reported as passed by a successful structured test command."
+        },
+        {
+          "code": "TEST_ID_NOT_PASSED",
+          "severity": "error",
+          "message": "TEST-POTTERY-021-002 was linked in source but not reported as passed by a successful structured test command."
         },
         {
           "code": "TEST_ID_NOT_PASSED",
@@ -654,10 +595,10 @@
     "formal.modeledFraction": 0.3103448275862069,
     "commands.failures": 0,
     "commands.skipped": 0,
-    "tests.annotatedIds": 28,
+    "tests.annotatedIds": 33,
     "tests.executedIds": 0,
-    "tdd.cycles": 34,
-    "tdd.errors": 10,
+    "tdd.cycles": 39,
+    "tdd.errors": 6,
     "changes.count": 0,
     "changes.errors": 0,
     "changes.complete": 0,
@@ -674,8 +615,8 @@
     "attestation.errors": 0,
     "approval.errors": 1,
     "coverage.design": 1,
-    "coverage.implementation": 0.7857142857142857,
-    "coverage.tests": 0.75
+    "coverage.implementation": 0.9285714285714286,
+    "coverage.tests": 0.8928571428571429
   },
   "mode": "changed",
   "feature": null,
@@ -684,63 +625,75 @@
     ".musubix/evidence/tdd.json",
     ".musubix/features/example/trace.json",
     ".musubix/features/pottery-fragment-reassembly/trace.json",
-    ".musubix/reports/tdd/TEST-POTTERY-014-001.build.log",
-    ".musubix/reports/tdd/TEST-POTTERY-014-001.configure.log",
-    ".musubix/reports/tdd/TEST-POTTERY-014-001.json",
-    ".musubix/reports/tdd/TEST-POTTERY-014-001.out",
-    ".musubix/reports/tdd/TEST-POTTERY-017-001.build.log",
-    ".musubix/reports/tdd/TEST-POTTERY-017-001.configure.log",
-    ".musubix/reports/tdd/TEST-POTTERY-017-001.json",
-    ".musubix/reports/tdd/TEST-POTTERY-017-001.out",
+    ".musubix/reports/tdd/TEST-POTTERY-015-001.build.log",
+    ".musubix/reports/tdd/TEST-POTTERY-015-001.configure.log",
+    ".musubix/reports/tdd/TEST-POTTERY-015-001.json",
+    ".musubix/reports/tdd/TEST-POTTERY-015-001.out",
+    ".musubix/reports/tdd/TEST-POTTERY-021-001.build.log",
+    ".musubix/reports/tdd/TEST-POTTERY-021-001.configure.log",
+    ".musubix/reports/tdd/TEST-POTTERY-021-001.json",
+    ".musubix/reports/tdd/TEST-POTTERY-021-001.out",
+    ".musubix/reports/tdd/TEST-POTTERY-021-002.build.log",
+    ".musubix/reports/tdd/TEST-POTTERY-021-002.configure.log",
+    ".musubix/reports/tdd/TEST-POTTERY-021-002.json",
+    ".musubix/reports/tdd/TEST-POTTERY-021-002.out",
+    ".musubix/reports/tdd/TEST-POTTERY-023-001.build.log",
+    ".musubix/reports/tdd/TEST-POTTERY-023-001.configure.log",
+    ".musubix/reports/tdd/TEST-POTTERY-023-001.json",
+    ".musubix/reports/tdd/TEST-POTTERY-023-001.out",
+    ".musubix/reports/tdd/TEST-POTTERY-024-001.build.log",
+    ".musubix/reports/tdd/TEST-POTTERY-024-001.configure.log",
+    ".musubix/reports/tdd/TEST-POTTERY-024-001.json",
+    ".musubix/reports/tdd/TEST-POTTERY-024-001.out",
     "CMakeLists.txt",
-    "src/gui/gui_command_dispatcher.cpp",
-    "src/gui/gui_command_dispatcher.hpp",
-    "src/gui/viewport_camera.cpp",
-    "src/gui/viewport_camera.hpp",
-    "tests/test_gui_command_dispatcher.cpp",
-    "tests/test_viewport_camera.cpp"
+    "src/core/project_persistence.cpp",
+    "src/core/project_persistence.hpp",
+    "tests/test_project_persistence.cpp"
   ],
   "impacted": [
-    "src/gui/gui_command_dispatcher.cpp",
-    "src/gui/gui_command_dispatcher.hpp",
-    "src/gui/viewport_camera.cpp",
-    "src/gui/viewport_camera.hpp",
-    "tests/test_gui_command_dispatcher.cpp",
-    "tests/test_viewport_camera.cpp"
+    "src/core/project_persistence.cpp",
+    "src/core/project_persistence.hpp",
+    "tests/test_project_persistence.cpp"
   ],
   "lastChangeAnalysis": {
     "baseline": "HEAD",
-    "head": "700f9f7f091c0c48c854df245dd2e83256f60a02",
+    "head": "ddc8563776106a4be0bbebed3b3fe320acb57aee",
     "changed": [
       ".musubix/evidence/order.json",
       ".musubix/evidence/tdd.json",
       ".musubix/features/example/trace.json",
       ".musubix/features/pottery-fragment-reassembly/trace.json",
-      ".musubix/reports/tdd/TEST-POTTERY-014-001.build.log",
-      ".musubix/reports/tdd/TEST-POTTERY-014-001.configure.log",
-      ".musubix/reports/tdd/TEST-POTTERY-014-001.json",
-      ".musubix/reports/tdd/TEST-POTTERY-014-001.out",
-      ".musubix/reports/tdd/TEST-POTTERY-017-001.build.log",
-      ".musubix/reports/tdd/TEST-POTTERY-017-001.configure.log",
-      ".musubix/reports/tdd/TEST-POTTERY-017-001.json",
-      ".musubix/reports/tdd/TEST-POTTERY-017-001.out",
+      ".musubix/reports/tdd/TEST-POTTERY-015-001.build.log",
+      ".musubix/reports/tdd/TEST-POTTERY-015-001.configure.log",
+      ".musubix/reports/tdd/TEST-POTTERY-015-001.json",
+      ".musubix/reports/tdd/TEST-POTTERY-015-001.out",
+      ".musubix/reports/tdd/TEST-POTTERY-021-001.build.log",
+      ".musubix/reports/tdd/TEST-POTTERY-021-001.configure.log",
+      ".musubix/reports/tdd/TEST-POTTERY-021-001.json",
+      ".musubix/reports/tdd/TEST-POTTERY-021-001.out",
+      ".musubix/reports/tdd/TEST-POTTERY-021-002.build.log",
+      ".musubix/reports/tdd/TEST-POTTERY-021-002.configure.log",
+      ".musubix/reports/tdd/TEST-POTTERY-021-002.json",
+      ".musubix/reports/tdd/TEST-POTTERY-021-002.out",
+      ".musubix/reports/tdd/TEST-POTTERY-023-001.build.log",
+      ".musubix/reports/tdd/TEST-POTTERY-023-001.configure.log",
+      ".musubix/reports/tdd/TEST-POTTERY-023-001.json",
+      ".musubix/reports/tdd/TEST-POTTERY-023-001.out",
+      ".musubix/reports/tdd/TEST-POTTERY-024-001.build.log",
+      ".musubix/reports/tdd/TEST-POTTERY-024-001.configure.log",
+      ".musubix/reports/tdd/TEST-POTTERY-024-001.json",
+      ".musubix/reports/tdd/TEST-POTTERY-024-001.out",
       "CMakeLists.txt",
-      "src/gui/gui_command_dispatcher.cpp",
-      "src/gui/gui_command_dispatcher.hpp",
-      "src/gui/viewport_camera.cpp",
-      "src/gui/viewport_camera.hpp",
-      "tests/test_gui_command_dispatcher.cpp",
-      "tests/test_viewport_camera.cpp"
+      "src/core/project_persistence.cpp",
+      "src/core/project_persistence.hpp",
+      "tests/test_project_persistence.cpp"
     ],
     "impacted": [
-      "src/gui/gui_command_dispatcher.cpp",
-      "src/gui/gui_command_dispatcher.hpp",
-      "src/gui/viewport_camera.cpp",
-      "src/gui/viewport_camera.hpp",
-      "tests/test_gui_command_dispatcher.cpp",
-      "tests/test_viewport_camera.cpp"
+      "src/core/project_persistence.cpp",
+      "src/core/project_persistence.hpp",
+      "tests/test_project_persistence.cpp"
     ],
-    "generatedAt": "2026-09-12T02:33:17.378Z"
+    "generatedAt": "2026-09-12T03:32:34.244Z"
   },
   "fingerprints": {
     ".gitignore": "b6e1c6c3b086dc53b014b1891dc18ee67e870465db3771a6ca4996a50d89f67f",
@@ -844,6 +797,10 @@
     ".musubix/reports/tdd/TEST-POTTERY-014-001.configure.log": "26631e992bb9539d972163f73544208b6e475f568678c5900e493b90e3531391",
     ".musubix/reports/tdd/TEST-POTTERY-014-001.json": "4d6b83f3db9a3b9073a3d18a55e552fbed1bf1bb57a60d15b084d841d8f6668c",
     ".musubix/reports/tdd/TEST-POTTERY-014-001.out": "885ecd419cd484c075e1ade22a6385e14d93018229470143daf826fcac48181b",
+    ".musubix/reports/tdd/TEST-POTTERY-015-001.build.log": "81c168c5ea8185653ed190b040f5ed0a7328d37bcdf118e0074c9cb4dc648eaf",
+    ".musubix/reports/tdd/TEST-POTTERY-015-001.configure.log": "6bc0ba21103fa8fb3ff034f613a8e8796a5c4869d965a279671c9953e2a134a9",
+    ".musubix/reports/tdd/TEST-POTTERY-015-001.json": "0e9d31aef67a273a915ee987f6ffd934c6ef4ce8e3afb7377b574968003bad4d",
+    ".musubix/reports/tdd/TEST-POTTERY-015-001.out": "e2cb26fe9f7c1496fed340f6aefab378f534f4db1cb79d7c6c8e5f3ed6f2d6e5",
     ".musubix/reports/tdd/TEST-POTTERY-017-001.build.log": "d84de7faadf4ba5785ce4bb0d7569b4c073e20b0e0efef6b18a8fe9e65c9b527",
     ".musubix/reports/tdd/TEST-POTTERY-017-001.configure.log": "4d83c209f6352345e96ea12ecd674d6a70fdc1d7df4d62fad2d5394574a4141f",
     ".musubix/reports/tdd/TEST-POTTERY-017-001.json": "56e0592c3844a397a5245dd6ee23e7e51ac413d9d4969dd5a622f04209cccda4",
@@ -856,10 +813,26 @@
     ".musubix/reports/tdd/TEST-POTTERY-020-001.configure.log": "c1a0f82cc256061bb769838ee25dfd6d79f9276cd64d733b52e252cf1dbf5c22",
     ".musubix/reports/tdd/TEST-POTTERY-020-001.json": "1c74f7fe7c4e72dbf65d78c8229a4823a943f9c3832fe80de8c51605189eaa9b",
     ".musubix/reports/tdd/TEST-POTTERY-020-001.out": "dd4f85d14e91f095f6fd1b629971ca13d60b216fe2d3a56722ef857a082b4b55",
+    ".musubix/reports/tdd/TEST-POTTERY-021-001.build.log": "81c168c5ea8185653ed190b040f5ed0a7328d37bcdf118e0074c9cb4dc648eaf",
+    ".musubix/reports/tdd/TEST-POTTERY-021-001.configure.log": "1fc4a9be3ad3aafa70e234a7e7dff70a5e957634bfcb7df6bfaa0ceb22da6ea0",
+    ".musubix/reports/tdd/TEST-POTTERY-021-001.json": "d5dc1f7e9dc294d4c542b5ad038106cf7178c5ab756d5eca3ea8065148e41785",
+    ".musubix/reports/tdd/TEST-POTTERY-021-001.out": "ad94e89114ac273a0d58d7f3d9bd121a8e98aae0311692a12853f25e99675d64",
+    ".musubix/reports/tdd/TEST-POTTERY-021-002.build.log": "81c168c5ea8185653ed190b040f5ed0a7328d37bcdf118e0074c9cb4dc648eaf",
+    ".musubix/reports/tdd/TEST-POTTERY-021-002.configure.log": "b62ae9b01c3fb307823a0f112d56b3b0df7574d114ceec71011ecda4489ea5fc",
+    ".musubix/reports/tdd/TEST-POTTERY-021-002.json": "70b17796e26106199f0e3f2e5101c186e72e7765c0253937c98df728c8d6a91e",
+    ".musubix/reports/tdd/TEST-POTTERY-021-002.out": "de0a229b38403d7a97b33e5a10a983236a7a078b17ef55c912f2070f13b48444",
     ".musubix/reports/tdd/TEST-POTTERY-022-001.build.log": "56706e86cb743289e8103ae2a4082332afacf49ccce145f411cc69d579a006d6",
     ".musubix/reports/tdd/TEST-POTTERY-022-001.configure.log": "2c0f826534d7b98f07da2e599c457eec8bb8514f4cc6b0bbe333c43319a9780a",
     ".musubix/reports/tdd/TEST-POTTERY-022-001.json": "f449a68a6ecf4e69d6cb122a48b5a96a6376976c11c43c4714855a88bff706de",
     ".musubix/reports/tdd/TEST-POTTERY-022-001.out": "7ef042be0bded3db167bec5fbf20f44cbcadeac7a69e7e92b8a4f4468b189feb",
+    ".musubix/reports/tdd/TEST-POTTERY-023-001.build.log": "81c168c5ea8185653ed190b040f5ed0a7328d37bcdf118e0074c9cb4dc648eaf",
+    ".musubix/reports/tdd/TEST-POTTERY-023-001.configure.log": "db2f45c4caecea66653313f9ccea8d01c0b4428e8a26b50c64325c5fd028be78",
+    ".musubix/reports/tdd/TEST-POTTERY-023-001.json": "43f8f5f124057e8167a7aa13b9a3e62750f47c680b037bcc73a911fe2e2b7cf7",
+    ".musubix/reports/tdd/TEST-POTTERY-023-001.out": "de0a229b38403d7a97b33e5a10a983236a7a078b17ef55c912f2070f13b48444",
+    ".musubix/reports/tdd/TEST-POTTERY-024-001.build.log": "81c168c5ea8185653ed190b040f5ed0a7328d37bcdf118e0074c9cb4dc648eaf",
+    ".musubix/reports/tdd/TEST-POTTERY-024-001.configure.log": "69e538e63dae645744ee54e60d9d1cee4c60839beadaf978ab17fea425483362",
+    ".musubix/reports/tdd/TEST-POTTERY-024-001.json": "1862d0f9f5668099f266e8c046f36e925f6a9e1c332bce061687c431a52eb451",
+    ".musubix/reports/tdd/TEST-POTTERY-024-001.out": "f7cb30a6f54273174cb6a82fc8369234cae422ddaa05af73e9280461447ba5e9",
     ".musubix/reports/tdd/TEST-POTTERY-026-001.build.log": "56706e86cb743289e8103ae2a4082332afacf49ccce145f411cc69d579a006d6",
     ".musubix/reports/tdd/TEST-POTTERY-026-001.configure.log": "e9098f5f857afdebc41a5843e381b0efdae78badee189f9bc34ba8bbb57269ea",
     ".musubix/reports/tdd/TEST-POTTERY-026-001.json": "029bae0c8378d6145298fb5d0dfeb06b10f34ee87e1fa607b12f0b6abf20d6c7",
@@ -868,7 +841,7 @@
     ".musubix/reports/tdd/TEST-POTTERY-027-002.configure.log": "4416f0b6fc035e7eed5896edf9d25763c05b6887517b009c7d6236d81764cae9",
     ".musubix/reports/tdd/TEST-POTTERY-027-002.json": "8ca801fefcee3c16ab70a1070361a85d1c413f556860f53dc7c954289c2066f5",
     ".musubix/reports/tdd/TEST-POTTERY-027-002.out": "dd4f85d14e91f095f6fd1b629971ca13d60b216fe2d3a56722ef857a082b4b55",
-    "CMakeLists.txt": "008aa6cf07194c195c82b94ce37495c9cb15f11f6ce9348d1df8b70c55781ce6",
+    "CMakeLists.txt": "7f8e2ecbb7c77aa4f1b98784faf6ece4abd5943fd072fe5bd90af239458ba15f",
     "scripts/run_tdd_test.sh": "ceb2a115952214e30c0b9172c214a790cb8bb09a41df6b76436e01f4c3ab9a73",
     "scripts/run_tests.sh": "9d60ca461fc82c47caff933c3e6c54afbb5f5fce291f62c7e606c58edf004e4c",
     "src/core/assembly_orchestrator.cpp": "5436a1231cee23a08389959f5d6e674e569686c32d4582cd0ad89167383a8e73",
@@ -884,6 +857,8 @@
     "src/core/missing_part_estimation.hpp": "97b5bcc50883e651103c5152aa3d4b665581847c3f122572f4d2844f19d7d60b",
     "src/core/pose_conflict.cpp": "e51dbf023e5c9df2080692091a8e4df8dae756b245c87e0413d6dbe9fca983e5",
     "src/core/pose_conflict.hpp": "6d89a89dcc3630a9ad4e968837f1e1e932bfc1a6688dd5c73fc0db6f62023166",
+    "src/core/project_persistence.cpp": "a15a92fa2199a3f748c0dfa76d1e8bcacb864b9066c0fba0a5fcfb89cc418e32",
+    "src/core/project_persistence.hpp": "f46965e92a71a766916c2715e073fb4d9f19da505012c5074b92169a3bb9b60f",
     "src/core/report_aggregation.cpp": "908d031681d2258fd34d08cd7e6c99e6c367e53bb530ee5980babdb61084c73a",
     "src/core/report_aggregation.hpp": "3aff7ffe27c7ccb96cdb681b1739ce5a7146fc434e02874c5e7af51ee159eefa",
     "src/core/scan_importer.cpp": "9da0be01ad9f58d09c828d14d105eef70dbf50bc204aa6a96cdc440a90710278",
@@ -909,6 +884,7 @@
     "tests/test_mesh_export.cpp": "b58774b092abb83c1320d3ec723f23376aede3df78e84b4ea2d9dd461308fa93",
     "tests/test_missing_part_estimation.cpp": "0271eb477c7f2b2ea79e81ca7f5a5ba477fedf7acaebffa7d198ce1f536bb2b2",
     "tests/test_pose_conflict.cpp": "493851499e0703768cca81c0fbacab4a89ce0ea1e0f81c06c531364ca10261da",
+    "tests/test_project_persistence.cpp": "5c333f0f39010b5358941c15cd15ff475a5e95cefe510f5a4cebe546845fca69",
     "tests/test_report_aggregation.cpp": "43ade6cb3f79ab078f01a1ae12df5ba5b5e36d1210a071f0ea283d556d04609a",
     "tests/test_scan_importer.cpp": "80083f5630d52fcc48aed0112c9dd45122c1fcc1fbdd3f49185796e20a9a2087",
     "tests/test_viewport_camera.cpp": "c2bc6bd93512a3d898f11d2a2cde57700bd97efccd7f1820adaf3b138c170eda",
