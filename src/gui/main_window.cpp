@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <fstream>
+#include <functional>
 #include <sstream>
 #include <string>
 
@@ -29,6 +30,7 @@
 #include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkInteractorStyleUser.h>
 #include <vtkMatrix4x4.h>
+#include <vtkObjectFactory.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
@@ -56,6 +58,41 @@ using kintsugi::core::PropagatedPose;
 using kintsugi::core::Vec3;
 
 namespace {
+
+// マウスホイールによるズームのみを扱うカスタムインタラクタースタイル。
+// vtkInteractorStyleUserを基底とすることで左/中/右ボタンのドラッグに
+// よる既定のカメラ回転・パン操作（vtkInteractorStyleTrackballCamera由来）
+// は行わず、ホイール操作のみをコールバック経由でViewportCamera（camera_）
+// 側のズーム処理に委譲する。これにより、視点操作パネルのボタンと
+// マウスホイールの両方が同じcamera_状態を単一の情報源として更新するため、
+// どちらの操作を行ってもズームが互いに競合・巻き戻ることがない。
+class WheelZoomInteractorStyle : public vtkInteractorStyleUser {
+ public:
+  static WheelZoomInteractorStyle* New();
+  vtkTypeMacro(WheelZoomInteractorStyle, vtkInteractorStyleUser);
+
+  void SetZoomCallback(std::function<void(double)> callback) {
+    zoomCallback_ = std::move(callback);
+  }
+
+  void OnMouseWheelForward() override {
+    if (zoomCallback_) {
+      zoomCallback_(kWheelZoomInFactor);
+    }
+  }
+
+  void OnMouseWheelBackward() override {
+    if (zoomCallback_) {
+      zoomCallback_(1.0 / kWheelZoomInFactor);
+    }
+  }
+
+ private:
+  static constexpr double kWheelZoomInFactor = 1.1;
+  std::function<void(double)> zoomCallback_;
+};
+
+vtkStandardNewMacro(WheelZoomInteractorStyle);
 
 // FragmentMeshの頂点・面（あれば）からvtkPolyDataを構築する。面情報が
 // ない入力（点群）は頂点のみのポリデータとしてvtkVertexGlyphFilterで
@@ -136,15 +173,20 @@ void MainWindow::buildUi() {
   renderer->SetBackground(0.12, 0.12, 0.15);
   renderWindow->AddRenderer(renderer);
   renderer_ = renderer;
-  // マウスドラッグ/ホイールによるVTK既定のカメラ操作（トラックボール
-  // スタイル）を無効化する。これを有効なままにすると、マウス操作で
-  // 変更されたカメラ状態（特にズーム量）がViewportCamera（camera_）側の
-  // 状態と食い違い、ナビゲーターのボタンを押すたびにrefreshViewport()が
-  // camera_の値でカメラ位置を上書きしてズームが元に戻ってしまう問題が
-  // あった。視点操作は「視点操作」パネルのボタンのみに一本化することで、
-  // camera_を唯一の状態源にし、この食い違いを防ぐ。
+  // マウスドラッグによるVTK既定のカメラ操作（トラックボールスタイルの
+  // 回転・パン）は無効化する。これを有効なままにすると、マウス操作で
+  // 変更されたカメラ状態がViewportCamera（camera_）側の状態と食い違い、
+  // ナビゲーターのボタンを押すたびにrefreshViewport()がcamera_の値で
+  // カメラ位置を上書きして変更が元に戻ってしまう問題があった。回転・
+  // パンは「視点操作」パネルのボタンのみに一本化することで、camera_を
+  // 唯一の状態源にし、この食い違いを防ぐ。一方でマウスホイールによる
+  // ズームは、camera_.zoom()を呼び出すコールバックとして残し、
+  // 引き続き利用できるようにする（同じcamera_状態を経由するため、
+  // ボタン操作と競合しない）。
   if (auto* interactor = viewportWidget_->interactor()) {
-    interactor->SetInteractorStyle(vtkSmartPointer<vtkInteractorStyleUser>::New());
+    auto style = vtkSmartPointer<WheelZoomInteractorStyle>::New();
+    style->SetZoomCallback([this](double factor) { onZoomView(factor); });
+    interactor->SetInteractorStyle(style);
   }
   rootLayout->addWidget(viewportWidget_, /*stretch=*/3);
 
