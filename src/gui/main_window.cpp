@@ -7,7 +7,6 @@
 #include <limits>
 #include <sstream>
 #include <string>
-#include <unordered_set>
 
 #include <QComboBox>
 #include <QEvent>
@@ -20,9 +19,7 @@
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QPushButton>
-#include <QScrollBar>
 #include <QShortcut>
-#include <QSignalBlocker>
 #include <QToolTip>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -153,64 +150,6 @@ vtkSmartPointer<vtkMatrix4x4> buildTransformMatrix(const kintsugi::core::Propaga
   return matrix;
 }
 
-// 「マッチしない破片」（接合候補が一つも存在しない破片）を並べる画面左の
-// スタック配置のパラメータ。カメラの既定姿勢（azimuth=0, elevation=0,
-// Z軸を鉛直上向き）では、視点から見て画面左は世界座標のY軸方向のうち
-// 焦点から見て+X側にあたるため、+X方向へ壺本体の外側まで離した位置に、
-// Z軸方向へ一定間隔で積み上げて配置する。一度に表示するのは
-// kStagingVisibleSlots件までとし、それを超える分はビューポート横の
-// スクロールバーで縦方向にスクロールして表示範囲を切り替える。
-constexpr double kStagingBaseX = 95.0;
-constexpr double kStagingSpacingZ = 30.0;
-constexpr int kStagingVisibleSlots = 6;
-constexpr double kStagingFrameHalfWidthMm = 20.0;
-constexpr double kStagingFrameMarginMm = kStagingSpacingZ * 0.5;
-
-// 画面左のスタック表示枠を、破片1件につき1マスとなるよう区切られた
-// グリッド状の枠線アクターとして作る（1マスに複数の破片が重なって
-// 見えないよう、マス目の境界を明示する）。Y-Z平面（既定視点で画面に
-// 正対する面）上にkStagingVisibleSlots個の矩形（マス）を積み上げて描く。
-vtkSmartPointer<vtkActor> buildStagingFrameActor() {
-  // 各破片はz = slot * kStagingSpacingZ (slot = 0..kStagingVisibleSlots-1)に
-  // 中心が来るように並ぶため、マスの高さはkStagingSpacingZいっぱいまで
-  // とし、隣接するマスとの間にわずかな隙間を設けて区切りを分かりやすく
-  // する。
-  constexpr double kCellGapMm = kStagingFrameMarginMm * 0.4;
-  const double cellHalfHeight = kStagingSpacingZ * 0.5 - kCellGapMm * 0.5;
-
-  auto points = vtkSmartPointer<vtkPoints>::New();
-  auto lines = vtkSmartPointer<vtkCellArray>::New();
-  for (int slot = 0; slot < kStagingVisibleSlots; ++slot) {
-    const double zCenter = static_cast<double>(slot) * kStagingSpacingZ;
-    const double zMin = zCenter - cellHalfHeight;
-    const double zMax = zCenter + cellHalfHeight;
-    const vtkIdType base = points->GetNumberOfPoints();
-    points->InsertNextPoint(kStagingBaseX, -kStagingFrameHalfWidthMm, zMin);
-    points->InsertNextPoint(kStagingBaseX, kStagingFrameHalfWidthMm, zMin);
-    points->InsertNextPoint(kStagingBaseX, kStagingFrameHalfWidthMm, zMax);
-    points->InsertNextPoint(kStagingBaseX, -kStagingFrameHalfWidthMm, zMax);
-
-    lines->InsertNextCell(5);
-    lines->InsertCellPoint(base + 0);
-    lines->InsertCellPoint(base + 1);
-    lines->InsertCellPoint(base + 2);
-    lines->InsertCellPoint(base + 3);
-    lines->InsertCellPoint(base + 0);
-  }
-
-  auto polyData = vtkSmartPointer<vtkPolyData>::New();
-  polyData->SetPoints(points);
-  polyData->SetLines(lines);
-
-  auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
-  mapper->SetInputData(polyData);
-  auto actor = vtkSmartPointer<vtkActor>::New();
-  actor->SetMapper(mapper);
-  actor->GetProperty()->SetColor(0.85, 0.9, 0.95);
-  actor->GetProperty()->SetLineWidth(2.0);
-  return actor;
-}
-
 // マウスドラッグ操作中、スクリーン座標(displayX, displayY)を、指定した
 // 基準奥行き(referenceDepth、vtkRenderer::WorldToDisplay()のZ成分と同じ
 // 正規化デバイス座標系の値)における世界座標へ変換する。ドラッグ開始時に
@@ -277,21 +216,7 @@ void MainWindow::buildUi() {
     style->SetZoomCallback([this](double factor) { onZoomView(factor); });
     interactor->SetInteractorStyle(style);
   }
-  // 「マッチしない破片」の画面左スタック表示を縦方向にスクロールする
-  // ためのスクロールバー。ビューポートの左端に隣接させ、視覚的な
-  // スタック位置と対応させる。
-  auto* viewportContainer = new QWidget(central);
-  auto* viewportContainerLayout = new QHBoxLayout(viewportContainer);
-  viewportContainerLayout->setContentsMargins(0, 0, 0, 0);
-  viewportContainerLayout->setSpacing(2);
-  stagingScrollBar_ = new QScrollBar(Qt::Vertical, viewportContainer);
-  stagingScrollBar_->setRange(0, 0);
-  stagingScrollBar_->setEnabled(false);
-  connect(stagingScrollBar_, &QScrollBar::valueChanged, this,
-          &MainWindow::onStagingScrollChanged);
-  viewportContainerLayout->addWidget(stagingScrollBar_, /*stretch=*/0);
-  viewportContainerLayout->addWidget(viewportWidget_, /*stretch=*/1);
-  rootLayout->addWidget(viewportContainer, /*stretch=*/3);
+  rootLayout->addWidget(viewportWidget_, /*stretch=*/3);
 
   // 右側: 操作パネル。
   auto* panel = new QWidget(central);
@@ -401,6 +326,11 @@ void MainWindow::buildUi() {
   auto* exportButton = new QPushButton(QStringLiteral("統合メッシュをエクスポート..."), exportGroup);
   connect(exportButton, &QPushButton::clicked, this, &MainWindow::onExportMesh);
   exportLayout->addWidget(exportButton);
+  auto* exportMatchedButton =
+      new QPushButton(QStringLiteral("マッチした破片の番号をエクスポート..."), exportGroup);
+  connect(exportMatchedButton, &QPushButton::clicked, this,
+          &MainWindow::onExportMatchedFragmentIds);
+  exportLayout->addWidget(exportMatchedButton);
   panelLayout->addWidget(exportGroup);
 
   statusLabel_ = new QLabel(panel);
@@ -646,6 +576,50 @@ void MainWindow::onExportMesh() {
   setStatusMessage(QStringLiteral("エクスポートしました: %1").arg(path));
 }
 
+void MainWindow::onExportMatchedFragmentIds() {
+  if (!orchestrator_) {
+    QMessageBox::information(this, QStringLiteral("エクスポート"),
+                              QStringLiteral("先にクラスタリングを実行してください。"));
+    return;
+  }
+  const auto& state = orchestrator_->state();
+  std::vector<std::size_t> matchedFragmentIds;
+  for (std::size_t fragmentId : state.fragmentIds) {
+    if (state.hasAcceptedJoin(fragmentId)) {
+      matchedFragmentIds.push_back(fragmentId);
+    }
+  }
+  if (matchedFragmentIds.empty()) {
+    QMessageBox::information(this, QStringLiteral("エクスポート"),
+                              QStringLiteral("採用済みの接合がまだありません。"));
+    return;
+  }
+  const QString path = QFileDialog::getSaveFileName(
+      this, QStringLiteral("マッチした破片の番号を出力"), QString(),
+      QStringLiteral("テキストファイル (*.txt)"));
+  if (path.isEmpty()) {
+    return;
+  }
+  std::ofstream out(path.toStdString(), std::ios::binary);
+  if (!out.is_open()) {
+    QMessageBox::warning(this, QStringLiteral("エクスポート"),
+                         QStringLiteral("出力先を開けませんでした: %1").arg(path));
+    return;
+  }
+  for (std::size_t fragmentId : matchedFragmentIds) {
+    out << fragmentId << "\n";
+  }
+  out.close();
+  if (!out) {
+    QMessageBox::warning(this, QStringLiteral("エクスポート"),
+                         QStringLiteral("書き込みに失敗しました: %1").arg(path));
+    return;
+  }
+  setStatusMessage(QStringLiteral("マッチした破片番号（%1件）をエクスポートしました: %2")
+                        .arg(matchedFragmentIds.size())
+                        .arg(path));
+}
+
 void MainWindow::onRotateView(double deltaAzimuthDeg, double deltaElevationDeg) {
   camera_.rotate(deltaAzimuthDeg, deltaElevationDeg);
   refreshViewport();
@@ -658,11 +632,6 @@ void MainWindow::onPanView(double dxMm, double dyMm) {
 
 void MainWindow::onZoomView(double factor) {
   camera_.zoom(factor);
-  refreshViewport();
-}
-
-void MainWindow::onStagingScrollChanged(int value) {
-  stagingScrollOffset_ = value;
   refreshViewport();
 }
 
@@ -794,58 +763,19 @@ void MainWindow::refreshViewport() {
   if (orchestrator_) {
     const auto& state = orchestrator_->state();
 
-    // 接合候補計算（currentCandidates_）で一件も候補が得られなかった破片は
-    // 「マッチしない破片」（壺本体とは別由来と想定）とみなし、画面左に
-    // 一列にまとめて表示する。接合候補が1件以上ある破片は、未接合でも
-    // 従来通りスキャン取得時の元の座標のまま表示し、器物全体の形状を
-    // 視覚的に把握できるようにする。
-    std::unordered_set<std::size_t> fragmentsWithCandidate;
-    for (const auto& candidate : currentCandidates_) {
-      fragmentsWithCandidate.insert(candidate.fragmentIdA);
-      fragmentsWithCandidate.insert(candidate.fragmentIdB);
-    }
-
-    // マッチしない破片のうち、まだ手動で動かされていない（resolvedPoseを
-    // 持たない）ものだけがスタック表示の対象になる。件数が
-    // kStagingVisibleSlotsを超える場合に備え、先に対象一覧を確定して
-    // スクロールバーの可動範囲を設定する。
-    std::vector<std::size_t> stagingFragmentIds;
+    // 表示するのは採用済み（accept済み）接合を持つ破片のみとする。
+    // 未接合・候補ありのみ・マッチしない破片は主ビューには一切表示しない
+    // （「マッチしたものだけを表示」の要求）。候補の確認・採用操作自体は
+    // 「2. 接合候補」パネルから引き続き行える。
     for (std::size_t fragmentId : state.fragmentIds) {
-      if (!state.resolvedPose(fragmentId) && fragmentsWithCandidate.count(fragmentId) == 0) {
-        stagingFragmentIds.push_back(fragmentId);
-      }
-    }
-    const int maxStagingOffset =
-        std::max(0, static_cast<int>(stagingFragmentIds.size()) - kStagingVisibleSlots);
-    stagingScrollOffset_ = std::clamp(stagingScrollOffset_, 0, maxStagingOffset);
-    if (stagingScrollBar_) {
-      const QSignalBlocker blocker(stagingScrollBar_);
-      stagingScrollBar_->setEnabled(maxStagingOffset > 0);
-      stagingScrollBar_->setRange(0, maxStagingOffset);
-      stagingScrollBar_->setPageStep(std::max(1, kStagingVisibleSlots));
-      stagingScrollBar_->setValue(stagingScrollOffset_);
-    }
-    std::unordered_map<std::size_t, int> stagingVisibleSlot;
-    for (std::size_t i = 0; i < stagingFragmentIds.size(); ++i) {
-      const int visibleSlot = static_cast<int>(i) - stagingScrollOffset_;
-      if (visibleSlot >= 0 && visibleSlot < kStagingVisibleSlots) {
-        stagingVisibleSlot[stagingFragmentIds[i]] = visibleSlot;
-      }
-    }
-    // 「マッチしない破片」が現在0件であっても、専用の表示スペースが
-    // 常に存在することを利用者が把握できるよう、枠（マス目）は常に描画
-    // する。
-    renderer_->AddActor(buildStagingFrameActor());
-
-    for (std::size_t fragmentId : state.fragmentIds) {
-      const bool isNonMatching = fragmentsWithCandidate.count(fragmentId) == 0;
-      const auto stagingSlotIt = stagingVisibleSlot.find(fragmentId);
-      if (isNonMatching && !state.resolvedPose(fragmentId) &&
-          stagingSlotIt == stagingVisibleSlot.end()) {
-        // スクロール範囲外のマッチしない破片は、スクロールバーで表示
-        // 範囲に入れるまで描画しない。
+      if (!state.hasAcceptedJoin(fragmentId)) {
         continue;
       }
+      const auto resolvedPose = state.resolvedPose(fragmentId);
+      if (!resolvedPose) {
+        continue;
+      }
+
       vtkSmartPointer<vtkPolyData> polyData;
       if (fragmentId < currentClusterFragments_.size()) {
         polyData = buildFragmentPolyData(currentClusterFragments_[fragmentId]);
@@ -856,21 +786,7 @@ void MainWindow::refreshViewport() {
         polyData = sphere->GetOutput();
       }
 
-      kintsugi::core::PropagatedPose displayPose;
-      const auto resolvedPose = state.resolvedPose(fragmentId);
-      if (resolvedPose) {
-        // 採用済み接合、またはマウスドラッグ等による手動姿勢設定済み
-        // （元がマッチしない破片としてスタック配置されていた場合を含む）。
-        displayPose = *resolvedPose;
-      } else if (isNonMatching) {
-        // マッチしない破片：画面左のスタック枠内の現在の表示スロットに
-        // 配置する。
-        displayPose.translationMm = Vec3{
-            kStagingBaseX, 0.0, static_cast<double>(stagingSlotIt->second) * kStagingSpacingZ};
-      }
-      // resolvedPoseもなく、接合候補が存在する未接合破片は、変換を適用
-      // せずスキャン取得時の元の座標のまま表示する（displayPoseは恒等姿勢
-      // のまま）。
+      kintsugi::core::PropagatedPose displayPose = *resolvedPose;
       const auto liveIt = liveDragTranslations_.find(fragmentId);
       if (liveIt != liveDragTranslations_.end()) {
         // ドラッグ中の破片は、確定前の見た目としてライブの並進値で上書き
@@ -890,17 +806,7 @@ void MainWindow::refreshViewport() {
 
       auto actor = vtkSmartPointer<vtkActor>::New();
       actor->SetMapper(mapper);
-      const bool joined = state.hasAcceptedJoin(fragmentId);
-      if (joined) {
-        actor->GetProperty()->SetColor(0.2, 0.7, 0.3);
-      } else if (isNonMatching) {
-        // マッチしない破片であることが一目で分かるよう、接合済み（緑）・
-        // 未接合だが候補あり（オレンジ）とは明確に異なる目立つ紫色にする
-        // （従来のグレーは背景・他破片と紛れやすかったため変更）。
-        actor->GetProperty()->SetColor(0.75, 0.2, 0.85);
-      } else {
-        actor->GetProperty()->SetColor(0.7, 0.4, 0.2);
-      }
+      actor->GetProperty()->SetColor(0.2, 0.7, 0.3);
       // メッシュ全体の三角形分割線ではなく、破片の輪郭（他の三角形と
       // 共有されていない境界エッジ = 破片の外周・破損エッジ）のみを
       // 目立つ色で強調表示する。vtkFeatureEdgesは面が1つのセルからしか
