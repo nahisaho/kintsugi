@@ -1336,6 +1336,92 @@
         "diagnostics": [],
         "order": 61
       }
+    },
+    {
+      "cycleId": "c6db0190-94f9-42a6-88d6-268b5878a44e",
+      "requirementId": "REQ-POTTERY-014",
+      "testId": "TEST-POTTERY-014-001",
+      "testPath": "tests/test_viewport_camera.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "red": {
+        "phase": "red",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "failed",
+        "reportSha256": "14353c0a3cd5abf191885cc234a5933939e922440402f0781d8d21323b663131",
+        "commandSha256": "2db6ab72ab09931787c6e91e5b8e267ae3dea5cc470a980924fb73f754a0161b",
+        "outputSha256": "91e6e09345f4494d4001aabfa5e8b38bce393a6b0038c6f686205a3ea4c42716",
+        "exitCode": 1,
+        "durationMs": 46255,
+        "testFingerprint": "a71c6c55260f9b32b5943862cb5f6839f82806961f3995dc62f5113b67d4c57d",
+        "sourceFingerprint": "de75f9f43fd144659882116ead85175f3652861105d62652bf98381753b9cbd1",
+        "executionId": "cf8f2b13-b9ff-4020-83e3-0961cd915e81",
+        "recordedAt": "2026-09-12T02:28:56.937Z",
+        "diagnostics": [],
+        "order": 62
+      },
+      "green": {
+        "phase": "green",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "passed",
+        "reportSha256": "4d6b83f3db9a3b9073a3d18a55e552fbed1bf1bb57a60d15b084d841d8f6668c",
+        "commandSha256": "2db6ab72ab09931787c6e91e5b8e267ae3dea5cc470a980924fb73f754a0161b",
+        "outputSha256": "172a17f8bcbf233397ed589598f5aedd031d724119f1872264db74cc1b68d3a4",
+        "exitCode": 0,
+        "durationMs": 41051,
+        "testFingerprint": "a71c6c55260f9b32b5943862cb5f6839f82806961f3995dc62f5113b67d4c57d",
+        "sourceFingerprint": "fabeb3195cbf9d3cca2f05e3e7b11f37b0f6a33761dd3b3becc971d485f0137e",
+        "executionId": "988b3177-7345-4eb9-be20-4406cc3cd863",
+        "recordedAt": "2026-09-12T02:31:46.077Z",
+        "diagnostics": [],
+        "order": 64
+      }
+    },
+    {
+      "cycleId": "b8d1674e-c61f-488a-95b6-25cedb797e5c",
+      "requirementId": "REQ-POTTERY-017",
+      "testId": "TEST-POTTERY-017-001",
+      "testPath": "tests/test_gui_command_dispatcher.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "red": {
+        "phase": "red",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "failed",
+        "reportSha256": "87840ec50752a00773ac05e76571b738c29dc96a24bbd2157ae308af30d3bbd2",
+        "commandSha256": "f0c7675df093277962c5744c8c2a8318560bf583f1c68ebbeceaf62dd06b29e0",
+        "outputSha256": "33536329d713ea9cafed00468aa3b9f63a46186e6dbaf61653bccaa5288b0460",
+        "exitCode": 1,
+        "durationMs": 47108,
+        "testFingerprint": "89b4e5dd53615605fdcee340c1a39e83427ee77814b7f06511774e70f5ebcaf2",
+        "sourceFingerprint": "3b7982d1813a9ba769d3bd6c459ce8d86f20c5cae85b4341dd0fd481e8698566",
+        "executionId": "54b6b4f9-3cb8-412f-951f-c546df2a2803",
+        "recordedAt": "2026-09-12T02:29:43.793Z",
+        "diagnostics": [],
+        "order": 63
+      },
+      "green": {
+        "phase": "green",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "passed",
+        "reportSha256": "56e0592c3844a397a5245dd6ee23e7e51ac413d9d4969dd5a622f04209cccda4",
+        "commandSha256": "f0c7675df093277962c5744c8c2a8318560bf583f1c68ebbeceaf62dd06b29e0",
+        "outputSha256": "2b0ac260477074ec8682d156b56120f419110fb8d98586dcf697622430e8c586",
+        "exitCode": 0,
+        "durationMs": 41333,
+        "testFingerprint": "89b4e5dd53615605fdcee340c1a39e83427ee77814b7f06511774e70f5ebcaf2",
+        "sourceFingerprint": "962c2c54cdece044afc8943b4361202f79d30c79c812e5e9d6bc04edce7e78ae",
+        "executionId": "c16c11ad-c4e3-4648-a72b-40ad8c868cf2",
+        "recordedAt": "2026-09-12T02:32:36.748Z",
+        "diagnostics": [],
+        "order": 65
+      }
     }
   ],
   "chain": [
@@ -2070,6 +2156,54 @@
       "phaseEvidenceSha256": "d9c68c04a7c00ee59d4ada84a1683ee77ac55ba8dd6a0a202bc4c74c6e970b68",
       "previousSha256": "df15cc39683a45a51ee4b858f030db58adc55007268f5d77cd8eb71f35b0b063",
       "recordSha256": "633e3a428ba22f0960a7fcc47d934f78d3633ab60d50d69e8ce5ba9be89e23a4"
+    },
+    {
+      "sequence": 62,
+      "cycleId": "c6db0190-94f9-42a6-88d6-268b5878a44e",
+      "requirementId": "REQ-POTTERY-014",
+      "testId": "TEST-POTTERY-014-001",
+      "testPath": "tests/test_viewport_camera.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "red",
+      "phaseEvidenceSha256": "46c72b7f417f56b46110c36f98ee5520a61b53241e74e038b99ac92baf7ee58f",
+      "previousSha256": "633e3a428ba22f0960a7fcc47d934f78d3633ab60d50d69e8ce5ba9be89e23a4",
+      "recordSha256": "72a4e0c5d8de7b8834da1fb46b994833537ea41e1c0e73fe457244932ed669ed"
+    },
+    {
+      "sequence": 63,
+      "cycleId": "b8d1674e-c61f-488a-95b6-25cedb797e5c",
+      "requirementId": "REQ-POTTERY-017",
+      "testId": "TEST-POTTERY-017-001",
+      "testPath": "tests/test_gui_command_dispatcher.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "red",
+      "phaseEvidenceSha256": "0d551eccfee389396d98952bde1269e4177e23578dc88581374dab5db998e561",
+      "previousSha256": "72a4e0c5d8de7b8834da1fb46b994833537ea41e1c0e73fe457244932ed669ed",
+      "recordSha256": "dc3f6b91b3caeca0866414f4c76c09d759478274edcba5a8760cf5d8616c03fa"
+    },
+    {
+      "sequence": 64,
+      "cycleId": "c6db0190-94f9-42a6-88d6-268b5878a44e",
+      "requirementId": "REQ-POTTERY-014",
+      "testId": "TEST-POTTERY-014-001",
+      "testPath": "tests/test_viewport_camera.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "green",
+      "phaseEvidenceSha256": "782aa40a99ae4493e91242c405ad73382bd5d998b2d793bbe47d815a2506778d",
+      "previousSha256": "dc3f6b91b3caeca0866414f4c76c09d759478274edcba5a8760cf5d8616c03fa",
+      "recordSha256": "cdc5c2d38647e15ed30323539377e03f4b7a748234119f5f0b489e71b5610192"
+    },
+    {
+      "sequence": 65,
+      "cycleId": "b8d1674e-c61f-488a-95b6-25cedb797e5c",
+      "requirementId": "REQ-POTTERY-017",
+      "testId": "TEST-POTTERY-017-001",
+      "testPath": "tests/test_gui_command_dispatcher.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "green",
+      "phaseEvidenceSha256": "ab8386821987f1d492c1fc0596c478315bf8d2b9e597e3f57fe23ee24e95f37c",
+      "previousSha256": "cdc5c2d38647e15ed30323539377e03f4b7a748234119f5f0b489e71b5610192",
+      "recordSha256": "3d7bb0540c83769dcf065f4549c4f27a56e77c18944e627fe835755f00e9cb52"
     }
   ]
 }

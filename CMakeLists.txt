@@ -19,6 +19,8 @@ add_library(pottery_core
   src/core/missing_part_estimation.cpp
   src/core/report_aggregation.cpp
   src/core/mesh_export.cpp
+  src/gui/viewport_camera.cpp
+  src/gui/gui_command_dispatcher.cpp
 )
 target_include_directories(pottery_core PUBLIC src)
 target_link_libraries(pottery_core PUBLIC ${PCL_LIBRARIES})
@@ -33,6 +35,8 @@ add_executable(pottery_tests
   tests/test_missing_part_estimation.cpp
   tests/test_report_aggregation.cpp
   tests/test_mesh_export.cpp
+  tests/test_viewport_camera.cpp
+  tests/test_gui_command_dispatcher.cpp
 )
 target_include_directories(pottery_tests PRIVATE third_party src)
 target_link_libraries(pottery_tests PRIVATE pottery_core)

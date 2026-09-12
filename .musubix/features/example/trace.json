@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T02:02:10.515Z",
+  "generatedAt": "2026-09-12T02:32:39.891Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -362,6 +362,18 @@
       "line": 7
     },
     {
+      "id": "CODE-POTTERY-010",
+      "kind": "code",
+      "path": "src/gui/gui_command_dispatcher.hpp",
+      "line": 11
+    },
+    {
+      "id": "CODE-POTTERY-009",
+      "kind": "code",
+      "path": "src/gui/viewport_camera.hpp",
+      "line": 5
+    },
+    {
       "id": "TEST-POTTERY-006-001",
       "kind": "test",
       "path": "tests/test_assembly_orchestrator.cpp",
@@ -426,6 +438,12 @@
       "kind": "test",
       "path": "tests/test_fragment_matching.cpp",
       "line": 157
+    },
+    {
+      "id": "TEST-POTTERY-017-001",
+      "kind": "test",
+      "path": "tests/test_gui_command_dispatcher.cpp",
+      "line": 29
     },
     {
       "id": "TEST-POTTERY-011-001",
@@ -516,6 +534,12 @@
       "kind": "test",
       "path": "tests/test_scan_importer.cpp",
       "line": 143
+    },
+    {
+      "id": "TEST-POTTERY-014-001",
+      "kind": "test",
+      "path": "tests/test_viewport_camera.cpp",
+      "line": 20
     }
   ],
   "edges": [
@@ -930,6 +954,26 @@
       "relation": "implements"
     },
     {
+      "from": "CODE-POTTERY-010",
+      "to": "REQ-POTTERY-017",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-010",
+      "to": "DES-POTTERY-009",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-009",
+      "to": "REQ-POTTERY-014",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-009",
+      "to": "DES-POTTERY-009",
+      "relation": "implements"
+    },
+    {
       "from": "TEST-POTTERY-006-001",
       "to": "REQ-POTTERY-006",
       "relation": "verifies"
@@ -992,6 +1036,11 @@
     {
       "from": "TEST-POTTERY-005-001",
       "to": "REQ-POTTERY-005",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-017-001",
+      "to": "REQ-POTTERY-017",
       "relation": "verifies"
     },
     {
@@ -1068,6 +1117,11 @@
       "from": "TEST-POTTERY-002-002",
       "to": "REQ-POTTERY-002",
       "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-014-001",
+      "to": "REQ-POTTERY-014",
+      "relation": "verifies"
     }
   ],
   "diagnostics": [],
@@ -1098,15 +1152,21 @@
     "src/core/report_aggregation.hpp": "3aff7ffe27c7ccb96cdb681b1739ce5a7146fc434e02874c5e7af51ee159eefa",
     "src/core/scan_importer.cpp": "9da0be01ad9f58d09c828d14d105eef70dbf50bc204aa6a96cdc440a90710278",
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
+    "src/gui/gui_command_dispatcher.cpp": "8a259fc9e4809d5e7f0c263ceca262a2b5890e56e04c2c0bf14bffcd1c7e49c2",
+    "src/gui/gui_command_dispatcher.hpp": "1220e6af12fb49f996cb8ef187c83c0279dfb6ce493dd90d3b09d2dbb1f49116",
+    "src/gui/viewport_camera.cpp": "bf47697e48859e9d054a657cfbdcd9f1173aa64334f9fdc11a70f27b97a825fb",
+    "src/gui/viewport_camera.hpp": "ac186c06061a714978b050981f359ca629e9dff4c974d16a53b068b84db21b0f",
     "tests/test_assembly_orchestrator.cpp": "f9cc790df73ec6a3f5414504794785d52f733c45e4abba92fc43d306358fcfb7",
     "tests/test_fragment_clustering.cpp": "d772754ec5613a6e2b05ed5750ec38e3fd40f1fa319f58c1916b459d15b09ffc",
     "tests/test_fragment_matching.cpp": "5418748f5ce41ce2576d371a34876e4729917a5280603187bba58d2d2c7403f0",
+    "tests/test_gui_command_dispatcher.cpp": "65110f666d34e3e018173e27b17dd1a6deb0285c8098a9e9f541ee597450b7a3",
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
     "tests/test_mesh_export.cpp": "b58774b092abb83c1320d3ec723f23376aede3df78e84b4ea2d9dd461308fa93",
     "tests/test_missing_part_estimation.cpp": "0271eb477c7f2b2ea79e81ca7f5a5ba477fedf7acaebffa7d198ce1f536bb2b2",
     "tests/test_pose_conflict.cpp": "493851499e0703768cca81c0fbacab4a89ce0ea1e0f81c06c531364ca10261da",
     "tests/test_report_aggregation.cpp": "43ade6cb3f79ab078f01a1ae12df5ba5b5e36d1210a071f0ea283d556d04609a",
     "tests/test_scan_importer.cpp": "80083f5630d52fcc48aed0112c9dd45122c1fcc1fbdd3f49185796e20a9a2087",
+    "tests/test_viewport_camera.cpp": "c2bc6bd93512a3d898f11d2a2cde57700bd97efccd7f1820adaf3b138c170eda",
     "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"
   }
 }
