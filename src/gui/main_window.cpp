@@ -525,17 +525,48 @@ void MainWindow::refreshViewport() {
 
       // 破片番号をラベルとして3D空間内に表示する（破片の識別を容易に
       // するため）。vtkBillboardTextActor3Dは常にカメラの方を向くため、
-      // 視点を変えても番号が読みやすい。
+      // 視点を変えても番号が読みやすい。曲面破片ではバウンディングボックス
+      // 中心が破片自体の表面より内側（裏側）に位置することがあり、その
+      // 場合ラベルが破片本体に隠れて表示されない問題があった。これを防ぐ
+      // ため、頂点法線の平均（=破片の外向き方向）に沿ってラベル位置を
+      // バウンディングボックスの外側へオフセットし、常に表面より手前に
+      // 出るようにする。
       transformFilter->Update();
       double bounds[6];
       transformFilter->GetOutput()->GetBounds(bounds);
       const double centerX = (bounds[0] + bounds[1]) / 2.0;
       const double centerY = (bounds[2] + bounds[3]) / 2.0;
       const double centerZ = (bounds[4] + bounds[5]) / 2.0;
+      const double diagonal = std::sqrt(
+          (bounds[1] - bounds[0]) * (bounds[1] - bounds[0]) +
+          (bounds[3] - bounds[2]) * (bounds[3] - bounds[2]) +
+          (bounds[5] - bounds[4]) * (bounds[5] - bounds[4]));
+
+      double outwardNormal[3] = {0.0, 0.0, 0.0};
+      bool haveNormal = false;
+      if (fragmentId < currentClusterFragments_.size()) {
+        const auto& mesh = currentClusterFragments_[fragmentId];
+        double sumX = 0.0, sumY = 0.0, sumZ = 0.0;
+        for (const auto& normal : mesh.normals) {
+          sumX += normal.x;
+          sumY += normal.y;
+          sumZ += normal.z;
+        }
+        const double length = std::sqrt(sumX * sumX + sumY * sumY + sumZ * sumZ);
+        if (length > 1e-6) {
+          const double localNormal[3] = {sumX / length, sumY / length, sumZ / length};
+          transform->TransformNormal(localNormal, outwardNormal);
+          haveNormal = true;
+        }
+      }
+      const double offsetDistance = haveNormal ? std::max(diagonal * 0.5, 3.0) : 0.0;
+      const double labelX = centerX + outwardNormal[0] * offsetDistance;
+      const double labelY = centerY + outwardNormal[1] * offsetDistance;
+      const double labelZ = centerZ + outwardNormal[2] * offsetDistance;
 
       auto label = vtkSmartPointer<vtkBillboardTextActor3D>::New();
       label->SetInput(std::to_string(fragmentId).c_str());
-      label->SetPosition(centerX, centerY, centerZ);
+      label->SetPosition(labelX, labelY, labelZ);
       label->GetTextProperty()->SetColor(1.0, 1.0, 1.0);
       label->GetTextProperty()->SetFontSize(18);
       label->GetTextProperty()->SetBold(true);
