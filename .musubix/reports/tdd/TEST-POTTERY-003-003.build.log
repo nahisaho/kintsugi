@@ -1,0 +1,10 @@
+[  0%] Built target pottery_core_autogen_timestamp_deps
+[  3%] Automatic MOC for target pottery_core
+[  3%] Built target pottery_core_autogen
+[  6%] Building CXX object CMakeFiles/pottery_core.dir/src/core/fragment_clustering.cpp.o
+[  9%] Linking CXX static library libpottery_core.a
+[ 48%] Built target pottery_core
+[ 48%] Built target pottery_tests_autogen_timestamp_deps
+[ 51%] Built target pottery_tests_autogen
+[ 54%] Linking CXX executable pottery_tests
+[100%] Built target pottery_tests

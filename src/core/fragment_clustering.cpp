@@ -126,9 +126,50 @@ ClusteringResult clusterFragments(const std::vector<FragmentMesh>& fragments) {
   }
 
   ClusteringResult result;
+  std::vector<bool> isUnclassified(n, false);
   for (std::size_t root = 0; root < n; ++root) {
-    const auto& members = groupsByRoot[root];
+    auto members = groupsByRoot[root];
     if (members.size() < 2) {
+      continue;
+    }
+
+    // Union-Findによる推移的併合は、A-B・B-Cがそれぞれ閾値以上でも
+    // A-C間が閾値未満となるケースを許容してしまう（Issue #3）。
+    // REQ-POTTERY-003は「所属信頼度70以上の破片のみをグルーピングし、
+    // 70未満の破片は未分類として区別する」ことを要求するため、各破片の
+    // グループ内平均信頼度が閾値未満になった時点でそのグループから除外し、
+    // 安定するまで反復する（決定的な破片インデックス昇順で走査）。
+    for (;;) {
+      std::vector<double> memberConfidence(members.size(), 0.0);
+      for (std::size_t k = 0; k < members.size(); ++k) {
+        double sum = 0.0;
+        for (std::size_t l = 0; l < members.size(); ++l) {
+          if (l == k) continue;
+          sum += pairwiseConfidence(features[members[k]], features[members[l]]);
+        }
+        memberConfidence[k] = sum / static_cast<double>(members.size() - 1);
+      }
+
+      std::vector<std::size_t> retained;
+      for (std::size_t k = 0; k < members.size(); ++k) {
+        if (memberConfidence[k] >= kMembershipThreshold) {
+          retained.push_back(members[k]);
+        }
+      }
+
+      if (retained.size() == members.size()) {
+        break;  // 安定：全メンバーが閾値を満たす。
+      }
+      members = std::move(retained);
+      if (members.size() < 2) {
+        break;
+      }
+    }
+
+    if (members.size() < 2) {
+      for (std::size_t index : members) {
+        isUnclassified[index] = true;
+      }
       continue;
     }
 
@@ -150,7 +191,12 @@ ClusteringResult clusterFragments(const std::vector<FragmentMesh>& fragments) {
 
   for (std::size_t root = 0; root < n; ++root) {
     if (groupsByRoot[root].size() == 1) {
-      result.unclassified.push_back(fragments[groupsByRoot[root].front()]);
+      isUnclassified[groupsByRoot[root].front()] = true;
+    }
+  }
+  for (std::size_t i = 0; i < n; ++i) {
+    if (isUnclassified[i]) {
+      result.unclassified.push_back(fragments[i]);
     }
   }
 

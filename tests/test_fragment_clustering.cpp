@@ -124,3 +124,32 @@ TEST_CASE("TEST-POTTERY-003-002: 所属信頼度70未満の破片は未分類破
   REQUIRE(result.unclassified.size() == 1);
   CHECK(result.unclassified.front().colors.front().g == 200);
 }
+
+/** @id TEST-POTTERY-003-003
+ * @verifies REQ-POTTERY-003
+ */
+TEST_CASE(
+    "TEST-POTTERY-003-003: "
+    "A-B・B-Cが70以上でもA-Cが70未満の推移的併合パターンで、"
+    "vesselCandidateに含まれる全破片の所属信頼度が70以上である（Issue #3）") {
+  // 肉厚のみで信頼度を決定させるため、色は付与しない（hasColor=false）。
+  // 肉厚差5mm(A-B)・5.5mm(B-C)はそれぞれ単独ではpairwiseConfidence>=70だが、
+  // 肉厚差10.5mm(A-C)は70未満となるよう設計した合成データセット。
+  std::vector<FragmentMesh> fragments;
+  fragments.push_back(makeSyntheticFragment(20.0, 15.0, 5.0, ColorRGB{0, 0, 0}));
+  fragments.back().colors.clear();
+  fragments.push_back(makeSyntheticFragment(20.0, 15.0, 10.0, ColorRGB{0, 0, 0}));
+  fragments.back().colors.clear();
+  fragments.push_back(makeSyntheticFragment(20.0, 15.0, 15.5, ColorRGB{0, 0, 0}));
+  fragments.back().colors.clear();
+
+  ClusteringResult result = clusterFragments(fragments);
+
+  // REQ-POTTERY-003の受け入れ基準（所属信頼度70以上でグルーピング）に反し、
+  // 推移的併合により信頼度70未満の破片がvesselCandidateへ混入してはならない。
+  for (const auto& cluster : result.vesselCandidates) {
+    for (double confidence : cluster.membershipConfidence) {
+      CHECK(confidence >= 70.0);
+    }
+  }
+}
