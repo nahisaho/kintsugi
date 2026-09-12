@@ -43,6 +43,68 @@ def vessel_radius_profile(t: np.ndarray, radius: float) -> np.ndarray:
     return result * radius
 
 
+def generate_decoy_fragment(rng: np.random.Generator, patch_size: int = 10):
+    """壺本体とは接合しない、別由来(別の器・がれき)を模した破片を生成する。
+
+    壺のプロファイルとは無関係な局所曲率(放物面近似、曲率半径をランダムに
+    大きく変える)を持つ小片を、壺本体から離れた位置・向きに配置する。
+    復元シミュレーションにおいて「接合先が存在しない破片」を混在させる
+    ことで、クラスタリング・接合候補提示が全破片を無理に接合しようと
+    しないことを確認できるデータになる。
+    """
+    span = rng.uniform(10.0, 22.0)
+    u = np.linspace(-span, span, patch_size)
+    v = np.linspace(-span, span, patch_size)
+    grid_u, grid_v = np.meshgrid(u, v)
+
+    # 曲率半径は壺本体(半径50mm程度)と明確に異なる値(ほぼ平坦〜強い湾曲まで)
+    # をランダムに選び、壺表面のどの部分ともフィットしない形状にする。
+    curvature_radius = rng.uniform(15.0, 300.0) * rng.choice([-1.0, 1.0])
+    grid_z = (grid_u ** 2 + grid_v ** 2) / (2.0 * curvature_radius)
+    grid_z += rng.normal(0, 0.3, size=grid_z.shape)
+
+    local_points = np.stack([grid_u.ravel(), grid_v.ravel(), grid_z.ravel()], axis=1)
+
+    dzdu = grid_u / curvature_radius
+    dzdv = grid_v / curvature_radius
+    local_normals = np.stack(
+        [-dzdu.ravel(), -dzdv.ravel(), np.ones(grid_u.size)], axis=1)
+    local_normals /= np.linalg.norm(local_normals, axis=1, keepdims=True)
+
+    # ランダムな回転(向き)を適用し、壺本体の局所法線方向と揃わないようにする。
+    axis = rng.normal(0, 1, size=3)
+    axis /= np.linalg.norm(axis)
+    angle = rng.uniform(0, 2 * np.pi)
+    cos_a, sin_a = np.cos(angle), np.sin(angle)
+    kx, ky, kz = axis
+    k_mat = np.array([[0, -kz, ky], [kz, 0, -kx], [-ky, kx, 0]])
+    rotation = np.eye(3) + sin_a * k_mat + (1 - cos_a) * (k_mat @ k_mat)
+    local_points = local_points @ rotation.T
+    local_normals = local_normals @ rotation.T
+
+    # 壺本体(高さ0〜120mm, 半径〜90mm程度)から明確に離れた位置に配置する。
+    theta = rng.uniform(0, 2 * np.pi)
+    distance = rng.uniform(160.0, 260.0)
+    center = np.array([
+        distance * np.cos(theta),
+        distance * np.sin(theta),
+        rng.uniform(-40.0, 160.0),
+    ])
+    local_points += center
+
+    faces = []
+    for i in range(patch_size - 1):
+        for j in range(patch_size - 1):
+            v00 = i * patch_size + j
+            v01 = i * patch_size + (j + 1)
+            v10 = (i + 1) * patch_size + j
+            v11 = (i + 1) * patch_size + (j + 1)
+            faces.append((v00, v10, v11))
+            faces.append((v00, v11, v01))
+
+    return local_points, local_normals, faces
+
+
 def write_obj_fragment(obj_path, mtl_path, mtl_name, points, normals, faces, color):
     """1破片分のOBJ(usemtl参照・vn付き)とMTL(単色マテリアル)を書き出す。
 
@@ -74,7 +136,8 @@ def write_obj_fragment(obj_path, mtl_path, mtl_name, points, normals, faces, col
 
 def generate(num_fragments: int, out_dir: str, seed: int = 42,
              points_per_fragment_target: int = 250,
-             missing_ratio: float = 0.15) -> None:
+             missing_ratio: float = 0.15,
+             num_unrelated: int = 5) -> None:
     rng = np.random.default_rng(seed)
 
     radius = 50.0
@@ -180,7 +243,7 @@ def generate(num_fragments: int, out_dir: str, seed: int = 42,
 
     written = 0
     skipped_missing = 0
-    num_digits = len(str(num_fragments))
+    num_digits = len(str(num_fragments + num_unrelated))
     for frag_idx in range(num_fragments):
         if frag_idx in missing_indices:
             skipped_missing += 1
@@ -203,8 +266,25 @@ def generate(num_fragments: int, out_dir: str, seed: int = 42,
                             local_faces, color)
         written += 1
 
+    # 壺本体とは接合しない「マッチしない破片」(別の器・がれき由来を想定)を
+    # 追加する。番号は壺本体破片の続き(num_fragments+1〜)を割り当てる。
+    decoy_palette = [
+        (110, 110, 120), (130, 120, 140), (100, 105, 100), (140, 135, 130),
+    ]
+    for decoy_i in range(num_unrelated):
+        frag_number = num_fragments + decoy_i + 1
+        local_points, local_normals, local_faces = generate_decoy_fragment(rng)
+        color = decoy_palette[decoy_i % len(decoy_palette)]
+        mtl_name = f"fragment{frag_number}"
+        obj_path = f"{out_dir}/pottery_fragment_{frag_number:0{num_digits}d}.obj"
+        mtl_path = f"{out_dir}/pottery_fragment_{frag_number:0{num_digits}d}.mtl"
+        write_obj_fragment(obj_path, mtl_path, mtl_name, local_points, local_normals,
+                            local_faces, color)
+        written += 1
+
     print(f"wrote {written} fragment files (requested {num_fragments}, "
-          f"{skipped_missing} treated as missing/lost) "
+          f"{skipped_missing} treated as missing/lost, "
+          f"{num_unrelated} unrelated/non-matching decoys added) "
           f"from {len(grid_a)} surface points into {out_dir}/")
 
 
@@ -218,8 +298,12 @@ def main():
     parser.add_argument("--missing-ratio", type=float, default=0.15,
                          help="欠損(紛失)扱いにして出力しない破片の割合"
                               "(デフォルト: 0.15 = 約15%)")
+    parser.add_argument("--unrelated-count", type=int, default=5,
+                         help="壺本体と接合しない破片(別由来・がれき)の"
+                              "追加数(デフォルト: 5)")
     args = parser.parse_args()
-    generate(args.num_fragments, args.out_dir, args.seed, missing_ratio=args.missing_ratio)
+    generate(args.num_fragments, args.out_dir, args.seed,
+              missing_ratio=args.missing_ratio, num_unrelated=args.unrelated_count)
 
 
 if __name__ == "__main__":
