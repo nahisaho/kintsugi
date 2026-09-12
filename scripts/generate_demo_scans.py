@@ -74,7 +74,7 @@ def write_obj_fragment(obj_path, mtl_path, mtl_name, points, normals, faces, col
 
 def generate(num_fragments: int, out_dir: str, seed: int = 42,
              points_per_fragment_target: int = 250,
-             missing_ratio: float = 0.08) -> None:
+             missing_ratio: float = 0.15) -> None:
     rng = np.random.default_rng(seed)
 
     radius = 50.0
@@ -215,9 +215,9 @@ def main():
     parser.add_argument("--out-dir", default="demo_data",
                          help="出力先ディレクトリ(デフォルト: demo_data)")
     parser.add_argument("--seed", type=int, default=42, help="乱数シード")
-    parser.add_argument("--missing-ratio", type=float, default=0.08,
+    parser.add_argument("--missing-ratio", type=float, default=0.15,
                          help="欠損(紛失)扱いにして出力しない破片の割合"
-                              "(デフォルト: 0.08 = 約8%)")
+                              "(デフォルト: 0.15 = 約15%)")
     args = parser.parse_args()
     generate(args.num_fragments, args.out_dir, args.seed, missing_ratio=args.missing_ratio)
 

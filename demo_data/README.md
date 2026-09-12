@@ -8,8 +8,8 @@
 底部(半径小)→胴部(最大膨らみ)→肩部(すぼまり)→首部(最も細い)→
 口縁(わずかに開く) というシルエットの表面を、100個の不定形な破片に
 分割したメッシュを用意しています（`pottery_fragment_001.obj`〜
-`pottery_fragment_100.obj` のうち、実際の出土状況を模して一部(既定で約8%)
-を欠損(紛失)扱いとして間引いた92個 と、対応する `.mtl`）。単純な円柱形状
+`pottery_fragment_100.obj` のうち、実際の出土状況を模して一部(既定で約15%)
+を欠損(紛失)扱いとして間引いた85個 と、対応する `.mtl`）。単純な円柱形状
 ではなく、実際の壺に近いプロファイル曲線を用いています。角度・高さ空間上に
 ジッターを与えた種点によるVoronoi分割で破片形状を決めているため、
 実際の破損片に近い不定形・不均一なサイズ（1破片あたり約100〜400頂点、
@@ -55,7 +55,7 @@ f a//a b//b c//c # 三角形面（頂点・法線とも同一インデックス�
 このデータは `scripts/generate_demo_scans.py`（同梱）で再生成できます:
 
 ```bash
-python3 scripts/generate_demo_scans.py                 # 100破片(デフォルト、約8%欠損)
+python3 scripts/generate_demo_scans.py                 # 100破片(デフォルト、約15%欠損)
 python3 scripts/generate_demo_scans.py --num-fragments 4  # 破片数を変更する場合
 python3 scripts/generate_demo_scans.py --missing-ratio 0  # 欠損なし(全破片を出力)
 ```
