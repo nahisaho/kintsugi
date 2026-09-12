@@ -27,6 +27,7 @@
 #include <vtkCellArray.h>
 #include <vtkFeatureEdges.h>
 #include <vtkGenericOpenGLRenderWindow.h>
+#include <vtkInteractorStyleUser.h>
 #include <vtkMatrix4x4.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
@@ -135,6 +136,16 @@ void MainWindow::buildUi() {
   renderer->SetBackground(0.12, 0.12, 0.15);
   renderWindow->AddRenderer(renderer);
   renderer_ = renderer;
+  // マウスドラッグ/ホイールによるVTK既定のカメラ操作（トラックボール
+  // スタイル）を無効化する。これを有効なままにすると、マウス操作で
+  // 変更されたカメラ状態（特にズーム量）がViewportCamera（camera_）側の
+  // 状態と食い違い、ナビゲーターのボタンを押すたびにrefreshViewport()が
+  // camera_の値でカメラ位置を上書きしてズームが元に戻ってしまう問題が
+  // あった。視点操作は「視点操作」パネルのボタンのみに一本化することで、
+  // camera_を唯一の状態源にし、この食い違いを防ぐ。
+  if (auto* interactor = viewportWidget_->interactor()) {
+    interactor->SetInteractorStyle(vtkSmartPointer<vtkInteractorStyleUser>::New());
+  }
   rootLayout->addWidget(viewportWidget_, /*stretch=*/3);
 
   // 右側: 操作パネル。
