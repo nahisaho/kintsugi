@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T23:51:10.974Z",
+  "generatedAt": "2026-09-12T00:56:16.276Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -308,6 +308,12 @@
       "mandatory": true
     },
     {
+      "id": "CODE-POTTERY-005",
+      "kind": "code",
+      "path": "src/core/assembly_orchestrator.hpp",
+      "line": 14
+    },
+    {
       "id": "CODE-POTTERY-002",
       "kind": "code",
       "path": "src/core/fragment_clustering.hpp",
@@ -320,16 +326,58 @@
       "line": 12
     },
     {
+      "id": "CODE-POTTERY-012",
+      "kind": "code",
+      "path": "src/core/pose_conflict.hpp",
+      "line": 43
+    },
+    {
       "id": "CODE-POTTERY-004",
       "kind": "code",
       "path": "src/core/pose_conflict.hpp",
-      "line": 32
+      "line": 58
     },
     {
       "id": "CODE-POTTERY-001",
       "kind": "code",
       "path": "src/core/scan_importer.hpp",
       "line": 7
+    },
+    {
+      "id": "TEST-POTTERY-006-001",
+      "kind": "test",
+      "path": "tests/test_assembly_orchestrator.cpp",
+      "line": 32
+    },
+    {
+      "id": "TEST-POTTERY-020-001",
+      "kind": "test",
+      "path": "tests/test_assembly_orchestrator.cpp",
+      "line": 66
+    },
+    {
+      "id": "TEST-POTTERY-007-001",
+      "kind": "test",
+      "path": "tests/test_assembly_orchestrator.cpp",
+      "line": 95
+    },
+    {
+      "id": "TEST-POTTERY-008-001",
+      "kind": "test",
+      "path": "tests/test_assembly_orchestrator.cpp",
+      "line": 129
+    },
+    {
+      "id": "TEST-POTTERY-022-001",
+      "kind": "test",
+      "path": "tests/test_assembly_orchestrator.cpp",
+      "line": 151
+    },
+    {
+      "id": "TEST-POTTERY-026-001",
+      "kind": "test",
+      "path": "tests/test_assembly_orchestrator.cpp",
+      "line": 172
     },
     {
       "id": "TEST-POTTERY-003-001",
@@ -365,7 +413,13 @@
       "id": "TEST-POTTERY-004-001",
       "kind": "test",
       "path": "tests/test_pose_conflict.cpp",
-      "line": 9
+      "line": 13
+    },
+    {
+      "id": "TEST-POTTERY-027-002",
+      "kind": "test",
+      "path": "tests/test_pose_conflict.cpp",
+      "line": 24
     },
     {
       "id": "TEST-POTTERY-001-001",
@@ -666,6 +720,41 @@
       "relation": "satisfies"
     },
     {
+      "from": "CODE-POTTERY-005",
+      "to": "REQ-POTTERY-006",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-005",
+      "to": "REQ-POTTERY-007",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-005",
+      "to": "REQ-POTTERY-008",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-005",
+      "to": "REQ-POTTERY-020",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-005",
+      "to": "REQ-POTTERY-022",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-005",
+      "to": "REQ-POTTERY-026",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-005",
+      "to": "DES-POTTERY-005",
+      "relation": "implements"
+    },
+    {
       "from": "CODE-POTTERY-002",
       "to": "REQ-POTTERY-003",
       "relation": "implements"
@@ -706,6 +795,16 @@
       "relation": "implements"
     },
     {
+      "from": "CODE-POTTERY-012",
+      "to": "REQ-POTTERY-027",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-012",
+      "to": "DES-POTTERY-004",
+      "relation": "implements"
+    },
+    {
       "from": "CODE-POTTERY-004",
       "to": "REQ-POTTERY-027",
       "relation": "implements"
@@ -729,6 +828,36 @@
       "from": "CODE-POTTERY-001",
       "to": "DES-POTTERY-001",
       "relation": "implements"
+    },
+    {
+      "from": "TEST-POTTERY-006-001",
+      "to": "REQ-POTTERY-006",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-020-001",
+      "to": "REQ-POTTERY-020",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-007-001",
+      "to": "REQ-POTTERY-007",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-008-001",
+      "to": "REQ-POTTERY-008",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-022-001",
+      "to": "REQ-POTTERY-022",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-026-001",
+      "to": "REQ-POTTERY-026",
+      "relation": "verifies"
     },
     {
       "from": "TEST-POTTERY-003-001",
@@ -767,6 +896,11 @@
     },
     {
       "from": "TEST-POTTERY-004-001",
+      "to": "REQ-POTTERY-027",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-027-002",
       "to": "REQ-POTTERY-027",
       "relation": "verifies"
     },
@@ -812,19 +946,22 @@
     ".musubix/features/example/requirements.md": "f6ce0617c425a351ac1995a50b37a8b7f6c5b3e8ea2d6087d0898d4fde40f5ed",
     ".musubix/features/pottery-fragment-reassembly/design.md": "c934a17b35187a1f250619b331cfaebe4a1e1a281d184e24632950cd82b291fc",
     ".musubix/features/pottery-fragment-reassembly/requirements.md": "547f84507131b5e1194dc75559e51ac1a9331f2ed4546e6d3a23ec53d05ccd43",
+    "src/core/assembly_orchestrator.cpp": "5436a1231cee23a08389959f5d6e674e569686c32d4582cd0ad89167383a8e73",
+    "src/core/assembly_orchestrator.hpp": "bea728b8a54cc4d3d0678d44d7572f4bb44fedb24a9e890e33dfaf5b80744bab",
     "src/core/fragment_clustering.cpp": "599f66035acb9012978b53331c66bf7830b920daa1bdfd96afcd2d2bb2786382",
     "src/core/fragment_clustering.hpp": "cced8d51cfab39966329fe4af6e60138963616179a7711718e6f0edeb84cdf5e",
     "src/core/fragment_matching.cpp": "895f6db27cca5c81e039729e1f3d2947926614d309364701aabab84387ca3cdf",
     "src/core/fragment_matching.hpp": "ab73a29cd863af44feaaed652fb6f72eba85ba48b67ba6ae00709e20f386b6d1",
     "src/core/fragment_mesh.hpp": "90d450c9ed90230eb5530a36bd02ae36dd4bc6f757a1150124dcad394be9da99",
-    "src/core/pose_conflict.cpp": "11a6ec30420d383019642b9695eebc7a0ae298ee6a4a11a34a37dea3c2208fc8",
-    "src/core/pose_conflict.hpp": "0cae2004535719d24470ae5c137ad33a122b2c35df5d883e6bfb2801a3e319ea",
+    "src/core/pose_conflict.cpp": "e51dbf023e5c9df2080692091a8e4df8dae756b245c87e0413d6dbe9fca983e5",
+    "src/core/pose_conflict.hpp": "6d89a89dcc3630a9ad4e968837f1e1e932bfc1a6688dd5c73fc0db6f62023166",
     "src/core/scan_importer.cpp": "9da0be01ad9f58d09c828d14d105eef70dbf50bc204aa6a96cdc440a90710278",
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
+    "tests/test_assembly_orchestrator.cpp": "f9cc790df73ec6a3f5414504794785d52f733c45e4abba92fc43d306358fcfb7",
     "tests/test_fragment_clustering.cpp": "d772754ec5613a6e2b05ed5750ec38e3fd40f1fa319f58c1916b459d15b09ffc",
     "tests/test_fragment_matching.cpp": "5418748f5ce41ce2576d371a34876e4729917a5280603187bba58d2d2c7403f0",
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
-    "tests/test_pose_conflict.cpp": "d1c0996aefa9a44580e15e79c4d260255395971b70e61554bff022feb501b8d6",
+    "tests/test_pose_conflict.cpp": "493851499e0703768cca81c0fbacab4a89ce0ea1e0f81c06c531364ca10261da",
     "tests/test_scan_importer.cpp": "80083f5630d52fcc48aed0112c9dd45122c1fcc1fbdd3f49185796e20a9a2087",
     "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"
   }
