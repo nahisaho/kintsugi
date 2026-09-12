@@ -18,6 +18,7 @@
 class QComboBox;
 class QListWidget;
 class QLabel;
+class QScrollBar;
 class QVTKOpenGLNativeWidget;
 class vtkActor;
 class vtkRenderer;
@@ -52,6 +53,7 @@ class MainWindow : public QMainWindow {
   void onRotateView(double deltaAzimuthDeg, double deltaElevationDeg);
   void onPanView(double dxMm, double dyMm);
   void onZoomView(double factor);
+  void onStagingScrollChanged(int value);
 
  protected:
   bool eventFilter(QObject* watched, QEvent* event) override;
@@ -85,6 +87,12 @@ class MainWindow : public QMainWindow {
   QLabel* statusLabel_ = nullptr;
   QVTKOpenGLNativeWidget* viewportWidget_ = nullptr;
   vtkRenderer* renderer_ = nullptr;
+  // 「マッチしない破片」の画面左スタック表示のうち、現在フレーム内に
+  // 収まっている先頭のスロット番号（縦方向のスクロール位置）。
+  // マッチしない破片がkStagingVisibleSlots件を超える場合、この値を
+  // 増減させて表示範囲をスクロールする（onStagingScrollChanged）。
+  QScrollBar* stagingScrollBar_ = nullptr;
+  int stagingScrollOffset_ = 0;
   // マウスホバーによる破片番号表示（ツールチップ）用に、直近の
   // refreshViewport()で描画した各破片の本体アクターと破片IDの対応を
   // 保持する。ポインタは同じ関数内で再構築されるためrefreshViewport()の

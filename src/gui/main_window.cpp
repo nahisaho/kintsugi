@@ -1,5 +1,6 @@
 #include "main_window.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <fstream>
 #include <functional>
@@ -19,7 +20,9 @@
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QPushButton>
+#include <QScrollBar>
 #include <QShortcut>
+#include <QSignalBlocker>
 #include <QToolTip>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -154,9 +157,51 @@ vtkSmartPointer<vtkMatrix4x4> buildTransformMatrix(const kintsugi::core::Propaga
 // スタック配置のパラメータ。カメラの既定姿勢（azimuth=0, elevation=0,
 // Z軸を鉛直上向き）では、視点から見て画面左は世界座標のY軸方向のうち
 // 焦点から見て+X側にあたるため、+X方向へ壺本体の外側まで離した位置に、
-// Z軸方向へ一定間隔で積み上げて配置する。
+// Z軸方向へ一定間隔で積み上げて配置する。一度に表示するのは
+// kStagingVisibleSlots件までとし、それを超える分はビューポート横の
+// スクロールバーで縦方向にスクロールして表示範囲を切り替える。
 constexpr double kStagingBaseX = 130.0;
 constexpr double kStagingSpacingZ = 35.0;
+constexpr int kStagingVisibleSlots = 6;
+constexpr double kStagingFrameHalfWidthMm = 35.0;
+constexpr double kStagingFrameMarginMm = kStagingSpacingZ * 0.5;
+
+// 画面左のスタック表示枠（フレーム）を表す矩形の輪郭線アクターを作る。
+// スタック内の何番目からkStagingVisibleSlots件分が現在見えているかを
+// 利用者が把握しやすいよう、Y-Z平面（既定視点で画面に正対する面）上に
+// 白系の枠線を描く。
+vtkSmartPointer<vtkActor> buildStagingFrameActor() {
+  // 各破片はz = slot * kStagingSpacingZ (slot = 0..kStagingVisibleSlots-1)に
+  // 中心が来るように並ぶため、枠はその範囲を余白付きで包む大きさにする。
+  const double zMin = -kStagingSpacingZ * 0.5 - kStagingFrameMarginMm;
+  const double zMax = (kStagingVisibleSlots - 1) * kStagingSpacingZ + kStagingSpacingZ * 0.5 +
+                       kStagingFrameMarginMm;
+  auto points = vtkSmartPointer<vtkPoints>::New();
+  points->InsertNextPoint(kStagingBaseX, -kStagingFrameHalfWidthMm, zMin);
+  points->InsertNextPoint(kStagingBaseX, kStagingFrameHalfWidthMm, zMin);
+  points->InsertNextPoint(kStagingBaseX, kStagingFrameHalfWidthMm, zMax);
+  points->InsertNextPoint(kStagingBaseX, -kStagingFrameHalfWidthMm, zMax);
+
+  auto lines = vtkSmartPointer<vtkCellArray>::New();
+  lines->InsertNextCell(5);
+  lines->InsertCellPoint(0);
+  lines->InsertCellPoint(1);
+  lines->InsertCellPoint(2);
+  lines->InsertCellPoint(3);
+  lines->InsertCellPoint(0);
+
+  auto polyData = vtkSmartPointer<vtkPolyData>::New();
+  polyData->SetPoints(points);
+  polyData->SetLines(lines);
+
+  auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+  mapper->SetInputData(polyData);
+  auto actor = vtkSmartPointer<vtkActor>::New();
+  actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(0.85, 0.9, 0.95);
+  actor->GetProperty()->SetLineWidth(2.0);
+  return actor;
+}
 
 // マウスドラッグ操作中、スクリーン座標(displayX, displayY)を、指定した
 // 基準奥行き(referenceDepth、vtkRenderer::WorldToDisplay()のZ成分と同じ
@@ -224,7 +269,21 @@ void MainWindow::buildUi() {
     style->SetZoomCallback([this](double factor) { onZoomView(factor); });
     interactor->SetInteractorStyle(style);
   }
-  rootLayout->addWidget(viewportWidget_, /*stretch=*/3);
+  // 「マッチしない破片」の画面左スタック表示を縦方向にスクロールする
+  // ためのスクロールバー。ビューポートの左端に隣接させ、視覚的な
+  // スタック位置と対応させる。
+  auto* viewportContainer = new QWidget(central);
+  auto* viewportContainerLayout = new QHBoxLayout(viewportContainer);
+  viewportContainerLayout->setContentsMargins(0, 0, 0, 0);
+  viewportContainerLayout->setSpacing(2);
+  stagingScrollBar_ = new QScrollBar(Qt::Vertical, viewportContainer);
+  stagingScrollBar_->setRange(0, 0);
+  stagingScrollBar_->setEnabled(false);
+  connect(stagingScrollBar_, &QScrollBar::valueChanged, this,
+          &MainWindow::onStagingScrollChanged);
+  viewportContainerLayout->addWidget(stagingScrollBar_, /*stretch=*/0);
+  viewportContainerLayout->addWidget(viewportWidget_, /*stretch=*/1);
+  rootLayout->addWidget(viewportContainer, /*stretch=*/3);
 
   // 右側: 操作パネル。
   auto* panel = new QWidget(central);
@@ -582,6 +641,11 @@ void MainWindow::onZoomView(double factor) {
   refreshViewport();
 }
 
+void MainWindow::onStagingScrollChanged(int value) {
+  stagingScrollOffset_ = value;
+  refreshViewport();
+}
+
 bool MainWindow::eventFilter(QObject* watched, QEvent* event) {
   if (watched == viewportWidget_) {
     if (event->type() == QEvent::MouseMove) {
@@ -721,8 +785,46 @@ void MainWindow::refreshViewport() {
       fragmentsWithCandidate.insert(candidate.fragmentIdB);
     }
 
-    std::size_t stagingSlot = 0;
+    // マッチしない破片のうち、まだ手動で動かされていない（resolvedPoseを
+    // 持たない）ものだけがスタック表示の対象になる。件数が
+    // kStagingVisibleSlotsを超える場合に備え、先に対象一覧を確定して
+    // スクロールバーの可動範囲を設定する。
+    std::vector<std::size_t> stagingFragmentIds;
     for (std::size_t fragmentId : state.fragmentIds) {
+      if (!state.resolvedPose(fragmentId) && fragmentsWithCandidate.count(fragmentId) == 0) {
+        stagingFragmentIds.push_back(fragmentId);
+      }
+    }
+    const int maxStagingOffset =
+        std::max(0, static_cast<int>(stagingFragmentIds.size()) - kStagingVisibleSlots);
+    stagingScrollOffset_ = std::clamp(stagingScrollOffset_, 0, maxStagingOffset);
+    if (stagingScrollBar_) {
+      const QSignalBlocker blocker(stagingScrollBar_);
+      stagingScrollBar_->setEnabled(maxStagingOffset > 0);
+      stagingScrollBar_->setRange(0, maxStagingOffset);
+      stagingScrollBar_->setPageStep(std::max(1, kStagingVisibleSlots));
+      stagingScrollBar_->setValue(stagingScrollOffset_);
+    }
+    std::unordered_map<std::size_t, int> stagingVisibleSlot;
+    for (std::size_t i = 0; i < stagingFragmentIds.size(); ++i) {
+      const int visibleSlot = static_cast<int>(i) - stagingScrollOffset_;
+      if (visibleSlot >= 0 && visibleSlot < kStagingVisibleSlots) {
+        stagingVisibleSlot[stagingFragmentIds[i]] = visibleSlot;
+      }
+    }
+    if (!stagingFragmentIds.empty()) {
+      renderer_->AddActor(buildStagingFrameActor());
+    }
+
+    for (std::size_t fragmentId : state.fragmentIds) {
+      const bool isNonMatching = fragmentsWithCandidate.count(fragmentId) == 0;
+      const auto stagingSlotIt = stagingVisibleSlot.find(fragmentId);
+      if (isNonMatching && !state.resolvedPose(fragmentId) &&
+          stagingSlotIt == stagingVisibleSlot.end()) {
+        // スクロール範囲外のマッチしない破片は、スクロールバーで表示
+        // 範囲に入れるまで描画しない。
+        continue;
+      }
       vtkSmartPointer<vtkPolyData> polyData;
       if (fragmentId < currentClusterFragments_.size()) {
         polyData = buildFragmentPolyData(currentClusterFragments_[fragmentId]);
@@ -735,16 +837,15 @@ void MainWindow::refreshViewport() {
 
       kintsugi::core::PropagatedPose displayPose;
       const auto resolvedPose = state.resolvedPose(fragmentId);
-      const bool isNonMatching = fragmentsWithCandidate.count(fragmentId) == 0;
       if (resolvedPose) {
         // 採用済み接合、またはマウスドラッグ等による手動姿勢設定済み
         // （元がマッチしない破片としてスタック配置されていた場合を含む）。
         displayPose = *resolvedPose;
       } else if (isNonMatching) {
-        // マッチしない破片：画面左に一列にスタック配置する。
-        displayPose.translationMm =
-            Vec3{kStagingBaseX, 0.0, static_cast<double>(stagingSlot) * kStagingSpacingZ};
-        ++stagingSlot;
+        // マッチしない破片：画面左のスタック枠内の現在の表示スロットに
+        // 配置する。
+        displayPose.translationMm = Vec3{
+            kStagingBaseX, 0.0, static_cast<double>(stagingSlotIt->second) * kStagingSpacingZ};
       }
       // resolvedPoseもなく、接合候補が存在する未接合破片は、変換を適用
       // せずスキャン取得時の元の座標のまま表示する（displayPoseは恒等姿勢
@@ -772,7 +873,10 @@ void MainWindow::refreshViewport() {
       if (joined) {
         actor->GetProperty()->SetColor(0.2, 0.7, 0.3);
       } else if (isNonMatching) {
-        actor->GetProperty()->SetColor(0.55, 0.55, 0.6);
+        // マッチしない破片であることが一目で分かるよう、接合済み（緑）・
+        // 未接合だが候補あり（オレンジ）とは明確に異なる目立つ紫色にする
+        // （従来のグレーは背景・他破片と紛れやすかったため変更）。
+        actor->GetProperty()->SetColor(0.75, 0.2, 0.85);
       } else {
         actor->GetProperty()->SetColor(0.7, 0.4, 0.2);
       }
