@@ -494,6 +494,12 @@ void MainWindow::refreshViewport() {
       } else {
         actor->GetProperty()->SetColor(0.7, 0.4, 0.2);
       }
+      // 破片同士の境界を視覚的に把握しやすくするため、メッシュのエッジ
+      // (面情報を持つ破片のみ描画対象となる)を表示する。点群のみの破片
+      // （面情報なし）には影響しない。
+      actor->GetProperty()->EdgeVisibilityOn();
+      actor->GetProperty()->SetEdgeColor(0.05, 0.05, 0.05);
+      actor->GetProperty()->SetLineWidth(1.0);
       renderer_->AddActor(actor);
     }
   }

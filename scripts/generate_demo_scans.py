@@ -1,46 +1,21 @@
 #!/usr/bin/env python3
-"""デモ用スキャンデータ(PCD)を生成するスクリプト。
+"""デモ用スキャンデータ(OBJメッシュ)を生成するスクリプト。
 
 古典的な壺（土器）のシルエット（底部→胴部の膨らみ→肩→首→口縁）を持つ
-曲面を、多数の不定形な破片(デフォルト100個)に分割した点群を生成する。
-各破片が隣接破片と自然な境界で接するよう、角度・高さ空間上のジッター付き
-グリッド種点によるVoronoi分割で破片形状を決定する(単純な角度スライスでは
-なく、より実際の破損片に近い不定形の破片群になる)。
+曲面を、多数の不定形な破片(デフォルト100個)に分割したメッシュ（頂点・
+法線・面・破片ごとの色付きマテリアル）を生成する。各破片が隣接破片と
+自然な境界で接するよう、角度・高さ空間上のジッター付きグリッド種点による
+Voronoi分割で破片形状を決定する(単純な角度スライスではなく、より実際の
+破損片に近い不定形の破片群になる)。破片ごとに面(三角形)を持たせることで、
+3Dビューア上で各破片のエッジ（メッシュの輪郭線）を表示できる。
 
 使い方:
     python3 scripts/generate_demo_scans.py                # 100破片を生成
     python3 scripts/generate_demo_scans.py --num-fragments 4
 """
 import argparse
-import struct
 
 import numpy as np
-
-
-def pack_rgb(r: int, g: int, b: int) -> float:
-    rgb_int = (r << 16) | (g << 8) | b
-    return struct.unpack('f', struct.pack('I', rgb_int))[0]
-
-
-def write_pcd(path, points, normals, colors):
-    n = len(points)
-    with open(path, 'w') as f:
-        f.write("# .PCD v0.7 - Point Cloud Data file format\n")
-        f.write("VERSION 0.7\n")
-        f.write("FIELDS x y z normal_x normal_y normal_z rgb\n")
-        f.write("SIZE 4 4 4 4 4 4 4\n")
-        f.write("TYPE F F F F F F F\n")
-        f.write("COUNT 1 1 1 1 1 1 1\n")
-        f.write(f"WIDTH {n}\n")
-        f.write("HEIGHT 1\n")
-        f.write("VIEWPOINT 0 0 0 1 0 0 0\n")
-        f.write(f"POINTS {n}\n")
-        f.write("DATA ascii\n")
-        for p, nvec, rgb_float in zip(points, normals, colors):
-            f.write(
-                f"{p[0]:.6f} {p[1]:.6f} {p[2]:.6f} "
-                f"{nvec[0]:.6f} {nvec[1]:.6f} {nvec[2]:.6f} {rgb_float}\n"
-            )
 
 
 def vessel_radius_profile(t: np.ndarray, radius: float) -> np.ndarray:
@@ -68,6 +43,35 @@ def vessel_radius_profile(t: np.ndarray, radius: float) -> np.ndarray:
     return result * radius
 
 
+def write_obj_fragment(obj_path, mtl_path, mtl_name, points, normals, faces, color):
+    """1破片分のOBJ(usemtl参照・vn付き)とMTL(単色マテリアル)を書き出す。
+
+    面(faces)を持たせることで、インポート後に3Dビューア上でエッジ
+    (メッシュのワイヤーフレーム)を表示できるようにする。
+    """
+    mtl_filename = mtl_path.split('/')[-1]
+    with open(obj_path, 'w') as f:
+        f.write(f"mtllib {mtl_filename}\n")
+        for p in points:
+            f.write(f"v {p[0]:.6f} {p[1]:.6f} {p[2]:.6f}\n")
+        for n in normals:
+            f.write(f"vn {n[0]:.6f} {n[1]:.6f} {n[2]:.6f}\n")
+        f.write(f"usemtl {mtl_name}\n")
+        for face in faces:
+            # OBJの頂点・法線インデックスは1始まり。各面は同一頂点の
+            # 法線インデックスを使う(v//vn形式)。
+            a, b, c = (i + 1 for i in face)
+            f.write(f"f {a}//{a} {b}//{b} {c}//{c}\n")
+
+    r, g, b = (c / 255.0 for c in color)
+    with open(mtl_path, 'w') as f:
+        f.write(f"newmtl {mtl_name}\n")
+        f.write(f"Kd {r:.4f} {g:.4f} {b:.4f}\n")
+        f.write("Ka 0.0 0.0 0.0\n")
+        f.write("Ks 0.0 0.0 0.0\n")
+        f.write("d 1.0\n")
+
+
 def generate(num_fragments: int, out_dir: str, seed: int = 42,
              points_per_fragment_target: int = 250) -> None:
     rng = np.random.default_rng(seed)
@@ -83,7 +87,7 @@ def generate(num_fragments: int, out_dir: str, seed: int = 42,
 
     angles = np.linspace(0, 2 * np.pi, n_angle, endpoint=False)
     heights = np.linspace(0, height, n_height)
-    grid_a, grid_h = np.meshgrid(angles, heights)
+    grid_a, grid_h = np.meshgrid(angles, heights)  # shape (n_height, n_angle)
     grid_a = grid_a.ravel()
     grid_h = grid_h.ravel()
 
@@ -138,6 +142,26 @@ def generate(num_fragments: int, out_dir: str, seed: int = 42,
     dist_sq = arc_diff ** 2 + height_diff ** 2
     assignment = np.argmin(dist_sq, axis=1)
 
+    # 角度・高さグリッドの隣接4頂点(1セル)が全て同じ破片に属す場合のみ、
+    # そのセルを2枚の三角形に分割して面を張る(破片境界をまたぐセルには
+    # 面を張らない。破損片同士の境界は元々滑らかに連続しないため、
+    # 実際の破損の見た目としても自然)。
+    faces_by_fragment: dict[int, list[tuple[int, int, int]]] = {}
+    for i in range(n_height - 1):
+        row0 = i * n_angle
+        row1 = (i + 1) * n_angle
+        for j in range(n_angle):
+            j_next = (j + 1) % n_angle
+            v00 = row0 + j
+            v01 = row0 + j_next
+            v10 = row1 + j
+            v11 = row1 + j_next
+            f00, f01, f10, f11 = (assignment[v00], assignment[v01],
+                                   assignment[v10], assignment[v11])
+            if f00 == f01 == f10 == f11:
+                faces_by_fragment.setdefault(int(f00), []).append((v00, v10, v11))
+                faces_by_fragment.setdefault(int(f00), []).append((v00, v11, v01))
+
     palette = [
         (180, 140, 110), (170, 130, 100), (190, 150, 115), (175, 135, 105),
         (185, 145, 108), (165, 125, 95), (195, 152, 118), (172, 132, 102),
@@ -146,17 +170,22 @@ def generate(num_fragments: int, out_dir: str, seed: int = 42,
     written = 0
     num_digits = len(str(num_fragments))
     for frag_idx in range(num_fragments):
-        mask = assignment == frag_idx
-        count = int(mask.sum())
-        if count == 0:
+        face_list = faces_by_fragment.get(frag_idx)
+        if not face_list:
             continue
-        pts = np.stack([xs[mask], ys[mask], zs[mask]], axis=1)
-        nvecs = normals[mask]
+        global_vertex_ids = sorted({v for face in face_list for v in face})
+        local_of_global = {g: local for local, g in enumerate(global_vertex_ids)}
+        local_points = np.stack(
+            [[xs[g], ys[g], zs[g]] for g in global_vertex_ids])
+        local_normals = np.stack([normals[g] for g in global_vertex_ids])
+        local_faces = [tuple(local_of_global[v] for v in face) for face in face_list]
+
         color = palette[frag_idx % len(palette)]
-        rgb_float = pack_rgb(*color)
-        colors = [rgb_float] * count
-        out_path = f"{out_dir}/pottery_fragment_{frag_idx + 1:0{num_digits}d}.pcd"
-        write_pcd(out_path, pts, nvecs, colors)
+        mtl_name = f"fragment{frag_idx + 1}"
+        obj_path = f"{out_dir}/pottery_fragment_{frag_idx + 1:0{num_digits}d}.obj"
+        mtl_path = f"{out_dir}/pottery_fragment_{frag_idx + 1:0{num_digits}d}.mtl"
+        write_obj_fragment(obj_path, mtl_path, mtl_name, local_points, local_normals,
+                            local_faces, color)
         written += 1
 
     print(f"wrote {written} fragment files (requested {num_fragments}) "

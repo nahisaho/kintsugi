@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T11:52:09.130Z",
+  "generatedAt": "2026-09-12T12:08:30.136Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -1320,7 +1320,7 @@
     ".musubix/decisions/ADR-0005.md": "62cba05202491ac1b454c5b2602c1346f3984be8a1569183a915300ef045edb3",
     ".musubix/features/pottery-fragment-reassembly/design.md": "4023397fbac23a89d74e5a6b9af23ae5bfc3a4ca45063bbffd86530a5b0c0bdb",
     ".musubix/features/pottery-fragment-reassembly/requirements.md": "db9423919b3371549baa1496ec12332d8127205abade237aeb64f3304d9bbcb5",
-    "scripts/generate_demo_scans.py": "e06058c083201e9e2d83054e5e6b97aa06f750118f13dd6e6299a215acfce39c",
+    "scripts/generate_demo_scans.py": "e30a68b1279eb3e8c8625dcd0dce38d088622655656b96c332cc2c6cd848460f",
     "src/app/main.cpp": "37f9fa552379c39f8244252e07c3cd2c4172334ee33466495e41cb1c7d00b7e2",
     "src/core/assembly_orchestrator.cpp": "0887afed5cf929e4e2368f9f31352a90e95b50d94eb34fa4bce35ee904101ed5",
     "src/core/assembly_orchestrator.hpp": "df6def172b86c5603233be5d682cc6efe4cf171df3fb52c521dc6beab37b227c",
@@ -1345,7 +1345,7 @@
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
     "src/gui/gui_command_dispatcher.cpp": "8a259fc9e4809d5e7f0c263ceca262a2b5890e56e04c2c0bf14bffcd1c7e49c2",
     "src/gui/gui_command_dispatcher.hpp": "1220e6af12fb49f996cb8ef187c83c0279dfb6ce493dd90d3b09d2dbb1f49116",
-    "src/gui/main_window.cpp": "eadb4dea11132da89c3074a783b281a9c5cf9da110c0be43a292b0d61c949f7b",
+    "src/gui/main_window.cpp": "e818d551e652960c6eb446708cc43eaa161cdf9e3edd9444226bdbc2b71807b6",
     "src/gui/main_window.hpp": "6400713925123a6deb36789dfdf8fc71eac12d03059c496e31f245f7d6a03e72",
     "src/gui/viewport_camera.cpp": "19b8a95aedf0424c14822d15c864a91f8141370133eabe1446d0d80f1b5e7277",
     "src/gui/viewport_camera.hpp": "ac186c06061a714978b050981f359ca629e9dff4c974d16a53b068b84db21b0f",

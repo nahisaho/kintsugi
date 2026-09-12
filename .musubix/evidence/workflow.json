@@ -136,6 +136,14 @@
       "phase": "complete",
       "status": "completed",
       "recordedAt": "2026-09-12T11:22:56.708Z"
+    },
+    {
+      "skill": "sdd-change",
+      "version": "0.1.8",
+      "provenance": "self-reported",
+      "phase": "complete",
+      "status": "completed",
+      "recordedAt": "2026-09-12T11:56:23.915Z"
     }
   ]
 }
