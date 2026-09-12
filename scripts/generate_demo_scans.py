@@ -43,14 +43,16 @@ def vessel_radius_profile(t: np.ndarray, radius: float) -> np.ndarray:
     return result * radius
 
 
-def generate_decoy_fragment(rng: np.random.Generator, patch_size: int = 10):
+def generate_decoy_fragment(rng: np.random.Generator, patch_size: int = 14):
     """壺本体とは接合しない、別由来(別の器・がれき)を模した破片を生成する。
 
     壺のプロファイルとは無関係な局所曲率(放物面近似、曲率半径をランダムに
     大きく変える)を持つ小片を、壺本体から離れた位置・向きに配置する。
     復元シミュレーションにおいて「接合先が存在しない破片」を混在させる
     ことで、クラスタリング・接合候補提示が全破片を無理に接合しようと
-    しないことを確認できるデータになる。
+    しないことを確認できるデータになる。輪郭は単純な矩形グリッドのまま
+    ではなく、角度に応じて半径が不規則に変化する輪郭でグリッドを打ち抜き、
+    壺本体の破片と同様のギザギザした破損片らしい形状にする。
     """
     span = rng.uniform(10.0, 22.0)
     u = np.linspace(-span, span, patch_size)
@@ -63,13 +65,50 @@ def generate_decoy_fragment(rng: np.random.Generator, patch_size: int = 10):
     grid_z = (grid_u ** 2 + grid_v ** 2) / (2.0 * curvature_radius)
     grid_z += rng.normal(0, 0.3, size=grid_z.shape)
 
-    local_points = np.stack([grid_u.ravel(), grid_v.ravel(), grid_z.ravel()], axis=1)
+    local_points_full = np.stack([grid_u.ravel(), grid_v.ravel(), grid_z.ravel()], axis=1)
 
     dzdu = grid_u / curvature_radius
     dzdv = grid_v / curvature_radius
-    local_normals = np.stack(
+    local_normals_full = np.stack(
         [-dzdu.ravel(), -dzdv.ravel(), np.ones(grid_u.size)], axis=1)
-    local_normals /= np.linalg.norm(local_normals, axis=1, keepdims=True)
+    local_normals_full /= np.linalg.norm(local_normals_full, axis=1, keepdims=True)
+
+    # 角度ごとに半径が不規則に変化する輪郭(複数の正弦波の重ね合わせ)を
+    # 定義し、この輪郭の内側に収まる格子点のみを面の生成対象とする。
+    # 矩形グリッドをそのまま使うと真四角の破片になってしまうため、
+    # 主要破片のVoronoi境界と同様に不定形・不均一な外形にするための処理。
+    theta = np.arctan2(grid_v, grid_u)
+    boundary_r = np.full_like(theta, span * rng.uniform(0.55, 0.72))
+    for _ in range(rng.integers(2, 5)):
+        freq = rng.integers(2, 6)
+        amp = span * rng.uniform(0.08, 0.22)
+        phase = rng.uniform(0, 2 * np.pi)
+        boundary_r += amp * np.sin(freq * theta + phase)
+    radial = np.sqrt(grid_u ** 2 + grid_v ** 2)
+    inside = (radial <= boundary_r).ravel()
+
+    faces_full = []
+    for i in range(patch_size - 1):
+        for j in range(patch_size - 1):
+            v00 = i * patch_size + j
+            v01 = i * patch_size + (j + 1)
+            v10 = (i + 1) * patch_size + j
+            v11 = (i + 1) * patch_size + (j + 1)
+            if inside[v00] and inside[v01] and inside[v10] and inside[v11]:
+                faces_full.append((v00, v10, v11))
+                faces_full.append((v00, v11, v01))
+    if not faces_full:
+        # 極端な乱数で内側セルがゼロになった場合の保険(中心付近を1セルだけ採用)。
+        center_i, center_j = patch_size // 2, patch_size // 2
+        v00 = center_i * patch_size + center_j
+        faces_full = [(v00, v00 + patch_size, v00 + patch_size + 1),
+                      (v00, v00 + patch_size + 1, v00 + 1)]
+
+    used_vertices = sorted({v for face in faces_full for v in face})
+    remap = {g: local for local, g in enumerate(used_vertices)}
+    local_points = local_points_full[used_vertices]
+    local_normals = local_normals_full[used_vertices]
+    faces = [tuple(remap[v] for v in face) for face in faces_full]
 
     # ランダムな回転(向き)を適用し、壺本体の局所法線方向と揃わないようにする。
     axis = rng.normal(0, 1, size=3)
@@ -83,24 +122,14 @@ def generate_decoy_fragment(rng: np.random.Generator, patch_size: int = 10):
     local_normals = local_normals @ rotation.T
 
     # 壺本体(高さ0〜120mm, 半径〜90mm程度)から明確に離れた位置に配置する。
-    theta = rng.uniform(0, 2 * np.pi)
+    theta_pos = rng.uniform(0, 2 * np.pi)
     distance = rng.uniform(160.0, 260.0)
     center = np.array([
-        distance * np.cos(theta),
-        distance * np.sin(theta),
+        distance * np.cos(theta_pos),
+        distance * np.sin(theta_pos),
         rng.uniform(-40.0, 160.0),
     ])
     local_points += center
-
-    faces = []
-    for i in range(patch_size - 1):
-        for j in range(patch_size - 1):
-            v00 = i * patch_size + j
-            v01 = i * patch_size + (j + 1)
-            v10 = (i + 1) * patch_size + j
-            v11 = (i + 1) * patch_size + (j + 1)
-            faces.append((v00, v10, v11))
-            faces.append((v00, v11, v01))
 
     return local_points, local_normals, faces
 
