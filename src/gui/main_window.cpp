@@ -160,10 +160,10 @@ vtkSmartPointer<vtkMatrix4x4> buildTransformMatrix(const kintsugi::core::Propaga
 // Z軸方向へ一定間隔で積み上げて配置する。一度に表示するのは
 // kStagingVisibleSlots件までとし、それを超える分はビューポート横の
 // スクロールバーで縦方向にスクロールして表示範囲を切り替える。
-constexpr double kStagingBaseX = 130.0;
-constexpr double kStagingSpacingZ = 35.0;
+constexpr double kStagingBaseX = 95.0;
+constexpr double kStagingSpacingZ = 30.0;
 constexpr int kStagingVisibleSlots = 6;
-constexpr double kStagingFrameHalfWidthMm = 35.0;
+constexpr double kStagingFrameHalfWidthMm = 20.0;
 constexpr double kStagingFrameMarginMm = kStagingSpacingZ * 0.5;
 
 // 画面左のスタック表示枠を、破片1件につき1マスとなるよう区切られた
@@ -497,6 +497,18 @@ void MainWindow::onClusterSelectionChanged(int index) {
     return;
   }
   currentClusterFragments_ = clusteringResult_.vesselCandidates[static_cast<std::size_t>(index)].fragments;
+  // clusterFragments()は所属信頼度が閾値未満の破片（本来の器物候補に
+  // どれとも十分な確信度で対応しない破片。デコイ破片など真に無関係な
+  // 破片を含む）をunclassifiedへ分離しており、選択した器物候補の
+  // fragmentsには含まれない。これらが「マッチしない破片」スタックへ
+  // 一切表示されず、ドラッグ＆ドロップでのフィット確認もできなかった
+  // ため、選択中の器物候補にunclassifiedの全破片を追加した上で
+  // 接合候補を再計算する（unclassified同士・器物候補との組み合わせで
+  // 接合候補が見つからなければ、想定通りマッチしない破片として画面左の
+  // スタックに表示される）。
+  currentClusterFragments_.insert(currentClusterFragments_.end(),
+                                   clusteringResult_.unclassified.begin(),
+                                   clusteringResult_.unclassified.end());
   currentCandidates_ = kintsugi::core::computeJoinCandidates(currentClusterFragments_);
   std::vector<std::size_t> fragmentIds(currentClusterFragments_.size());
   for (std::size_t i = 0; i < fragmentIds.size(); ++i) {

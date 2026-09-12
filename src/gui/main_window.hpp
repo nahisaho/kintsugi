@@ -80,7 +80,11 @@ class MainWindow : public QMainWindow {
   std::vector<kintsugi::core::JoinCandidate> visibleCandidates_;
   std::unique_ptr<kintsugi::core::AssemblyOrchestrator> orchestrator_;
   std::unique_ptr<GuiCommandDispatcher> dispatcher_;
-  ViewportCamera camera_;
+  // 既定距離500mmでは、壺本体（半径50mm程度）に加えて画面左のマッチしない
+  // 破片スタック（kStagingBaseX付近）まで含めた範囲がビューポートの
+  // アスペクト比によっては画角に収まりきらないことがあったため、
+  // 既定距離を広めに取り、双方が最初から視野に入るようにする。
+  ViewportCamera camera_{Point3D{0.0, 0.0, 0.0}, 650.0};
 
   QComboBox* clusterCombo_ = nullptr;
   QListWidget* candidateList_ = nullptr;
