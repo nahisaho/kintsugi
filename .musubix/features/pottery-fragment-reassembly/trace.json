@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T03:31:53.635Z",
+  "generatedAt": "2026-09-12T04:00:15.117Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -338,6 +338,12 @@
       "line": 12
     },
     {
+      "id": "CODE-POTTERY-013",
+      "kind": "code",
+      "path": "src/core/offline_execution.hpp",
+      "line": 9
+    },
+    {
       "id": "CODE-POTTERY-012",
       "kind": "code",
       "path": "src/core/pose_conflict.hpp",
@@ -474,6 +480,18 @@
       "kind": "test",
       "path": "tests/test_missing_part_estimation.cpp",
       "line": 97
+    },
+    {
+      "id": "TEST-POTTERY-016-001",
+      "kind": "test",
+      "path": "tests/test_offline_execution.cpp",
+      "line": 74
+    },
+    {
+      "id": "TEST-POTTERY-016-002",
+      "kind": "test",
+      "path": "tests/test_offline_execution.cpp",
+      "line": 96
     },
     {
       "id": "TEST-POTTERY-004-001",
@@ -935,6 +953,16 @@
       "relation": "implements"
     },
     {
+      "from": "CODE-POTTERY-013",
+      "to": "REQ-POTTERY-016",
+      "relation": "implements"
+    },
+    {
+      "from": "CODE-POTTERY-013",
+      "to": "DES-POTTERY-011",
+      "relation": "implements"
+    },
+    {
       "from": "CODE-POTTERY-012",
       "to": "REQ-POTTERY-027",
       "relation": "implements"
@@ -1125,6 +1153,16 @@
       "relation": "verifies"
     },
     {
+      "from": "TEST-POTTERY-016-001",
+      "to": "REQ-POTTERY-016",
+      "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-016-002",
+      "to": "REQ-POTTERY-016",
+      "relation": "verifies"
+    },
+    {
       "from": "TEST-POTTERY-004-001",
       "to": "REQ-POTTERY-027",
       "relation": "verifies"
@@ -1232,6 +1270,8 @@
     "src/core/mesh_export.hpp": "25efec1b060571ffec4fbb7a682553dbd5caf9a79b1b6791911c828c2a92ce36",
     "src/core/missing_part_estimation.cpp": "94d8f1b246f50031c4d2c1292662c7b3b95446de5b35abfb321e2a741c24b950",
     "src/core/missing_part_estimation.hpp": "97b5bcc50883e651103c5152aa3d4b665581847c3f122572f4d2844f19d7d60b",
+    "src/core/offline_execution.cpp": "9a7c0ed6d6239ab08cae71039f18c0f9f1c8394f72c3985e21f1dc17342e8d41",
+    "src/core/offline_execution.hpp": "7ba03e0db8dd4c63eb2a02c76b59fa6cb29cca14ddb105b1fe4e09c379f9bf38",
     "src/core/pose_conflict.cpp": "e51dbf023e5c9df2080692091a8e4df8dae756b245c87e0413d6dbe9fca983e5",
     "src/core/pose_conflict.hpp": "6d89a89dcc3630a9ad4e968837f1e1e932bfc1a6688dd5c73fc0db6f62023166",
     "src/core/project_persistence.cpp": "a15a92fa2199a3f748c0dfa76d1e8bcacb864b9066c0fba0a5fcfb89cc418e32",
@@ -1251,6 +1291,7 @@
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
     "tests/test_mesh_export.cpp": "b58774b092abb83c1320d3ec723f23376aede3df78e84b4ea2d9dd461308fa93",
     "tests/test_missing_part_estimation.cpp": "0271eb477c7f2b2ea79e81ca7f5a5ba477fedf7acaebffa7d198ce1f536bb2b2",
+    "tests/test_offline_execution.cpp": "6c2c0f4c94cfbfa5a240c33a785c1a00c581b8cb67a90af1245a54ea160d7727",
     "tests/test_pose_conflict.cpp": "493851499e0703768cca81c0fbacab4a89ce0ea1e0f81c06c531364ca10261da",
     "tests/test_project_persistence.cpp": "5c333f0f39010b5358941c15cd15ff475a5e95cefe510f5a4cebe546845fca69",
     "tests/test_report_aggregation.cpp": "43ade6cb3f79ab078f01a1ae12df5ba5b5e36d1210a071f0ea283d556d04609a",

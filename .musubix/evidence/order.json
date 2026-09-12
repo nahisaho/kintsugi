@@ -600,6 +600,62 @@
       "phase": "green",
       "previousSha256": "80867b8dd5d6c1bd2efd705fead8f38e2148c68993f1c7c621bf70d195fd7628",
       "recordSha256": "2e4a945ba20f0a53661cc9f46c098189a35dce318df1caea9d65b76af78659dd"
+    },
+    {
+      "sequence": 76,
+      "kind": "tdd",
+      "entityId": "2c2f48b3-832e-4cab-8858-86e5d9ece11c",
+      "phase": "red",
+      "previousSha256": "2e4a945ba20f0a53661cc9f46c098189a35dce318df1caea9d65b76af78659dd",
+      "recordSha256": "82152042e2a04b9688f245183e8bca5125e6fc1915e3c09330b5cbc31f54e934"
+    },
+    {
+      "sequence": 77,
+      "kind": "tdd",
+      "entityId": "f0ecc59f-c916-4a83-8902-3a62b2c50dbc",
+      "phase": "red",
+      "previousSha256": "82152042e2a04b9688f245183e8bca5125e6fc1915e3c09330b5cbc31f54e934",
+      "recordSha256": "a601e88a480f22c7bca8a3b79e32114067bcaef8b229cddda3d2c412167805ab"
+    },
+    {
+      "sequence": 78,
+      "kind": "tdd",
+      "entityId": "2c2f48b3-832e-4cab-8858-86e5d9ece11c",
+      "phase": "green",
+      "previousSha256": "a601e88a480f22c7bca8a3b79e32114067bcaef8b229cddda3d2c412167805ab",
+      "recordSha256": "b7e5e0e1873adae6d9c757fde7d5f86b2ac6f5bd5a24a948dd0fa8eb25532b49"
+    },
+    {
+      "sequence": 79,
+      "kind": "tdd",
+      "entityId": "4c0d489d-9847-40b9-9c88-b986e4970492",
+      "phase": "red",
+      "previousSha256": "b7e5e0e1873adae6d9c757fde7d5f86b2ac6f5bd5a24a948dd0fa8eb25532b49",
+      "recordSha256": "edc0480245e476593ce877509c317d681103a9766d18ad538cf364caae4ae3f0"
+    },
+    {
+      "sequence": 80,
+      "kind": "tdd",
+      "entityId": "471b3026-2f0c-4089-a70e-c46e4e49ca21",
+      "phase": "red",
+      "previousSha256": "edc0480245e476593ce877509c317d681103a9766d18ad538cf364caae4ae3f0",
+      "recordSha256": "ba63b7d3436f0f0b7f1f2029f918feb02e8053d4edcf96a018d8c9710598f762"
+    },
+    {
+      "sequence": 81,
+      "kind": "tdd",
+      "entityId": "4c0d489d-9847-40b9-9c88-b986e4970492",
+      "phase": "green",
+      "previousSha256": "ba63b7d3436f0f0b7f1f2029f918feb02e8053d4edcf96a018d8c9710598f762",
+      "recordSha256": "71840533ebed28ea9741117333966f0daaaa8890e2182bd2614d18b099f996a7"
+    },
+    {
+      "sequence": 82,
+      "kind": "tdd",
+      "entityId": "471b3026-2f0c-4089-a70e-c46e4e49ca21",
+      "phase": "green",
+      "previousSha256": "71840533ebed28ea9741117333966f0daaaa8890e2182bd2614d18b099f996a7",
+      "recordSha256": "8df173ce711fe55067ecab65d17b27283644e2e96821949dd1ef3046113ed3ec"
     }
   ]
 }

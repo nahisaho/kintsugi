@@ -24,6 +24,7 @@ add_library(pottery_core
   src/core/report_aggregation.cpp
   src/core/mesh_export.cpp
   src/core/project_persistence.cpp
+  src/core/offline_execution.cpp
   src/gui/viewport_camera.cpp
   src/gui/gui_command_dispatcher.cpp
 )
@@ -45,6 +46,8 @@ add_executable(pottery_tests
   tests/test_viewport_camera.cpp
   tests/test_gui_command_dispatcher.cpp
   tests/test_project_persistence.cpp
+  tests/test_offline_execution.cpp
 )
 target_include_directories(pottery_tests PRIVATE third_party src)
 target_link_libraries(pottery_tests PRIVATE pottery_core)
+target_compile_definitions(pottery_tests PRIVATE KINTSUGI_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
