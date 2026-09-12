@@ -66,3 +66,33 @@ TEST_CASE("TEST-POTTERY-014-001 ViewportCamera reflects rotate/zoom/pan viewpoin
     CHECK(camera.distanceMm() == doctest::Approx(initialDistance));
   }
 }
+
+/** @id TEST-POTTERY-014-002
+ * @verifies REQ-POTTERY-014
+ */
+// 3DビューアはZ軸を鉛直上向き(ViewUp)として描画する(DES-POTTERY-009)。
+// 初期状態（azimuth=0, elevation=0）の視点方向(焦点→視点)がZ軸と平行だと、
+// VTKのカメラ変換が特異になり画面に何も描画されなくなる不具合があった
+// （視点方向とビューアップベクトルが同一直線上になるため）。本テストは、
+// 初期状態を含むあらゆる回転状態で視点方向がZ軸と平行にならないことを
+// 保証する回帰テスト。
+TEST_CASE("TEST-POTTERY-014-002 ViewportCamera view direction stays non-degenerate against the Z-up vector") {
+  ViewportCamera camera(Point3D{0.0, 0.0, 0.0}, 500.0);
+
+  auto isParallelToZAxis = [](const Point3D& eye, const Point3D& focal) {
+    const double dx = eye.x - focal.x;
+    const double dy = eye.y - focal.y;
+    const double dz = eye.z - focal.z;
+    const double horizontalLen = std::sqrt(dx * dx + dy * dy);
+    // 水平成分がほぼゼロ、すなわち視点方向がZ軸とほぼ平行な場合に真。
+    return horizontalLen < 1e-6 && std::fabs(dz) > 1e-6;
+  };
+
+  // 初期状態（画面に何も表示されなかった不具合の再現条件）。
+  CHECK_FALSE(isParallelToZAxis(camera.eyePosition(), camera.focalPoint()));
+
+  // 回転操作後も同様に非退化であること。
+  camera.rotate(90.0, 0.0);
+  CHECK_FALSE(isParallelToZAxis(camera.eyePosition(), camera.focalPoint()));
+}
+

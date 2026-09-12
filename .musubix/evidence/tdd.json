@@ -2051,6 +2051,49 @@
         "diagnostics": [],
         "order": 181
       }
+    },
+    {
+      "cycleId": "d8fc638f-ef0c-4231-ae83-c36b7919d835",
+      "requirementId": "REQ-POTTERY-014",
+      "testId": "TEST-POTTERY-014-002",
+      "testPath": "tests/test_viewport_camera.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "red": {
+        "phase": "red",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "failed",
+        "reportSha256": "0b242648204982e77fabd47dfbd3efb18bb3151724e64ab969208d1c63a3a3a5",
+        "commandSha256": "f0819a2bd420fc313fc8e6f49f7342a33a6f668649d03637064ec2a74d944b67",
+        "outputSha256": "f18a1af6969e57fbc51e4d923fb824b46f88cc4db107f9588c03db03ab4ef138",
+        "exitCode": 1,
+        "durationMs": 57538,
+        "testFingerprint": "211760b02d3a7d2c7436c8c03ca07e753936969efd95cabe56640a10c53a152b",
+        "sourceFingerprint": "6716e71ec2a9418d382aeb79199d9e067bf8a4712ef51254606a495230d0f6d4",
+        "executionId": "8e407c0e-340e-4403-801e-6ac9e5f6dfa3",
+        "recordedAt": "2026-09-12T11:46:09.507Z",
+        "diagnostics": [],
+        "order": 182
+      },
+      "green": {
+        "phase": "green",
+        "valid": true,
+        "scoped": true,
+        "resultObserved": true,
+        "testStatus": "passed",
+        "reportSha256": "7d020bf8f565836a2545f2b524a382f0191e65c0f3372303055717db947e6b52",
+        "commandSha256": "f0819a2bd420fc313fc8e6f49f7342a33a6f668649d03637064ec2a74d944b67",
+        "outputSha256": "d9db84c7ed2b430d7c882a85dd177c87029fb68262274ccefc9e42be135837be",
+        "exitCode": 0,
+        "durationMs": 52701,
+        "testFingerprint": "211760b02d3a7d2c7436c8c03ca07e753936969efd95cabe56640a10c53a152b",
+        "sourceFingerprint": "ab92d73b3ea6094bd43220f8b05e1e51efa34e183da1f4448b041173117388db",
+        "executionId": "9dac1e4d-ad48-4e3b-9e04-e9ea1b74bf8a",
+        "recordedAt": "2026-09-12T11:47:10.289Z",
+        "diagnostics": [],
+        "order": 183
+      }
     }
   ],
   "chain": [
@@ -3169,6 +3212,30 @@
       "phaseEvidenceSha256": "fb9d8a22b9d58c95e30a3b0b979812ae4ad15989b3095488c019e51012da6c32",
       "previousSha256": "660a658e5ebf939119937d158ffb24388eab1c59d8104258f69ecdc54cb10215",
       "recordSha256": "6307b488e9d54691f2f0b9186519bd61d1a21ae646b8b3fb94bc2be3bb102abe"
+    },
+    {
+      "sequence": 94,
+      "cycleId": "d8fc638f-ef0c-4231-ae83-c36b7919d835",
+      "requirementId": "REQ-POTTERY-014",
+      "testId": "TEST-POTTERY-014-002",
+      "testPath": "tests/test_viewport_camera.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "red",
+      "phaseEvidenceSha256": "6294ea8afb6cafd715ca306f53423f744fea39639d8cf36c4d3ce8174b048b1f",
+      "previousSha256": "6307b488e9d54691f2f0b9186519bd61d1a21ae646b8b3fb94bc2be3bb102abe",
+      "recordSha256": "353f4c2c3cf5ea2cf3fc832f01f3fe715144f280a342a908ef721ae2fbbb020d"
+    },
+    {
+      "sequence": 95,
+      "cycleId": "d8fc638f-ef0c-4231-ae83-c36b7919d835",
+      "requirementId": "REQ-POTTERY-014",
+      "testId": "TEST-POTTERY-014-002",
+      "testPath": "tests/test_viewport_camera.cpp",
+      "commandName": "cpp-doctest-tdd",
+      "phase": "green",
+      "phaseEvidenceSha256": "b94687c40f0f1d61901b6cdbb047064e3407e748ec7f936ede6333079da112d3",
+      "previousSha256": "353f4c2c3cf5ea2cf3fc832f01f3fe715144f280a342a908ef721ae2fbbb020d",
+      "recordSha256": "9404b8588638d555a4fa88f8786a663b5b21dc390c59220aaf72e3dec13ffb5d"
     }
   ]
 }

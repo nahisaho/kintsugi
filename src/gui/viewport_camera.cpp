@@ -30,14 +30,16 @@ Point3D normalize(const Point3D& v) {
 }
 
 // 方位角azimuth・仰角elevationから、焦点を基準とした視点方向の単位ベクトル
-// （焦点→視点方向）を求める。
+// （焦点→視点方向）を求める。Z軸を鉛直上向き（DES-POTTERY-009のVTKビュー
+// アップ設定および壺形状データのZ=高さ軸と一致させる）として扱うため、
+// elevationはZ成分を、azimuthはXY平面内の回転を表す。
 Point3D directionFromAngles(double azimuthDeg, double elevationDeg) {
   const double azimuthRad = toRadians(azimuthDeg);
   const double elevationRad = toRadians(elevationDeg);
   return Point3D{
       std::cos(elevationRad) * std::sin(azimuthRad),
-      std::sin(elevationRad),
       std::cos(elevationRad) * std::cos(azimuthRad),
+      std::sin(elevationRad),
   };
 }
 
@@ -67,7 +69,7 @@ void ViewportCamera::pan(double dxMm, double dyMm) {
   // 現在の視線方向(焦点→視点)から、ビュー平面内の右方向・上方向ベクトルを
   // 求め、その平面内で焦点を平行移動する。視点(eye)は焦点+球面座標オフセット
   // で導出されるため、焦点の移動により視点も追随して移動する。
-  static const Point3D kWorldUp{0.0, 1.0, 0.0};
+  static const Point3D kWorldUp{0.0, 0.0, 1.0};
   const Point3D viewDirection = normalize(directionFromAngles(azimuthDeg_, elevationDeg_));
   Point3D right = cross(viewDirection, kWorldUp);
   if (length(right) < 1e-6) {

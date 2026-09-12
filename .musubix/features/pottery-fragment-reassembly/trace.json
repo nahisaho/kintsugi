@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T11:22:01.597Z",
+  "generatedAt": "2026-09-12T11:52:09.130Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -616,6 +616,12 @@
       "kind": "test",
       "path": "tests/test_viewport_camera.cpp",
       "line": 20
+    },
+    {
+      "id": "TEST-POTTERY-014-002",
+      "kind": "test",
+      "path": "tests/test_viewport_camera.cpp",
+      "line": 70
     }
   ],
   "edges": [
@@ -1298,6 +1304,11 @@
       "from": "TEST-POTTERY-014-001",
       "to": "REQ-POTTERY-014",
       "relation": "verifies"
+    },
+    {
+      "from": "TEST-POTTERY-014-002",
+      "to": "REQ-POTTERY-014",
+      "relation": "verifies"
     }
   ],
   "diagnostics": [],
@@ -1309,6 +1320,7 @@
     ".musubix/decisions/ADR-0005.md": "62cba05202491ac1b454c5b2602c1346f3984be8a1569183a915300ef045edb3",
     ".musubix/features/pottery-fragment-reassembly/design.md": "4023397fbac23a89d74e5a6b9af23ae5bfc3a4ca45063bbffd86530a5b0c0bdb",
     ".musubix/features/pottery-fragment-reassembly/requirements.md": "db9423919b3371549baa1496ec12332d8127205abade237aeb64f3304d9bbcb5",
+    "scripts/generate_demo_scans.py": "e06058c083201e9e2d83054e5e6b97aa06f750118f13dd6e6299a215acfce39c",
     "src/app/main.cpp": "37f9fa552379c39f8244252e07c3cd2c4172334ee33466495e41cb1c7d00b7e2",
     "src/core/assembly_orchestrator.cpp": "0887afed5cf929e4e2368f9f31352a90e95b50d94eb34fa4bce35ee904101ed5",
     "src/core/assembly_orchestrator.hpp": "df6def172b86c5603233be5d682cc6efe4cf171df3fb52c521dc6beab37b227c",
@@ -1333,9 +1345,9 @@
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
     "src/gui/gui_command_dispatcher.cpp": "8a259fc9e4809d5e7f0c263ceca262a2b5890e56e04c2c0bf14bffcd1c7e49c2",
     "src/gui/gui_command_dispatcher.hpp": "1220e6af12fb49f996cb8ef187c83c0279dfb6ce493dd90d3b09d2dbb1f49116",
-    "src/gui/main_window.cpp": "3a7069e3e170cc160d4ca7d53d63c74c2215631d384f5c3a27f2bd43261f6977",
-    "src/gui/main_window.hpp": "343d337404f0b00d7325663c8a857dd6923af52960ac290f870707dc1fa59745",
-    "src/gui/viewport_camera.cpp": "bf47697e48859e9d054a657cfbdcd9f1173aa64334f9fdc11a70f27b97a825fb",
+    "src/gui/main_window.cpp": "eadb4dea11132da89c3074a783b281a9c5cf9da110c0be43a292b0d61c949f7b",
+    "src/gui/main_window.hpp": "6400713925123a6deb36789dfdf8fc71eac12d03059c496e31f245f7d6a03e72",
+    "src/gui/viewport_camera.cpp": "19b8a95aedf0424c14822d15c864a91f8141370133eabe1446d0d80f1b5e7277",
     "src/gui/viewport_camera.hpp": "ac186c06061a714978b050981f359ca629e9dff4c974d16a53b068b84db21b0f",
     "tests/test_assembly_orchestrator.cpp": "7d138cad1e09e9b51b4193bb8368f380f935809c353e10ce8c2b8d93c5462212",
     "tests/test_fragment_clustering.cpp": "31950fe92d8f35a398e3706ce649e355ed24eb05285f3be48741746e71f8e8c5",
@@ -1349,7 +1361,7 @@
     "tests/test_project_persistence.cpp": "5c333f0f39010b5358941c15cd15ff475a5e95cefe510f5a4cebe546845fca69",
     "tests/test_report_aggregation.cpp": "43ade6cb3f79ab078f01a1ae12df5ba5b5e36d1210a071f0ea283d556d04609a",
     "tests/test_scan_importer.cpp": "d01b41166d6a0e804530d36aa192abe3df70b9361f518f1c87f3b53dc3eb7122",
-    "tests/test_viewport_camera.cpp": "c2bc6bd93512a3d898f11d2a2cde57700bd97efccd7f1820adaf3b138c170eda",
+    "tests/test_viewport_camera.cpp": "04fd42432ab6e2b53cd805134a7a2fb7bb79fc28f58fa810645b27c2f58bafaf",
     "third_party/doctest/doctest_fwd.h": "aead5a9172e2619b6653d27967d4357241bbfcbcf846217f338d47c3c7ef8792",
     "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"
   }
