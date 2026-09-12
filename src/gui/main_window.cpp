@@ -472,10 +472,13 @@ void MainWindow::refreshViewport() {
       auto transform = vtkSmartPointer<vtkTransform>::New();
       if (const auto pose = state.resolvedPose(fragmentId)) {
         transform->SetMatrix(buildTransformMatrix(*pose));
-      } else {
-        // 未接合破片は原点付近に並べて表示する（可視化上の適応）。
-        transform->Translate(static_cast<double>(fragmentId) * 80.0, 0.0, 0.0);
       }
+      // 未接合破片は、変換を適用せずスキャン取得時の元の座標のまま表示する。
+      // これにより、破片が元の器物内でのおおよその位置関係を保持している
+      // スキャンデータ（デモデータ等）では、接合前でも器物全体の形状を
+      // 視覚的に把握できる（REQ-POTTERY-014の「組み立て結果を3Dビューア
+      // 上に表示」に対する、未接合状態でも意味のある可視化を行うための
+      // 実装判断）。
       auto transformFilter = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
       transformFilter->SetTransform(transform);
       transformFilter->SetInputData(polyData);
