@@ -2,9 +2,11 @@
 
 #include <memory>
 #include <optional>
+#include <unordered_map>
 #include <vector>
 
 #include <QMainWindow>
+#include <QPoint>
 
 #include "../core/assembly_orchestrator.hpp"
 #include "../core/fragment_clustering.hpp"
@@ -19,6 +21,7 @@ class QDoubleSpinBox;
 class QSpinBox;
 class QLabel;
 class QVTKOpenGLNativeWidget;
+class vtkActor;
 class vtkRenderer;
 
 namespace kintsugi::gui {
@@ -49,6 +52,12 @@ class MainWindow : public QMainWindow {
   void onUndo();
   void onRedo();
   void onExportMesh();
+  void onRotateView(double deltaAzimuthDeg, double deltaElevationDeg);
+  void onPanView(double dxMm, double dyMm);
+  void onZoomView(double factor);
+
+ protected:
+  bool eventFilter(QObject* watched, QEvent* event) override;
 
  private:
   void buildUi();
@@ -56,6 +65,7 @@ class MainWindow : public QMainWindow {
   void refreshViewport();
   void setStatusMessage(const QString& message);
   void resetDerivedClusteringState();
+  void showFragmentTooltipAt(const QPoint& widgetPos);
 
   std::vector<kintsugi::core::FragmentMesh> importedFragments_;
   kintsugi::core::ClusteringResult clusteringResult_;
@@ -79,6 +89,11 @@ class MainWindow : public QMainWindow {
   QLabel* statusLabel_ = nullptr;
   QVTKOpenGLNativeWidget* viewportWidget_ = nullptr;
   vtkRenderer* renderer_ = nullptr;
+  // マウスホバーによる破片番号表示（ツールチップ）用に、直近の
+  // refreshViewport()で描画した各破片の本体アクターと破片IDの対応を
+  // 保持する。ポインタは同じ関数内で再構築されるためrefreshViewport()の
+  // 呼び出しごとにクリアする。
+  std::unordered_map<vtkActor*, std::size_t> fragmentActorIds_;
 };
 
 }  // namespace kintsugi::gui

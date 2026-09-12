@@ -7,14 +7,17 @@
 
 #include <QComboBox>
 #include <QDoubleSpinBox>
+#include <QEvent>
 #include <QFileDialog>
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QListWidget>
 #include <QMessageBox>
+#include <QMouseEvent>
 #include <QPushButton>
 #include <QSpinBox>
+#include <QToolTip>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -29,6 +32,7 @@
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
+#include <vtkPropPicker.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkSmartPointer.h>
@@ -127,6 +131,8 @@ void MainWindow::buildUi() {
   auto renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
   viewportWidget_ = new QVTKOpenGLNativeWidget(central);
   viewportWidget_->setRenderWindow(renderWindow);
+  viewportWidget_->setMouseTracking(true);
+  viewportWidget_->installEventFilter(this);
   auto renderer = vtkSmartPointer<vtkRenderer>::New();
   renderer->SetBackground(0.12, 0.12, 0.15);
   renderWindow->AddRenderer(renderer);
@@ -136,6 +142,65 @@ void MainWindow::buildUi() {
   // 右側: 操作パネル。
   auto* panel = new QWidget(central);
   auto* panelLayout = new QVBoxLayout(panel);
+
+  // 視点操作ナビゲーター（REQ-POTTERY-014の回転・拡大縮小・移動をボタン
+  // 操作で行えるようにする）。
+  auto* navGroup = new QGroupBox(QStringLiteral("視点操作"), panel);
+  auto* navLayout = new QVBoxLayout(navGroup);
+  constexpr double kPanStepMm = 20.0;
+  constexpr double kZoomInFactor = 1.2;
+  constexpr double kZoomOutFactor = 1.0 / kZoomInFactor;
+  constexpr double kRotateStepDeg = 15.0;
+
+  auto* zoomRow = new QHBoxLayout();
+  auto* zoomInButton = new QPushButton(QStringLiteral("前進"), navGroup);
+  connect(zoomInButton, &QPushButton::clicked, this,
+          [this]() { onZoomView(kZoomInFactor); });
+  zoomRow->addWidget(zoomInButton);
+  auto* zoomOutButton = new QPushButton(QStringLiteral("後退"), navGroup);
+  connect(zoomOutButton, &QPushButton::clicked, this,
+          [this]() { onZoomView(kZoomOutFactor); });
+  zoomRow->addWidget(zoomOutButton);
+  navLayout->addLayout(zoomRow);
+
+  auto* panRow = new QHBoxLayout();
+  auto* panLeftButton = new QPushButton(QStringLiteral("左"), navGroup);
+  connect(panLeftButton, &QPushButton::clicked, this,
+          [this]() { onPanView(-kPanStepMm, 0.0); });
+  panRow->addWidget(panLeftButton);
+  auto* panRightButton = new QPushButton(QStringLiteral("右"), navGroup);
+  connect(panRightButton, &QPushButton::clicked, this,
+          [this]() { onPanView(kPanStepMm, 0.0); });
+  panRow->addWidget(panRightButton);
+  auto* panUpButton = new QPushButton(QStringLiteral("上"), navGroup);
+  connect(panUpButton, &QPushButton::clicked, this,
+          [this]() { onPanView(0.0, kPanStepMm); });
+  panRow->addWidget(panUpButton);
+  auto* panDownButton = new QPushButton(QStringLiteral("下"), navGroup);
+  connect(panDownButton, &QPushButton::clicked, this,
+          [this]() { onPanView(0.0, -kPanStepMm); });
+  panRow->addWidget(panDownButton);
+  navLayout->addLayout(panRow);
+
+  auto* rotateRow = new QHBoxLayout();
+  auto* rotateLeftButton = new QPushButton(QStringLiteral("左回転"), navGroup);
+  connect(rotateLeftButton, &QPushButton::clicked, this,
+          [this]() { onRotateView(-kRotateStepDeg, 0.0); });
+  rotateRow->addWidget(rotateLeftButton);
+  auto* rotateRightButton = new QPushButton(QStringLiteral("右回転"), navGroup);
+  connect(rotateRightButton, &QPushButton::clicked, this,
+          [this]() { onRotateView(kRotateStepDeg, 0.0); });
+  rotateRow->addWidget(rotateRightButton);
+  auto* rotateUpButton = new QPushButton(QStringLiteral("上回転"), navGroup);
+  connect(rotateUpButton, &QPushButton::clicked, this,
+          [this]() { onRotateView(0.0, kRotateStepDeg); });
+  rotateRow->addWidget(rotateUpButton);
+  auto* rotateDownButton = new QPushButton(QStringLiteral("下回転"), navGroup);
+  connect(rotateDownButton, &QPushButton::clicked, this,
+          [this]() { onRotateView(0.0, -kRotateStepDeg); });
+  rotateRow->addWidget(rotateDownButton);
+  navLayout->addLayout(rotateRow);
+  panelLayout->addWidget(navGroup);
 
   auto* importGroup = new QGroupBox(QStringLiteral("1. インポート・クラスタリング"), panel);
   auto* importLayout = new QVBoxLayout(importGroup);
@@ -455,11 +520,59 @@ void MainWindow::onExportMesh() {
   setStatusMessage(QStringLiteral("エクスポートしました: %1").arg(path));
 }
 
+void MainWindow::onRotateView(double deltaAzimuthDeg, double deltaElevationDeg) {
+  camera_.rotate(deltaAzimuthDeg, deltaElevationDeg);
+  refreshViewport();
+}
+
+void MainWindow::onPanView(double dxMm, double dyMm) {
+  camera_.pan(dxMm, dyMm);
+  refreshViewport();
+}
+
+void MainWindow::onZoomView(double factor) {
+  camera_.zoom(factor);
+  refreshViewport();
+}
+
+bool MainWindow::eventFilter(QObject* watched, QEvent* event) {
+  if (watched == viewportWidget_ && event->type() == QEvent::MouseMove) {
+    auto* mouseEvent = static_cast<QMouseEvent*>(event);
+    showFragmentTooltipAt(mouseEvent->pos());
+  }
+  return QMainWindow::eventFilter(watched, event);
+}
+
+void MainWindow::showFragmentTooltipAt(const QPoint& widgetPos) {
+  // マウス直下の破片を特定し、破片番号をツールチップとして表示する
+  // （破片の識別を、ビューア上でのマウスホバーだけで行えるようにする）。
+  if (!renderer_ || !viewportWidget_) {
+    return;
+  }
+  // VTKの画面座標は左下原点、Qtのウィジェット座標は左上原点のため、
+  // Y座標を反転してから picker に渡す。
+  const int vtkY = viewportWidget_->height() - widgetPos.y();
+  auto picker = vtkSmartPointer<vtkPropPicker>::New();
+  if (picker->PickProp(widgetPos.x(), vtkY, renderer_) == 0) {
+    QToolTip::hideText();
+    return;
+  }
+  vtkActor* pickedActor = picker->GetActor();
+  const auto it = fragmentActorIds_.find(pickedActor);
+  if (it == fragmentActorIds_.end()) {
+    QToolTip::hideText();
+    return;
+  }
+  QToolTip::showText(viewportWidget_->mapToGlobal(widgetPos),
+                      QStringLiteral("破片 #%1").arg(it->second), viewportWidget_);
+}
+
 void MainWindow::refreshViewport() {
   if (!renderer_) {
     return;
   }
   renderer_->RemoveAllViewProps();
+  fragmentActorIds_.clear();
   const auto cameraEye = camera_.eyePosition();
   if (orchestrator_) {
     const auto& state = orchestrator_->state();
@@ -523,6 +636,9 @@ void MainWindow::refreshViewport() {
       edgeActor->GetProperty()->SetLineWidth(3.0);
       renderer_->AddActor(edgeActor);
       renderer_->AddActor(actor);
+      // マウスホバー時のツールチップ表示のため、実体アクターと破片IDの
+      // 対応を記録する（境界エッジ用アクターやラベルは対象外）。
+      fragmentActorIds_[actor.Get()] = fragmentId;
 
       // 破片番号をラベルとして表示する（破片の識別を容易にするため）。
       // 3Dアクターとして配置すると、曲面破片ではラベル位置が他のポリゴン
