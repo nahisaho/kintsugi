@@ -20,7 +20,11 @@
 #include <QVTKOpenGLNativeWidget.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
+#include <vtkCellArray.h>
 #include <vtkGenericOpenGLRenderWindow.h>
+#include <vtkMatrix4x4.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderer.h>
@@ -29,6 +33,7 @@
 #include <vtkSphereSource.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
+#include <vtkVertexGlyphFilter.h>
 
 #include "../core/mesh_export.hpp"
 #include "../core/scan_importer.hpp"
@@ -42,6 +47,64 @@ using kintsugi::core::JoinCandidate;
 using kintsugi::core::MeshExportFormat;
 using kintsugi::core::PropagatedPose;
 using kintsugi::core::Vec3;
+
+namespace {
+
+// FragmentMeshの頂点・面（あれば）からvtkPolyDataを構築する。面情報が
+// ない入力（点群）は頂点のみのポリデータとしてvtkVertexGlyphFilterで
+// 描画可能にする。
+vtkSmartPointer<vtkPolyData> buildFragmentPolyData(const FragmentMesh& mesh) {
+  auto points = vtkSmartPointer<vtkPoints>::New();
+  for (const auto& vertex : mesh.vertices) {
+    points->InsertNextPoint(vertex.x, vertex.y, vertex.z);
+  }
+  auto polyData = vtkSmartPointer<vtkPolyData>::New();
+  polyData->SetPoints(points);
+
+  if (!mesh.faces.empty()) {
+    auto triangles = vtkSmartPointer<vtkCellArray>::New();
+    for (const auto& face : mesh.faces) {
+      triangles->InsertNextCell(3);
+      triangles->InsertCellPoint(static_cast<vtkIdType>(face.v0));
+      triangles->InsertCellPoint(static_cast<vtkIdType>(face.v1));
+      triangles->InsertCellPoint(static_cast<vtkIdType>(face.v2));
+    }
+    polyData->SetPolys(triangles);
+    return polyData;
+  }
+
+  auto glyphFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
+  glyphFilter->SetInputData(polyData);
+  glyphFilter->Update();
+  return glyphFilter->GetOutput();
+}
+
+// PropagatedPose（並進＋単位四元数）から同等のvtkMatrix4x4を構築する
+// （回転を無視した並進のみの表示は接合結果を誤って表現するため、
+// 回転成分も忠実に反映する）。
+vtkSmartPointer<vtkMatrix4x4> buildTransformMatrix(const kintsugi::core::PropagatedPose& pose) {
+  const double w = pose.rotation.w;
+  const double x = pose.rotation.x;
+  const double y = pose.rotation.y;
+  const double z = pose.rotation.z;
+  auto matrix = vtkSmartPointer<vtkMatrix4x4>::New();
+  matrix->Identity();
+  matrix->SetElement(0, 0, 1.0 - 2.0 * (y * y + z * z));
+  matrix->SetElement(0, 1, 2.0 * (x * y - w * z));
+  matrix->SetElement(0, 2, 2.0 * (x * z + w * y));
+  matrix->SetElement(1, 0, 2.0 * (x * y + w * z));
+  matrix->SetElement(1, 1, 1.0 - 2.0 * (x * x + z * z));
+  matrix->SetElement(1, 2, 2.0 * (y * z - w * x));
+  matrix->SetElement(2, 0, 2.0 * (x * z - w * y));
+  matrix->SetElement(2, 1, 2.0 * (y * z + w * x));
+  matrix->SetElement(2, 2, 1.0 - 2.0 * (x * x + y * y));
+  matrix->SetElement(0, 3, pose.translationMm.x);
+  matrix->SetElement(1, 3, pose.translationMm.y);
+  matrix->SetElement(2, 3, pose.translationMm.z);
+  return matrix;
+}
+
+}  // namespace
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   buildUi();
@@ -173,10 +236,26 @@ void MainWindow::onImportScans() {
       ++failed;
     }
   }
+  // 新たなインポートは既存のクラスタリング・組み立て結果と整合しなくなるため、
+  // 再クラスタリングされるまで古い状態を出力・表示できないよう破棄する。
+  resetDerivedClusteringState();
   setStatusMessage(QStringLiteral("インポート完了: 成功 %1 件、失敗 %2 件（合計 %3 件の破片）")
                         .arg(imported)
                         .arg(failed)
                         .arg(importedFragments_.size()));
+}
+
+void MainWindow::resetDerivedClusteringState() {
+  clusteringResult_ = kintsugi::core::ClusteringResult{};
+  currentClusterFragments_.clear();
+  currentCandidates_.clear();
+  orchestrator_.reset();
+  dispatcher_.reset();
+  clusterCombo_->blockSignals(true);
+  clusterCombo_->clear();
+  clusterCombo_->blockSignals(false);
+  refreshCandidateList();
+  refreshViewport();
 }
 
 void MainWindow::onRunClustering() {
@@ -185,17 +264,22 @@ void MainWindow::onRunClustering() {
                               QStringLiteral("先に破片をインポートしてください。"));
     return;
   }
+  resetDerivedClusteringState();
   clusteringResult_ = kintsugi::core::clusterFragments(importedFragments_);
-  clusterCombo_->clear();
+  // addItemはcurrentIndexChanged(0)を発火しうるため、全項目投入完了まで
+  // シグナルを止め、選択反映（計算コスト有）を一度だけ行う。
+  clusterCombo_->blockSignals(true);
   for (std::size_t i = 0; i < clusteringResult_.vesselCandidates.size(); ++i) {
     clusterCombo_->addItem(QStringLiteral("器物候補 %1 (%2片)")
                                 .arg(i + 1)
                                 .arg(clusteringResult_.vesselCandidates[i].fragments.size()));
   }
+  clusterCombo_->blockSignals(false);
   setStatusMessage(QStringLiteral("クラスタリング完了: 器物候補 %1 件、未分類 %2 件")
                         .arg(clusteringResult_.vesselCandidates.size())
                         .arg(clusteringResult_.unclassified.size()));
   if (!clusteringResult_.vesselCandidates.empty()) {
+    clusterCombo_->setCurrentIndex(0);
     onClusterSelectionChanged(0);
   }
 }
@@ -212,13 +296,42 @@ void MainWindow::onClusterSelectionChanged(int index) {
   }
   orchestrator_ = std::make_unique<AssemblyOrchestrator>(fragmentIds);
   dispatcher_ = std::make_unique<GuiCommandDispatcher>(*orchestrator_);
+  dragFragmentSpin_->setRange(0, fragmentIds.empty() ? 0 : static_cast<int>(fragmentIds.size()) - 1);
   refreshCandidateList();
   refreshViewport();
 }
 
 void MainWindow::refreshCandidateList() {
   candidateList_->clear();
+  visibleCandidates_.clear();
+  if (!orchestrator_) {
+    return;
+  }
+  // 半自動モードの提示契約（信頼度降順・同点は破片ID対昇順）に従い、
+  // presentCandidatesが返す整列済みビューをそのまま表示・選択対象とする。
+  const auto view = orchestrator_->presentCandidates(currentCandidates_);
+  currentCandidates_ = view.candidates;
+  const auto& state = orchestrator_->state();
+  // 既に採用・却下済みの候補は一覧から除外する（二重採用・undo抜きでの
+  // 却下取り消しを防ぐ）。undo/redoで状態が戻れば自動的に一覧へ復帰する。
+  auto isDecided = [&state](const JoinCandidate& candidate) {
+    for (const auto& join : state.acceptedJoins) {
+      if (join.fragmentIdA == candidate.fragmentIdA && join.fragmentIdB == candidate.fragmentIdB) {
+        return true;
+      }
+    }
+    for (const auto& rejected : state.rejectedCandidates) {
+      if (rejected.fragmentIdA == candidate.fragmentIdA && rejected.fragmentIdB == candidate.fragmentIdB) {
+        return true;
+      }
+    }
+    return false;
+  };
   for (const JoinCandidate& candidate : currentCandidates_) {
+    if (isDecided(candidate)) {
+      continue;
+    }
+    visibleCandidates_.push_back(candidate);
     candidateList_->addItem(QStringLiteral("破片%1 - 破片%2 (信頼度 %3)")
                                  .arg(candidate.fragmentIdA)
                                  .arg(candidate.fragmentIdB)
@@ -231,16 +344,18 @@ void MainWindow::onAcceptSelectedCandidate() {
     return;
   }
   const int row = candidateList_->currentRow();
-  if (row < 0 || static_cast<std::size_t>(row) >= currentCandidates_.size()) {
+  if (row < 0 || static_cast<std::size_t>(row) >= visibleCandidates_.size()) {
     setStatusMessage(QStringLiteral("接合候補を一覧から選択してください。"));
     return;
   }
-  dispatcher_->acceptCandidate(currentCandidates_[static_cast<std::size_t>(row)]);
+  const JoinCandidate candidate = visibleCandidates_[static_cast<std::size_t>(row)];
+  dispatcher_->acceptCandidate(candidate);
   if (dispatcher_->lastConflictWarning().has_value()) {
     setStatusMessage(QStringLiteral("矛盾のため採用できませんでした（REQ-POTTERY-020）。"));
   } else {
     setStatusMessage(QStringLiteral("接合候補を採用しました。"));
   }
+  refreshCandidateList();
   refreshViewport();
 }
 
@@ -249,12 +364,13 @@ void MainWindow::onRejectSelectedCandidate() {
     return;
   }
   const int row = candidateList_->currentRow();
-  if (row < 0 || static_cast<std::size_t>(row) >= currentCandidates_.size()) {
+  if (row < 0 || static_cast<std::size_t>(row) >= visibleCandidates_.size()) {
     setStatusMessage(QStringLiteral("接合候補を一覧から選択してください。"));
     return;
   }
-  dispatcher_->rejectCandidate(currentCandidates_[static_cast<std::size_t>(row)]);
+  dispatcher_->rejectCandidate(visibleCandidates_[static_cast<std::size_t>(row)]);
   setStatusMessage(QStringLiteral("接合候補を却下しました。"));
+  refreshCandidateList();
   refreshViewport();
 }
 
@@ -277,6 +393,7 @@ void MainWindow::onUndo() {
   }
   dispatcher_->undo();
   setStatusMessage(QStringLiteral("直前の操作を取り消しました。"));
+  refreshCandidateList();
   refreshViewport();
 }
 
@@ -286,6 +403,7 @@ void MainWindow::onRedo() {
   }
   dispatcher_->redo();
   setStatusMessage(QStringLiteral("取り消した操作をやり直しました。"));
+  refreshCandidateList();
   refreshViewport();
 }
 
@@ -307,8 +425,18 @@ void MainWindow::onExportMesh() {
   const auto exported =
       kintsugi::core::exportIntegratedMesh(orchestrator_->state(), currentClusterFragments_, format);
   std::ofstream out(path.toStdString(), std::ios::binary);
+  if (!out.is_open()) {
+    QMessageBox::warning(this, QStringLiteral("エクスポート"),
+                         QStringLiteral("出力先を開けませんでした: %1").arg(path));
+    return;
+  }
   out << exported.content;
   out.close();
+  if (!out) {
+    QMessageBox::warning(this, QStringLiteral("エクスポート"),
+                         QStringLiteral("書き込みに失敗しました: %1").arg(path));
+    return;
+  }
   setStatusMessage(QStringLiteral("エクスポートしました: %1").arg(path));
 }
 
@@ -320,21 +448,26 @@ void MainWindow::refreshViewport() {
   if (orchestrator_) {
     const auto& state = orchestrator_->state();
     for (std::size_t fragmentId : state.fragmentIds) {
-      auto sphere = vtkSmartPointer<vtkSphereSource>::New();
-      sphere->SetRadius(15.0);
-      sphere->SetThetaResolution(16);
-      sphere->SetPhiResolution(16);
+      vtkSmartPointer<vtkPolyData> polyData;
+      if (fragmentId < currentClusterFragments_.size()) {
+        polyData = buildFragmentPolyData(currentClusterFragments_[fragmentId]);
+      } else {
+        auto sphere = vtkSmartPointer<vtkSphereSource>::New();
+        sphere->SetRadius(15.0);
+        sphere->Update();
+        polyData = sphere->GetOutput();
+      }
 
       auto transform = vtkSmartPointer<vtkTransform>::New();
       if (const auto pose = state.resolvedPose(fragmentId)) {
-        transform->Translate(pose->translationMm.x, pose->translationMm.y, pose->translationMm.z);
+        transform->SetMatrix(buildTransformMatrix(*pose));
       } else {
         // 未接合破片は原点付近に並べて表示する（可視化上の適応）。
-        transform->Translate(static_cast<double>(fragmentId) * 40.0, 0.0, 0.0);
+        transform->Translate(static_cast<double>(fragmentId) * 80.0, 0.0, 0.0);
       }
       auto transformFilter = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
       transformFilter->SetTransform(transform);
-      transformFilter->SetInputConnection(sphere->GetOutputPort());
+      transformFilter->SetInputData(polyData);
 
       auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
       mapper->SetInputConnection(transformFilter->GetOutputPort());

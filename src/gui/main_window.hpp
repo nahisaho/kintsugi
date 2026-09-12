@@ -54,12 +54,17 @@ class MainWindow : public QMainWindow {
   void refreshCandidateList();
   void refreshViewport();
   void setStatusMessage(const QString& message);
+  void resetDerivedClusteringState();
 
   std::vector<kintsugi::core::FragmentMesh> importedFragments_;
   kintsugi::core::ClusteringResult clusteringResult_;
 
   std::vector<kintsugi::core::FragmentMesh> currentClusterFragments_;
   std::vector<kintsugi::core::JoinCandidate> currentCandidates_;
+  // refreshCandidateList()が一覧に表示した（未決定の）候補のみのビュー。
+  // candidateList_の行番号はこちらに対応する（currentCandidates_全体には
+  // 対応しない。決定済み候補は非表示のため）。
+  std::vector<kintsugi::core::JoinCandidate> visibleCandidates_;
   std::unique_ptr<kintsugi::core::AssemblyOrchestrator> orchestrator_;
   std::unique_ptr<GuiCommandDispatcher> dispatcher_;
   ViewportCamera camera_;
