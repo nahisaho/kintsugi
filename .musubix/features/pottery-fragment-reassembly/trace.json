@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T08:59:37.847Z",
+  "generatedAt": "2026-09-12T09:46:26.118Z",
   "nodes": [
     {
       "id": "ADR-0001",
@@ -594,10 +594,16 @@
       "line": 114
     },
     {
-      "id": "TEST-POTTERY-002-002",
+      "id": "TEST-POTTERY-001-005",
       "kind": "test",
       "path": "tests/test_scan_importer.cpp",
       "line": 143
+    },
+    {
+      "id": "TEST-POTTERY-002-002",
+      "kind": "test",
+      "path": "tests/test_scan_importer.cpp",
+      "line": 159
     },
     {
       "id": "TEST-POTTERY-014-001",
@@ -1268,6 +1274,11 @@
       "relation": "verifies"
     },
     {
+      "from": "TEST-POTTERY-001-005",
+      "to": "REQ-POTTERY-001",
+      "relation": "verifies"
+    },
+    {
       "from": "TEST-POTTERY-002-002",
       "to": "REQ-POTTERY-002",
       "relation": "verifies"
@@ -1307,7 +1318,7 @@
     "src/core/project_persistence.hpp": "f46965e92a71a766916c2715e073fb4d9f19da505012c5074b92169a3bb9b60f",
     "src/core/report_aggregation.cpp": "908d031681d2258fd34d08cd7e6c99e6c367e53bb530ee5980babdb61084c73a",
     "src/core/report_aggregation.hpp": "3aff7ffe27c7ccb96cdb681b1739ce5a7146fc434e02874c5e7af51ee159eefa",
-    "src/core/scan_importer.cpp": "9da0be01ad9f58d09c828d14d105eef70dbf50bc204aa6a96cdc440a90710278",
+    "src/core/scan_importer.cpp": "e8bd1fe5f47fb1b2822414d464518a8ab500664889715ed6c6734a752fba72ca",
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
     "src/gui/gui_command_dispatcher.cpp": "8a259fc9e4809d5e7f0c263ceca262a2b5890e56e04c2c0bf14bffcd1c7e49c2",
     "src/gui/gui_command_dispatcher.hpp": "1220e6af12fb49f996cb8ef187c83c0279dfb6ce493dd90d3b09d2dbb1f49116",
@@ -1326,7 +1337,7 @@
     "tests/test_pose_conflict.cpp": "1ce8b1e547314857c6bdb713fff0f0afdfb52ef52a1f34cf4b2347abde4d42f7",
     "tests/test_project_persistence.cpp": "5c333f0f39010b5358941c15cd15ff475a5e95cefe510f5a4cebe546845fca69",
     "tests/test_report_aggregation.cpp": "43ade6cb3f79ab078f01a1ae12df5ba5b5e36d1210a071f0ea283d556d04609a",
-    "tests/test_scan_importer.cpp": "80083f5630d52fcc48aed0112c9dd45122c1fcc1fbdd3f49185796e20a9a2087",
+    "tests/test_scan_importer.cpp": "d01b41166d6a0e804530d36aa192abe3df70b9361f518f1c87f3b53dc3eb7122",
     "tests/test_viewport_camera.cpp": "c2bc6bd93512a3d898f11d2a2cde57700bd97efccd7f1820adaf3b138c170eda",
     "third_party/doctest/doctest_fwd.h": "aead5a9172e2619b6653d27967d4357241bbfcbcf846217f338d47c3c7ef8792",
     "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb"

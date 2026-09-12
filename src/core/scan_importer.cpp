@@ -3,6 +3,9 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <cstdio>
+#include <fstream>
+#include <sstream>
 
 #include <pcl/PCLPointCloud2.h>
 #include <pcl/PolygonMesh.h>
@@ -110,10 +113,203 @@ ImportResult importStlMesh(const std::string& filePath, double unitToMillimeterF
   return mesh;
 }
 
+// OBJテキストの1行を空白区切りで分割する。
+std::vector<std::string> splitWhitespace(const std::string& line) {
+  std::istringstream stream(line);
+  std::vector<std::string> tokens;
+  std::string token;
+  while (stream >> token) {
+    tokens.push_back(token);
+  }
+  return tokens;
+}
+
+// "v"/"v/vt"/"v//vn"/"v/vt/vn" 形式の面頂点参照からvn(法線)インデックスのみを取り除く。
+std::string stripFaceVertexNormalIndex(const std::string& vertexRef) {
+  const auto firstSlash = vertexRef.find('/');
+  if (firstSlash == std::string::npos) {
+    return vertexRef;  // "v" のみ。
+  }
+  const auto secondSlash = vertexRef.find('/', firstSlash + 1);
+  if (secondSlash == std::string::npos) {
+    return vertexRef;  // "v/vt" — vnを含まないためそのまま。
+  }
+  if (secondSlash == firstSlash + 1) {
+    return vertexRef.substr(0, firstSlash);  // "v//vn" — vtが空なので"v"のみ残す。
+  }
+  return vertexRef.substr(0, secondSlash);  // "v/vt/vn" — "v/vt"のみ残す。
+}
+
+// pcl::io::loadOBJFile(path, TextureMesh&) はPCL 1.14において、入力OBJに
+// vn(法線)行が含まれる場合にクラッシュする既知の不具合があるため、
+// テクスチャ座標・マテリアル色の抽出専用にvn情報を除去した一時コピーを作る。
+// mtllib等の相対パス参照を壊さないよう、元ファイルと同じディレクトリに書き出す。
+std::string writeObjWithoutNormals(const std::string& filePath) {
+  std::ifstream input(filePath);
+  if (!input) {
+    return "";
+  }
+
+  std::ostringstream stripped;
+  std::string line;
+  while (std::getline(input, line)) {
+    const auto tokens = splitWhitespace(line);
+    if (!tokens.empty() && tokens.front() == "vn") {
+      continue;
+    }
+    if (!tokens.empty() && tokens.front() == "f") {
+      stripped << "f";
+      for (std::size_t i = 1; i < tokens.size(); ++i) {
+        stripped << ' ' << stripFaceVertexNormalIndex(tokens[i]);
+      }
+      stripped << '\n';
+      continue;
+    }
+    stripped << line << '\n';
+  }
+
+  const std::string tempPath = filePath + ".pfr_no_vn_tmp.obj";
+  std::ofstream output(tempPath, std::ios::trunc);
+  if (!output) {
+    return "";
+  }
+  output << stripped.str();
+  return tempPath;
+}
+
+// vn(法線)を含むOBJファイルから、法線情報のみをPolygonMesh経由（クラッシュしない
+// 読込経路）で抽出する。頂点順序・数がtextureMeshと一致する場合のみ有効とする。
+std::vector<Vec3> tryExtractObjNormals(const std::string& filePath, std::size_t expectedVertexCount) {
+  pcl::PolygonMesh polygonMesh;
+  if (pcl::io::loadOBJFile(filePath, polygonMesh) < 0) {
+    return {};
+  }
+  const bool hasNormals = pcl::getFieldIndex(polygonMesh.cloud, "normal_x") >= 0 &&
+                           pcl::getFieldIndex(polygonMesh.cloud, "normal_y") >= 0 &&
+                           pcl::getFieldIndex(polygonMesh.cloud, "normal_z") >= 0;
+  if (!hasNormals) {
+    return {};
+  }
+
+  pcl::PointCloud<pcl::PointNormal> cloud;
+  pcl::fromPCLPointCloud2(polygonMesh.cloud, cloud);
+  if (cloud.size() != expectedVertexCount) {
+    // 法線とテクスチャ座標で頂点展開数が食い違う場合は、破損データを混入させない
+    // ため法線抽出を諦める（既知の限界。REQ-POTTERY-001の色/テクスチャ保持を優先）。
+    return {};
+  }
+
+  std::vector<Vec3> normals;
+  normals.reserve(cloud.size());
+  for (const auto& point : cloud.points) {
+    normals.push_back(Vec3{point.normal_x, point.normal_y, point.normal_z});
+  }
+  return normals;
+}
+
+// ファイル中に "usemtl" 行（マテリアル参照）が存在するかを調べる。
+// pcl::io::loadOBJFile(path, TextureMesh&) はPCL 1.14において、マテリアル参照を
+// 一切持たないOBJファイルでクラッシュする既知の不具合があるため、その判定に使う。
+bool containsMaterialReference(const std::string& filePath) {
+  std::ifstream input(filePath);
+  std::string line;
+  while (std::getline(input, line)) {
+    const auto tokens = splitWhitespace(line);
+    if (!tokens.empty() && tokens.front() == "usemtl") {
+      return true;
+    }
+  }
+  return false;
+}
+
+// 頂点・面情報のみをPolygonMesh経由で読み込む（マテリアル/テクスチャ座標を持たない
+// OBJ向け。TextureMesh読込経路のPCL既知不具合を回避するため）。
+ImportResult importObjMeshWithoutMaterial(const std::string& filePath, double unitToMillimeterFactor) {
+  pcl::PolygonMesh polygonMesh;
+  if (pcl::io::loadOBJFile(filePath, polygonMesh) < 0) {
+    return ImportError{filePath, "OBJファイルの読み込みに失敗しました（破損または非対応形式）。"};
+  }
+  if (polygonMesh.polygons.empty()) {
+    return ImportError{filePath, "必須のジオメトリ情報（面情報）が欠如しています。"};
+  }
+
+  const bool hasNormals = pcl::getFieldIndex(polygonMesh.cloud, "normal_x") >= 0 &&
+                           pcl::getFieldIndex(polygonMesh.cloud, "normal_y") >= 0 &&
+                           pcl::getFieldIndex(polygonMesh.cloud, "normal_z") >= 0;
+
+  pcl::PointCloud<pcl::PointNormal> cloud;
+  pcl::fromPCLPointCloud2(polygonMesh.cloud, cloud);
+
+  FragmentMesh mesh;
+  mesh.sourceFilePath = filePath;
+  mesh.vertices.reserve(cloud.size());
+  if (hasNormals) {
+    mesh.normals.reserve(cloud.size());
+  }
+  for (const auto& point : cloud.points) {
+    mesh.vertices.push_back(Vec3{point.x * unitToMillimeterFactor,
+                                  point.y * unitToMillimeterFactor,
+                                  point.z * unitToMillimeterFactor});
+    if (hasNormals) {
+      mesh.normals.push_back(Vec3{point.normal_x, point.normal_y, point.normal_z});
+    }
+  }
+
+  mesh.faces.reserve(polygonMesh.polygons.size());
+  for (const auto& polygon : polygonMesh.polygons) {
+    if (polygon.vertices.size() != 3) {
+      return ImportError{filePath, "三角形以外の面を含むOBJファイルには対応していません。"};
+    }
+    mesh.faces.push_back(
+        Triangle{polygon.vertices[0], polygon.vertices[1], polygon.vertices[2]});
+  }
+
+  return mesh;
+}
+
 // OBJファイル（三角メッシュ、テクスチャ座標、関連MTLの拡散色を頂点色として）を読み込む。
 ImportResult importObjMesh(const std::string& filePath, double unitToMillimeterFactor) {
+  // マテリアル参照(usemtl)を一切持たないOBJは、TextureMesh読込経路のPCL既知不具合を
+  // 回避するため、マテリアル/テクスチャ座標を持たないPolygonMesh経路で読み込む。
+  // この経路であれば法線(vn)もそのまま保持できる。
+  if (!containsMaterialReference(filePath)) {
+    return importObjMeshWithoutMaterial(filePath, unitToMillimeterFactor);
+  }
+
+  const bool hasVnLines = [&filePath]() {
+    std::ifstream input(filePath);
+    std::string line;
+    while (std::getline(input, line)) {
+      const auto tokens = splitWhitespace(line);
+      if (!tokens.empty() && tokens.front() == "vn") {
+        return true;
+      }
+    }
+    return false;
+  }();
+
+  // vn行を含むファイルはTextureMesh読込経路のPCL既知不具合を避けるため、
+  // vn除去済みの一時コピーを色/テクスチャ座標抽出に用いる。
+  std::string textureLoadPath = filePath;
+  std::string tempPathToCleanup;
+  if (hasVnLines) {
+    tempPathToCleanup = writeObjWithoutNormals(filePath);
+    if (tempPathToCleanup.empty()) {
+      return ImportError{filePath, "OBJファイルの読み込みに失敗しました（破損または非対応形式）。"};
+    }
+    textureLoadPath = tempPathToCleanup;
+  }
+  struct TempFileGuard {
+    const std::string& path;
+    ~TempFileGuard() {
+      if (!path.empty()) {
+        std::remove(path.c_str());
+      }
+    }
+  } tempFileGuard{tempPathToCleanup};
+
   pcl::TextureMesh textureMesh;
-  if (pcl::io::loadOBJFile(filePath, textureMesh) < 0) {
+  if (pcl::io::loadOBJFile(textureLoadPath, textureMesh) < 0) {
     return ImportError{filePath, "OBJファイルの読み込みに失敗しました（破損または非対応形式）。"};
   }
   if (textureMesh.tex_polygons.empty() ||
@@ -132,6 +328,13 @@ ImportResult importObjMesh(const std::string& filePath, double unitToMillimeterF
     mesh.vertices.push_back(Vec3{point.x * unitToMillimeterFactor,
                                   point.y * unitToMillimeterFactor,
                                   point.z * unitToMillimeterFactor});
+  }
+
+  if (hasVnLines) {
+    std::vector<Vec3> normals = tryExtractObjNormals(filePath, cloud.size());
+    if (!normals.empty()) {
+      mesh.normals = std::move(normals);
+    }
   }
 
   // 頂点色は、その頂点を参照する最初の面が属するマテリアルのKd(拡散色)を採用する。

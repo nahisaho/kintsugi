@@ -126,7 +126,10 @@
     <TestCase name="TEST-POTTERY-001-004: OBJ形式のメッシュは頂点・面・テクスチャ座標・MTL由来の頂点色を保持したまま既定ミリメートルとして読み込まれる" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="117">
       <OverallResultsAsserts successes="15" failures="0" test_case_success="true"/>
     </TestCase>
-    <TestCase name="TEST-POTTERY-002-002: 破損したSTL/OBJファイルはエラーとして報告され、既存の読込済み破片には影響しない" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="146">
+    <TestCase name="TEST-POTTERY-001-005: OBJ形式のメッシュに法線情報(vn)が含まれる場合、頂点法線が保持されたまま読み込まれる" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="146">
+      <OverallResultsAsserts successes="6" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-002-002: 破損したSTL/OBJファイルはエラーとして報告され、既存の読込済み破片には影響しない" filename="/home/nahisaho/GitHub/kintsugi/tests/test_scan_importer.cpp" line="162">
       <OverallResultsAsserts successes="5" failures="0" test_case_success="true"/>
     </TestCase>
     <TestCase name="TEST-POTTERY-014-001 ViewportCamera reflects rotate/zoom/pan viewpoint operations" filename="/home/nahisaho/GitHub/kintsugi/tests/test_viewport_camera.cpp" line="25">
@@ -143,6 +146,6 @@
       <OverallResultsAsserts successes="11" failures="0" test_case_success="true"/>
     </TestCase>
   </TestSuite>
-  <OverallResultsAsserts successes="310" failures="0"/>
-  <OverallResultsTestCases successes="40" failures="0" skipped="0"/>
+  <OverallResultsAsserts successes="316" failures="0"/>
+  <OverallResultsTestCases successes="41" failures="0" skipped="0"/>
 </doctest>

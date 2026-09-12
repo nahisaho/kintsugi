@@ -140,6 +140,22 @@ TEST_CASE(
   CHECK(mesh.colors[0].b == 0);
 }
 
+/** @id TEST-POTTERY-001-005
+ * @verifies REQ-POTTERY-001
+ */
+TEST_CASE("TEST-POTTERY-001-005: OBJ形式のメッシュに法線情報(vn)が含まれる場合、頂点法線が保持されたまま読み込まれる") {
+  ImportResult result = importFragment("tests/fixtures/obj_with_normals.obj");
+
+  REQUIRE(std::holds_alternative<FragmentMesh>(result));
+  const FragmentMesh& mesh = std::get<FragmentMesh>(result);
+
+  REQUIRE(mesh.vertices.size() == 3);
+  REQUIRE(mesh.normals.size() == 3);
+  CHECK(mesh.normals[0].z == doctest::Approx(1.0).epsilon(kEpsilon));
+  CHECK(mesh.normals[1].z == doctest::Approx(1.0).epsilon(kEpsilon));
+  CHECK(mesh.normals[2].y == doctest::Approx(1.0).epsilon(kEpsilon));
+}
+
 /** @id TEST-POTTERY-002-002
  * @verifies REQ-POTTERY-002
  */

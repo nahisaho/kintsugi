@@ -1,0 +1,28 @@
+[  0%] Built target pottery_core_autogen_timestamp_deps
+[  3%] Automatic MOC for target pottery_core
+[  3%] Built target pottery_core_autogen
+[  6%] Building CXX object CMakeFiles/pottery_core.dir/src/core/scan_importer.cpp.o
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp: In function ‘kintsugi::core::ImportResult kintsugi::core::{anonymous}::importStlMesh(const std::string&, double)’:
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp:110:79: warning: narrowing conversion of ‘(__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type)polygon.pcl::Vertices::vertices.std::vector<int, std::allocator<int> >::operator[](0)’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::size_t’ {aka ‘long unsigned int’} [-Wnarrowing]
+  110 |         Triangle{polygon.vertices[0], polygon.vertices[1], polygon.vertices[2]});
+      |                                                                               ^
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp:110:79: warning: narrowing conversion of ‘(__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type)polygon.pcl::Vertices::vertices.std::vector<int, std::allocator<int> >::operator[](1)’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::size_t’ {aka ‘long unsigned int’} [-Wnarrowing]
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp:110:79: warning: narrowing conversion of ‘(__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type)polygon.pcl::Vertices::vertices.std::vector<int, std::allocator<int> >::operator[](2)’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::size_t’ {aka ‘long unsigned int’} [-Wnarrowing]
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp: In function ‘kintsugi::core::ImportResult kintsugi::core::{anonymous}::importObjMeshWithoutMaterial(const std::string&, double)’:
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp:264:79: warning: narrowing conversion of ‘(__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type)polygon.pcl::Vertices::vertices.std::vector<int, std::allocator<int> >::operator[](0)’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::size_t’ {aka ‘long unsigned int’} [-Wnarrowing]
+  264 |         Triangle{polygon.vertices[0], polygon.vertices[1], polygon.vertices[2]});
+      |                                                                               ^
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp:264:79: warning: narrowing conversion of ‘(__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type)polygon.pcl::Vertices::vertices.std::vector<int, std::allocator<int> >::operator[](1)’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::size_t’ {aka ‘long unsigned int’} [-Wnarrowing]
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp:264:79: warning: narrowing conversion of ‘(__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type)polygon.pcl::Vertices::vertices.std::vector<int, std::allocator<int> >::operator[](2)’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::size_t’ {aka ‘long unsigned int’} [-Wnarrowing]
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp: In function ‘kintsugi::core::ImportResult kintsugi::core::{anonymous}::importObjMesh(const std::string&, double)’:
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp:363:81: warning: narrowing conversion of ‘(__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type)polygon.pcl::Vertices::vertices.std::vector<int, std::allocator<int> >::operator[](0)’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::size_t’ {aka ‘long unsigned int’} [-Wnarrowing]
+  363 |           Triangle{polygon.vertices[0], polygon.vertices[1], polygon.vertices[2]});
+      |                                                                                 ^
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp:363:81: warning: narrowing conversion of ‘(__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type)polygon.pcl::Vertices::vertices.std::vector<int, std::allocator<int> >::operator[](1)’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::size_t’ {aka ‘long unsigned int’} [-Wnarrowing]
+/home/nahisaho/GitHub/kintsugi/src/core/scan_importer.cpp:363:81: warning: narrowing conversion of ‘(__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type)polygon.pcl::Vertices::vertices.std::vector<int, std::allocator<int> >::operator[](2)’ from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::size_t’ {aka ‘long unsigned int’} [-Wnarrowing]
+[  9%] Linking CXX static library libpottery_core.a
+[ 48%] Built target pottery_core
+[ 48%] Built target pottery_tests_autogen_timestamp_deps
+[ 51%] Built target pottery_tests_autogen
+[ 54%] Linking CXX executable pottery_tests
+[100%] Built target pottery_tests
