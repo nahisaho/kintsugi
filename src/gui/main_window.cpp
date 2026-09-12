@@ -21,6 +21,7 @@
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
+#include <vtkFeatureEdges.h>
 #include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkMatrix4x4.h>
 #include <vtkPoints.h>
@@ -494,14 +495,29 @@ void MainWindow::refreshViewport() {
       } else {
         actor->GetProperty()->SetColor(0.7, 0.4, 0.2);
       }
-      // 破片同士の境界を視覚的に把握しやすくするため、メッシュのエッジ
-      // (面情報を持つ破片のみ描画対象となる)を表示する。点群のみの破片
-      // （面情報なし）には影響しない。破片本体の色（テラコッタ系オレンジ/
-      // 接合済みの緑）に対して十分なコントラストが出るよう、明るい黄色を
-      // 太めの線で描画する。
-      actor->GetProperty()->EdgeVisibilityOn();
-      actor->GetProperty()->SetEdgeColor(1.0, 0.95, 0.1);
-      actor->GetProperty()->SetLineWidth(2.5);
+      // メッシュ全体の三角形分割線ではなく、破片の輪郭（他の三角形と
+      // 共有されていない境界エッジ = 破片の外周・破損エッジ）のみを
+      // 目立つ色で強調表示する。vtkFeatureEdgesは面が1つのセルからしか
+      // 参照されていないエッジ（境界エッジ）だけを抽出するため、内部の
+      // 三角形分割による格子状の線は表示されず、破片の実際の輪郭形状が
+      // 際立つ。点群のみの破片（面情報なし）には境界エッジが存在しない
+      // ため、この強調表示は自動的にスキップされる。
+      auto featureEdges = vtkSmartPointer<vtkFeatureEdges>::New();
+      featureEdges->SetInputConnection(transformFilter->GetOutputPort());
+      featureEdges->BoundaryEdgesOn();
+      featureEdges->FeatureEdgesOff();
+      featureEdges->NonManifoldEdgesOff();
+      featureEdges->ManifoldEdgesOff();
+      featureEdges->Update();
+
+      auto edgeMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+      edgeMapper->SetInputConnection(featureEdges->GetOutputPort());
+
+      auto edgeActor = vtkSmartPointer<vtkActor>::New();
+      edgeActor->SetMapper(edgeMapper);
+      edgeActor->GetProperty()->SetColor(1.0, 0.95, 0.1);
+      edgeActor->GetProperty()->SetLineWidth(3.0);
+      renderer_->AddActor(edgeActor);
       renderer_->AddActor(actor);
     }
   }
