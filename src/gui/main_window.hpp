@@ -46,6 +46,7 @@ class MainWindow : public QMainWindow {
   void onClusterSelectionChanged(int index);
   void onAcceptSelectedCandidate();
   void onRejectSelectedCandidate();
+  void onCandidateSelectionChanged();
   void onUndo();
   void onRedo();
   void onExportMesh();
@@ -77,6 +78,11 @@ class MainWindow : public QMainWindow {
   // candidateList_の行番号はこちらに対応する（currentCandidates_全体には
   // 対応しない。決定済み候補は非表示のため）。
   std::vector<kintsugi::core::JoinCandidate> visibleCandidates_;
+  // 接合候補一覧で現在選択中の候補が対象とする破片ID（2件、未選択時は
+  // 空）。refreshViewport()はこの集合に含まれる破片を選択強調色で描画し、
+  // 選択解除されればここが空になり元の色（採用済み=緑／それ以外=橙）に
+  // 戻る。
+  std::vector<std::size_t> selectedCandidateFragmentIds_;
   std::unique_ptr<kintsugi::core::AssemblyOrchestrator> orchestrator_;
   std::unique_ptr<GuiCommandDispatcher> dispatcher_;
   // 既定距離500mmでは、壺本体（半径50mm程度）に加えて画面左のマッチしない

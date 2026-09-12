@@ -247,6 +247,8 @@ void MainWindow::buildUi() {
   auto* candidateGroup = new QGroupBox(QStringLiteral("2. 接合候補"), panel);
   auto* candidateLayout = new QVBoxLayout(candidateGroup);
   candidateList_ = new QListWidget(candidateGroup);
+  connect(candidateList_, &QListWidget::itemSelectionChanged, this,
+          &MainWindow::onCandidateSelectionChanged);
   candidateLayout->addWidget(candidateList_);
   auto* candidateButtons = new QHBoxLayout();
   auto* acceptButton = new QPushButton(QStringLiteral("採用"), candidateGroup);
@@ -453,6 +455,9 @@ void MainWindow::onClusterSelectionChanged(int index) {
 void MainWindow::refreshCandidateList() {
   candidateList_->clear();
   visibleCandidates_.clear();
+  // 一覧を作り直すと選択状態は失われるため、選択中の破片強調表示も
+  // 合わせてクリアする。
+  selectedCandidateFragmentIds_.clear();
   if (!orchestrator_) {
     return;
   }
@@ -520,6 +525,19 @@ void MainWindow::onRejectSelectedCandidate() {
   dispatcher_->rejectCandidate(visibleCandidates_[static_cast<std::size_t>(row)]);
   setStatusMessage(QStringLiteral("接合候補を却下しました。"));
   refreshCandidateList();
+  refreshViewport();
+}
+
+void MainWindow::onCandidateSelectionChanged() {
+  const int row = candidateList_->currentRow();
+  if (row < 0 || static_cast<std::size_t>(row) >= visibleCandidates_.size()) {
+    // 選択解除（一覧が空になった、または選択が外れた）時は強調表示対象を
+    // クリアし、対象破片の色を元（採用済み=緑／それ以外=橙）に戻す。
+    selectedCandidateFragmentIds_.clear();
+  } else {
+    const JoinCandidate& candidate = visibleCandidates_[static_cast<std::size_t>(row)];
+    selectedCandidateFragmentIds_ = {candidate.fragmentIdA, candidate.fragmentIdB};
+  }
   refreshViewport();
 }
 
@@ -766,7 +784,9 @@ void MainWindow::refreshViewport() {
     // 全破片を常に表示する。接合を採用（Accept）した破片は元の姿勢に
     // 代わって伝播済み姿勢（resolvedPose）で配置され緑色で強調表示し、
     // それ以外（未接合・候補ありのみ・接合候補が見つからない破片）は
-    // 元のスキャン取得時の座標のままオレンジ色で表示する。
+    // 元のスキャン取得時の座標のままオレンジ色で表示する。さらに、接合
+    // 候補一覧で候補行を選択中は、その候補が対象とする2破片を黄色系で
+    // 強調表示し、選択を外せば上記の元の色に戻す。
     for (std::size_t fragmentId : state.fragmentIds) {
       vtkSmartPointer<vtkPolyData> polyData;
       if (fragmentId < currentClusterFragments_.size()) {
@@ -779,6 +799,9 @@ void MainWindow::refreshViewport() {
       }
 
       const bool joined = state.hasAcceptedJoin(fragmentId);
+      const bool selectedForCandidate =
+          std::find(selectedCandidateFragmentIds_.begin(), selectedCandidateFragmentIds_.end(),
+                     fragmentId) != selectedCandidateFragmentIds_.end();
       const auto resolvedPose = state.resolvedPose(fragmentId);
       kintsugi::core::PropagatedPose displayPose = resolvedPose ? *resolvedPose : kintsugi::core::PropagatedPose{};
       const auto liveIt = liveDragTranslations_.find(fragmentId);
@@ -800,7 +823,9 @@ void MainWindow::refreshViewport() {
 
       auto actor = vtkSmartPointer<vtkActor>::New();
       actor->SetMapper(mapper);
-      actor->GetProperty()->SetColor(joined ? 0.2 : 0.7, joined ? 0.7 : 0.4, joined ? 0.3 : 0.2);
+      actor->GetProperty()->SetColor(selectedForCandidate ? 0.95 : (joined ? 0.2 : 0.7),
+                                      selectedForCandidate ? 0.85 : (joined ? 0.7 : 0.4),
+                                      selectedForCandidate ? 0.1 : (joined ? 0.3 : 0.2));
       // メッシュ全体の三角形分割線ではなく、破片の輪郭（他の三角形と
       // 共有されていない境界エッジ = 破片の外周・破損エッジ）のみを
       // 目立つ色で強調表示する。vtkFeatureEdgesは面が1つのセルからしか
