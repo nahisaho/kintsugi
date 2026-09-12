@@ -168,9 +168,10 @@
     ".musubix/reports/tdd/TEST-POTTERY-027-002.out": "36275ff0a21c9b07b7c96d054c217f486e76b47711244db87eb9724babc25550",
     ".musubix/reports/tdd/cpp-tests.json": "76e33b4ffe36db48c8ae0747925410052f47f4a219c60266e67bcfe1d43dfcf7",
     ".musubix/reports/tdd/cpp-tests.xml": "8d4a93d3d12e363a1e3d42e8800fcbf9e88a8bceee08c35cb28ccdbcd4ca664c",
-    "CMakeLists.txt": "883fe123fb6fa9885ba300b1cec08c759cccb99b2446a05a699052d373f03b83",
+    "CMakeLists.txt": "987e706dc132405dff964ee3ce5de672810d031f6dedec9c1aa716e1e5987701",
     "scripts/run_tdd_test.sh": "ceb2a115952214e30c0b9172c214a790cb8bb09a41df6b76436e01f4c3ab9a73",
     "scripts/run_tests.sh": "fa899bcf77b95e991816c18203d503a679bd70bddcbd55a1797dc1d6bdb8d85a",
+    "src/app/main.cpp": "37f9fa552379c39f8244252e07c3cd2c4172334ee33466495e41cb1c7d00b7e2",
     "src/core/assembly_orchestrator.cpp": "5436a1231cee23a08389959f5d6e674e569686c32d4582cd0ad89167383a8e73",
     "src/core/assembly_orchestrator.hpp": "bea728b8a54cc4d3d0678d44d7572f4bb44fedb24a9e890e33dfaf5b80744bab",
     "src/core/fragment_clustering.cpp": "599f66035acb9012978b53331c66bf7830b920daa1bdfd96afcd2d2bb2786382",
@@ -182,7 +183,7 @@
     "src/core/mesh_export.hpp": "25efec1b060571ffec4fbb7a682553dbd5caf9a79b1b6791911c828c2a92ce36",
     "src/core/missing_part_estimation.cpp": "94d8f1b246f50031c4d2c1292662c7b3b95446de5b35abfb321e2a741c24b950",
     "src/core/missing_part_estimation.hpp": "97b5bcc50883e651103c5152aa3d4b665581847c3f122572f4d2844f19d7d60b",
-    "src/core/offline_execution.cpp": "9a7c0ed6d6239ab08cae71039f18c0f9f1c8394f72c3985e21f1dc17342e8d41",
+    "src/core/offline_execution.cpp": "07abacb20a3d7fb211812e93d7911cf0071036f5c0d377f349a1982bf2c57738",
     "src/core/offline_execution.hpp": "7ba03e0db8dd4c63eb2a02c76b59fa6cb29cca14ddb105b1fe4e09c379f9bf38",
     "src/core/pose_conflict.cpp": "e51dbf023e5c9df2080692091a8e4df8dae756b245c87e0413d6dbe9fca983e5",
     "src/core/pose_conflict.hpp": "6d89a89dcc3630a9ad4e968837f1e1e932bfc1a6688dd5c73fc0db6f62023166",
@@ -194,6 +195,8 @@
     "src/core/scan_importer.hpp": "5bff737ea45164d50ed061a8f914dc5e2b02e8a576061886b677e3319e32185e",
     "src/gui/gui_command_dispatcher.cpp": "8a259fc9e4809d5e7f0c263ceca262a2b5890e56e04c2c0bf14bffcd1c7e49c2",
     "src/gui/gui_command_dispatcher.hpp": "1220e6af12fb49f996cb8ef187c83c0279dfb6ce493dd90d3b09d2dbb1f49116",
+    "src/gui/main_window.cpp": "3a7069e3e170cc160d4ca7d53d63c74c2215631d384f5c3a27f2bd43261f6977",
+    "src/gui/main_window.hpp": "343d337404f0b00d7325663c8a857dd6923af52960ac290f870707dc1fa59745",
     "src/gui/viewport_camera.cpp": "bf47697e48859e9d054a657cfbdcd9f1173aa64334f9fdc11a70f27b97a825fb",
     "src/gui/viewport_camera.hpp": "ac186c06061a714978b050981f359ca629e9dff4c974d16a53b068b84db21b0f",
     "tests/fixtures/corrupted.obj": "959bf0f8561149845bdaf28d5946b238cfe917bbd41e073bb62320df023bd061",
@@ -221,7 +224,7 @@
     "third_party/doctest/doctest.h": "44faa038e9c3f9728efbda143748d01124ea0a27f4bf78f35a15d8fab2e039fb",
     "third_party/doctest/doctest_fwd.h": "aead5a9172e2619b6653d27967d4357241bbfcbcf846217f338d47c3c7ef8792"
   },
-  "artifactSha256": "4f566d9336829213c59b281c8bd3d3b4768370c168c0d7c6b1294f7a54e09cbd",
+  "artifactSha256": "b023378acd2a8a381cb1071876a6efcd358813c0e1d706d76f62e1131bdfb056",
   "approver": "nahisaho",
-  "approvedAt": "2026-09-12T06:12:50.214Z"
+  "approvedAt": "2026-09-12T06:48:43.058Z"
 }

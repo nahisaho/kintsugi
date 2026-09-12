@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T06:46:12.583Z",
-  "status": "fail",
+  "generatedAt": "2026-09-12T06:49:40.610Z",
+  "status": "pass",
   "checks": [
     {
       "name": "policy",
@@ -187,17 +187,17 @@
       "required": true,
       "status": "pass",
       "summary": "scripts/run_tests.sh: completed, exit 0.",
-      "durationMs": 56513,
+      "durationMs": 52578,
       "exitCode": 0,
-      "stdout": "-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n-- Could NOT find Pcap (missing: PCAP_LIBRARIES PCAP_INCLUDE_DIRS) \n-- Found flann version 1.9.2\n-- looking for PCL_COMMON\n-- looking for PCL_OCTREE\n-- looking for PCL_IO\n-- looking for PCL_SAMPLE_CONSENSUS\n-- looking for PCL_FILTERS\n-- looking for PCL_2D\n-- looking for PCL_FEATURES\n-- looking for PCL_REGISTRATION\n-- looking for PCL_KDTREE\n-- looking for PCL_SEARCH\n-- Configuring done (56.0s)\n-- Generating done (0.0s)\n-- Build files have been written to: /home/nahisaho/GitHub/kintsugi/build\n[  0%] Built target pottery_core_autogen_timestamp_deps\n[  3%] Built target pottery_core_autogen\n[ 48%] Built target pottery_core\n[ 48%] Built target pottery_tests_autogen_timestamp_deps\n[ 51%] Built target pottery_tests_autogen\n[100%] Built target pottery_tests\n[doctest] doctest version is \"2.4.11\"\n[doctest] run with \"--help\" for options\n===============================================================================\n[doctest] test cases:  35 |  35 passed | 0 failed | 0 skipped\n[doctest] assertions: 291 | 291 passed | 0 failed |\n[doctest] Status: SUCCESS!\n",
-      "stderr": "** WARNING ** io features related to pcap will be disabled\nCMake Warning (dev) at /usr/lib/x86_64-linux-gnu/cmake/pcl/Modules/FindFLANN.cmake:45 (find_package):\n  Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT\n  variables.  Run \"cmake --help-policy CMP0144\" for policy details.  Use the\n  cmake_policy command to set the policy and suppress this warning.\n\n  CMake variable FLANN_ROOT is set to:\n\n    /usr\n\n  For compatibility, find_package is ignoring the variable, but code in a\n  .cmake module might still use it.\nCall Stack (most recent call first):\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)\n  CMakeLists.txt:15 (find_package)\nThis warning is for project developers.  Use -Wno-dev to suppress it.\n\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n[pcl::PCDReader::readHeader] number of points is zero.\n[pcl::PCDReader::readHeader] no HEIGHT given, setting to 1 (unorganized).\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n\u001b[0m\u001b[31m2026-09-12 15:46:12.119 (   0.029s) [        27CE5F80]       vtkSTLReader.cxx:657    ERR| vtkSTLReader (0x59b0d898ec80): STLReader: error while reading file tests/fixtures/corrupted.stl at line 1: Parse error. Expecting 'solid' found 'this'\u001b[0m\n\u001b[0m\u001b[31m2026-09-12 15:46:12.119 (   0.029s) [        27CE5F80]       vtkExecutive.cxx:752    ERR| vtkCompositeDataPipeline (0x59b0d89b3130): Algorithm vtkSTLReader(0x59b0d898ec80) returned failure for request: vtkInformation (0x59b0d89b40d0)\n  Debug: Off\n  Modified Time: 994\n  Reference Count: 1\n  Registered Events: (none)\n  Request: REQUEST_DATA\n  FROM_OUTPUT_PORT: 0\n  ALGORITHM_AFTER_FORWARD: 1\n  FORWARD_DIRECTION: 0\n\n\u001b[0m\n[pcl::io::vtk2mesh] Given vtkPolyData is misformed (contains nullpointer instead of points).\n[pcl::OBJReader::readHeader] No vertices found!\n[pcl::OBJReader::read] Problem reading header!\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n"
+      "stdout": "-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n-- Could NOT find Pcap (missing: PCAP_LIBRARIES PCAP_INCLUDE_DIRS) \n-- Found flann version 1.9.2\n-- looking for PCL_COMMON\n-- looking for PCL_OCTREE\n-- looking for PCL_IO\n-- looking for PCL_SAMPLE_CONSENSUS\n-- looking for PCL_FILTERS\n-- looking for PCL_2D\n-- looking for PCL_FEATURES\n-- looking for PCL_REGISTRATION\n-- looking for PCL_KDTREE\n-- looking for PCL_SEARCH\n-- Configuring done (52.1s)\n-- Generating done (0.0s)\n-- Build files have been written to: /home/nahisaho/GitHub/kintsugi/build\n[  0%] Built target pottery_core_autogen_timestamp_deps\n[  3%] Built target pottery_core_autogen\n[ 48%] Built target pottery_core\n[ 48%] Built target pottery_tests_autogen_timestamp_deps\n[ 51%] Built target pottery_tests_autogen\n[100%] Built target pottery_tests\n[doctest] doctest version is \"2.4.11\"\n[doctest] run with \"--help\" for options\n===============================================================================\n[doctest] test cases:  35 |  35 passed | 0 failed | 0 skipped\n[doctest] assertions: 291 | 291 passed | 0 failed |\n[doctest] Status: SUCCESS!\n",
+      "stderr": "** WARNING ** io features related to pcap will be disabled\nCMake Warning (dev) at /usr/lib/x86_64-linux-gnu/cmake/pcl/Modules/FindFLANN.cmake:45 (find_package):\n  Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT\n  variables.  Run \"cmake --help-policy CMP0144\" for policy details.  Use the\n  cmake_policy command to set the policy and suppress this warning.\n\n  CMake variable FLANN_ROOT is set to:\n\n    /usr\n\n  For compatibility, find_package is ignoring the variable, but code in a\n  .cmake module might still use it.\nCall Stack (most recent call first):\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)\n  CMakeLists.txt:15 (find_package)\nThis warning is for project developers.  Use -Wno-dev to suppress it.\n\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n[pcl::PCDReader::readHeader] number of points is zero.\n[pcl::PCDReader::readHeader] no HEIGHT given, setting to 1 (unorganized).\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n\u001b[0m\u001b[31m2026-09-12 15:49:40.174 (   0.027s) [        9120EF80]       vtkSTLReader.cxx:657    ERR| vtkSTLReader (0x5a6441416c80): STLReader: error while reading file tests/fixtures/corrupted.stl at line 1: Parse error. Expecting 'solid' found 'this'\u001b[0m\n\u001b[0m\u001b[31m2026-09-12 15:49:40.174 (   0.027s) [        9120EF80]       vtkExecutive.cxx:752    ERR| vtkCompositeDataPipeline (0x5a644143b130): Algorithm vtkSTLReader(0x5a6441416c80) returned failure for request: vtkInformation (0x5a644143c0d0)\n  Debug: Off\n  Modified Time: 994\n  Reference Count: 1\n  Registered Events: (none)\n  Request: REQUEST_DATA\n  FROM_OUTPUT_PORT: 0\n  ALGORITHM_AFTER_FORWARD: 1\n  FORWARD_DIRECTION: 0\n\n\u001b[0m\n[pcl::io::vtk2mesh] Given vtkPolyData is misformed (contains nullpointer instead of points).\n[pcl::OBJReader::readHeader] No vertices found!\n[pcl::OBJReader::read] Problem reading header!\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n"
     },
     {
       "name": "command:cpp-doctest-tdd",
       "required": false,
       "status": "pass",
       "summary": "scripts/run_tdd_test.sh: completed, exit 0.",
-      "durationMs": 5,
+      "durationMs": 6,
       "exitCode": 0,
       "stdout": "run_tdd_test.sh: no TEST-ID supplied; no-op (full suite covered by cpp-tests).\n",
       "stderr": ""
@@ -240,16 +240,9 @@
     {
       "name": "approval",
       "required": true,
-      "status": "fail",
-      "summary": "2/3 approval stage(s) are current.",
-      "diagnostics": [
-        {
-          "code": "APPROVAL_STALE",
-          "severity": "error",
-          "message": "release approval does not match the current artifact manifest.",
-          "path": ".musubix/evidence/approvals/release.json"
-        }
-      ]
+      "status": "pass",
+      "summary": "3/3 approval stage(s) are current.",
+      "diagnostics": []
     },
     {
       "name": "commands",
@@ -304,7 +297,7 @@
     "modelCorrespondence.coveredRequirements": 5,
     "modelCorrespondence.errors": 0,
     "attestation.errors": 0,
-    "approval.errors": 1,
+    "approval.errors": 0,
     "coverage.design": 1,
     "coverage.implementation": 1,
     "coverage.tests": 1
