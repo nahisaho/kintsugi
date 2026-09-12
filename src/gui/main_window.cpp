@@ -763,19 +763,11 @@ void MainWindow::refreshViewport() {
   if (orchestrator_) {
     const auto& state = orchestrator_->state();
 
-    // 表示するのは採用済み（accept済み）接合を持つ破片のみとする。
-    // 未接合・候補ありのみ・マッチしない破片は主ビューには一切表示しない
-    // （「マッチしたものだけを表示」の要求）。候補の確認・採用操作自体は
-    // 「2. 接合候補」パネルから引き続き行える。
+    // 全破片を常に表示する。接合を採用（Accept）した破片は元の姿勢に
+    // 代わって伝播済み姿勢（resolvedPose）で配置され緑色で強調表示し、
+    // それ以外（未接合・候補ありのみ・接合候補が見つからない破片）は
+    // 元のスキャン取得時の座標のままオレンジ色で表示する。
     for (std::size_t fragmentId : state.fragmentIds) {
-      if (!state.hasAcceptedJoin(fragmentId)) {
-        continue;
-      }
-      const auto resolvedPose = state.resolvedPose(fragmentId);
-      if (!resolvedPose) {
-        continue;
-      }
-
       vtkSmartPointer<vtkPolyData> polyData;
       if (fragmentId < currentClusterFragments_.size()) {
         polyData = buildFragmentPolyData(currentClusterFragments_[fragmentId]);
@@ -786,7 +778,9 @@ void MainWindow::refreshViewport() {
         polyData = sphere->GetOutput();
       }
 
-      kintsugi::core::PropagatedPose displayPose = *resolvedPose;
+      const bool joined = state.hasAcceptedJoin(fragmentId);
+      const auto resolvedPose = state.resolvedPose(fragmentId);
+      kintsugi::core::PropagatedPose displayPose = resolvedPose ? *resolvedPose : kintsugi::core::PropagatedPose{};
       const auto liveIt = liveDragTranslations_.find(fragmentId);
       if (liveIt != liveDragTranslations_.end()) {
         // ドラッグ中の破片は、確定前の見た目としてライブの並進値で上書き
@@ -806,7 +800,7 @@ void MainWindow::refreshViewport() {
 
       auto actor = vtkSmartPointer<vtkActor>::New();
       actor->SetMapper(mapper);
-      actor->GetProperty()->SetColor(0.2, 0.7, 0.3);
+      actor->GetProperty()->SetColor(joined ? 0.2 : 0.7, joined ? 0.7 : 0.4, joined ? 0.3 : 0.2);
       // メッシュ全体の三角形分割線ではなく、破片の輪郭（他の三角形と
       // 共有されていない境界エッジ = 破片の外周・破損エッジ）のみを
       // 目立つ色で強調表示する。vtkFeatureEdgesは面が1つのセルからしか
