@@ -148,6 +148,50 @@ TEST_CASE("TEST-POTTERY-008-001 applyManualTransform overrides propagated pose")
   CHECK(state.resolvedPose(1)->translationMm.z == doctest::Approx(5.0));
 }
 
+/** @id TEST-POTTERY-008-002
+ * @verifies REQ-POTTERY-008
+ */
+// 手動微調整で接合の相手破片との相対姿勢が接合成立時点の相対姿勢からずれた場合、
+// 隙間・重なり量（gapOverlapByFragment）がその乖離を反映して更新され、姿勢が
+// 元通りに戻された場合は乖離が解消されること（隙間・重なりの表示値が操作に
+// 追随して更新される、REQ-POTTERY-008の受け入れ基準）。
+TEST_CASE("TEST-POTTERY-008-002 applyManualTransform re-evaluates gap/overlap against the joined neighbor") {
+  AssemblyOrchestrator orchestrator(std::vector<std::size_t>{0, 1});
+
+  const PropagatedPose jointPose{Vec3{10.0, 0.0, 0.0}, Quaternion{1.0, 0.0, 0.0, 0.0}};
+  orchestrator.acceptCandidate(makeCandidate(0, 1, jointPose, 90.0));
+
+  // 接合直後は完全に一致した姿勢のため、乖離はゼロであること。
+  {
+    const auto& estimates = orchestrator.state().gapOverlapByFragment.at(1);
+    REQUIRE(estimates.size() == 1);
+    CHECK(estimates.front().neighborFragmentId == 0);
+    CHECK(estimates.front().translationDeviationMm == doctest::Approx(0.0));
+    CHECK(estimates.front().rotationDeviationDegrees == doctest::Approx(0.0));
+  }
+
+  // 破片1をX軸方向へ+6mmずらす（本来10.0mmであるべき位置を16.0mmへ変更）→隙間相当の乖離が生じる。
+  const PropagatedPose manualPose{Vec3{16.0, 0.0, 0.0}, Quaternion{1.0, 0.0, 0.0, 0.0}};
+  const AssemblyState& afterDrag = orchestrator.applyManualTransform(1, manualPose);
+  {
+    const auto& estimates = afterDrag.gapOverlapByFragment.at(1);
+    REQUIRE(estimates.size() == 1);
+    CHECK(estimates.front().translationDeviationMm == doctest::Approx(6.0));
+  }
+  // 破片0側からも同一の乖離量が参照できること（双方向に公開される）。
+  {
+    const auto& estimates = afterDrag.gapOverlapByFragment.at(0);
+    REQUIRE(estimates.size() == 1);
+    CHECK(estimates.front().neighborFragmentId == 1);
+    CHECK(estimates.front().translationDeviationMm == doctest::Approx(6.0));
+  }
+
+  // 破片1を接合成立時点の姿勢へ戻す→乖離が再びゼロになること（操作への追随）。
+  const AssemblyState& afterRestore = orchestrator.applyManualTransform(1, jointPose);
+  const auto& estimates = afterRestore.gapOverlapByFragment.at(1);
+  CHECK(estimates.front().translationDeviationMm == doctest::Approx(0.0));
+}
+
 /** @id TEST-POTTERY-022-001
  * @verifies REQ-POTTERY-022
  */

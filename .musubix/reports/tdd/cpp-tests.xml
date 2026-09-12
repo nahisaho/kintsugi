@@ -14,10 +14,13 @@
     <TestCase name="TEST-POTTERY-008-001 applyManualTransform overrides propagated pose" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="134">
       <OverallResultsAsserts successes="6" failures="0" test_case_success="true"/>
     </TestCase>
-    <TestCase name="TEST-POTTERY-022-001 undo reverts the most recent operation" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="156">
+    <TestCase name="TEST-POTTERY-008-002 applyManualTransform re-evaluates gap/overlap against the joined neighbor" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="158">
+      <OverallResultsAsserts successes="10" failures="0" test_case_success="true"/>
+    </TestCase>
+    <TestCase name="TEST-POTTERY-022-001 undo reverts the most recent operation" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="200">
       <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
     </TestCase>
-    <TestCase name="TEST-POTTERY-026-001 redo reapplies an undone operation" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="177">
+    <TestCase name="TEST-POTTERY-026-001 redo reapplies an undone operation" filename="/home/nahisaho/GitHub/kintsugi/tests/test_assembly_orchestrator.cpp" line="221">
       <OverallResultsAsserts successes="4" failures="0" test_case_success="true"/>
     </TestCase>
     <TestCase name="TEST-POTTERY-003-001: PFR-BENCH-CLUSTER-001代替データセットで正解ラベルとの一致率が95%以上となる" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_clustering.cpp" line="41">
@@ -137,6 +140,6 @@
       <OverallResultsAsserts successes="11" failures="0" test_case_success="true"/>
     </TestCase>
   </TestSuite>
-  <OverallResultsAsserts successes="295" failures="0"/>
-  <OverallResultsTestCases successes="38" failures="0" skipped="0"/>
+  <OverallResultsAsserts successes="305" failures="0"/>
+  <OverallResultsTestCases successes="39" failures="0" skipped="0"/>
 </doctest>

@@ -39,6 +39,32 @@ AssemblyOrchestrator::AssemblyOrchestrator(std::vector<std::size_t> fragmentIds)
 
 const AssemblyState& AssemblyOrchestrator::state() const { return state_; }
 
+namespace {
+constexpr PropagatedPose kIdentityPose{Vec3{0.0, 0.0, 0.0}, Quaternion{1.0, 0.0, 0.0, 0.0}};
+}  // namespace
+
+void AssemblyOrchestrator::recomputeGapOverlap() {
+  state_.gapOverlapByFragment.clear();
+  for (const auto& join : state_.acceptedJoins) {
+    const PropagatedPose poseA = state_.resolvedPose(join.fragmentIdA).value_or(kIdentityPose);
+    const PropagatedPose poseB = state_.resolvedPose(join.fragmentIdB).value_or(kIdentityPose);
+    // 現時点の実際の相対姿勢（A基準でのB）。手動上書きがあればresolvedPose経由で反映される。
+    const PropagatedPose actualRelative = composePoses(invertPose(poseA), poseB);
+
+    GapOverlapEstimate forB;
+    forB.neighborFragmentId = join.fragmentIdA;
+    forB.translationDeviationMm = translationDifferenceMm(actualRelative, join.pose);
+    forB.rotationDeviationDegrees = rotationDifferenceDegrees(actualRelative, join.pose);
+    state_.gapOverlapByFragment[join.fragmentIdB].push_back(forB);
+
+    GapOverlapEstimate forA;
+    forA.neighborFragmentId = join.fragmentIdB;
+    forA.translationDeviationMm = forB.translationDeviationMm;
+    forA.rotationDeviationDegrees = forB.rotationDeviationDegrees;
+    state_.gapOverlapByFragment[join.fragmentIdA].push_back(forA);
+  }
+}
+
 const AssemblyState& AssemblyOrchestrator::runFullAuto(const std::vector<JoinCandidate>& candidates) {
   snapshotBeforeMutation();
 
@@ -71,6 +97,7 @@ const AssemblyState& AssemblyOrchestrator::runFullAuto(const std::vector<JoinCan
       state_.acceptedJoins.push_back(std::get<AcceptedJoin>(result));
     }
   }
+  recomputeGapOverlap();
   return state_;
 }
 
@@ -95,6 +122,7 @@ AcceptCandidateResult AssemblyOrchestrator::acceptCandidate(const JoinCandidate&
   }
   snapshotBeforeMutation();
   state_.acceptedJoins.push_back(std::get<AcceptedJoin>(result));
+  recomputeGapOverlap();
   return state_;
 }
 
@@ -113,6 +141,7 @@ const AssemblyState& AssemblyOrchestrator::applyManualTransform(std::size_t frag
                                                                  const PropagatedPose& transform) {
   snapshotBeforeMutation();
   state_.manualPoseOverrides[fragmentId] = transform;
+  recomputeGapOverlap();
   return state_;
 }
 
