@@ -138,6 +138,9 @@ void MainWindow::buildUi() {
   auto* importButton = new QPushButton(QStringLiteral("スキャンをインポート..."), importGroup);
   connect(importButton, &QPushButton::clicked, this, &MainWindow::onImportScans);
   importLayout->addWidget(importButton);
+  auto* clearImportButton = new QPushButton(QStringLiteral("インポート済みデータをクリア"), importGroup);
+  connect(clearImportButton, &QPushButton::clicked, this, &MainWindow::onClearImportedScans);
+  importLayout->addWidget(clearImportButton);
   auto* clusterButton = new QPushButton(QStringLiteral("クラスタリング実行"), importGroup);
   connect(clusterButton, &QPushButton::clicked, this, &MainWindow::onRunClustering);
   importLayout->addWidget(clusterButton);
@@ -243,6 +246,14 @@ void MainWindow::onImportScans() {
                         .arg(imported)
                         .arg(failed)
                         .arg(importedFragments_.size()));
+}
+
+void MainWindow::onClearImportedScans() {
+  // インポート済み破片・クラスタリング・組み立て結果を全て破棄し、
+  // 新しいスキャンデータを一から取り込めるようにする。
+  importedFragments_.clear();
+  resetDerivedClusteringState();
+  setStatusMessage(QStringLiteral("インポート済みデータをクリアしました。"));
 }
 
 void MainWindow::resetDerivedClusteringState() {

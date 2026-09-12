@@ -40,6 +40,7 @@ class MainWindow : public QMainWindow {
 
  private slots:
   void onImportScans();
+  void onClearImportedScans();
   void onRunClustering();
   void onClusterSelectionChanged(int index);
   void onAcceptSelectedCandidate();
