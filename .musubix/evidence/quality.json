@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-12T07:35:58.150Z",
+  "generatedAt": "2026-09-12T07:42:46.688Z",
   "status": "fail",
   "checks": [
     {
@@ -171,7 +171,7 @@
       "name": "tdd",
       "required": true,
       "status": "pass",
-      "summary": "43 Red-Green TDD cycle(s) recorded.",
+      "summary": "44 Red-Green TDD cycle(s) recorded.",
       "diagnostics": []
     },
     {
@@ -193,17 +193,17 @@
       "required": true,
       "status": "pass",
       "summary": "scripts/run_tests.sh: completed, exit 0.",
-      "durationMs": 52910,
+      "durationMs": 53415,
       "exitCode": 0,
-      "stdout": "-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n-- Could NOT find Pcap (missing: PCAP_LIBRARIES PCAP_INCLUDE_DIRS) \n-- Found flann version 1.9.2\n-- looking for PCL_COMMON\n-- looking for PCL_OCTREE\n-- looking for PCL_IO\n-- looking for PCL_SAMPLE_CONSENSUS\n-- looking for PCL_FILTERS\n-- looking for PCL_2D\n-- looking for PCL_FEATURES\n-- looking for PCL_REGISTRATION\n-- looking for PCL_KDTREE\n-- looking for PCL_SEARCH\n-- Configuring done (52.3s)\n-- Generating done (0.0s)\n-- Build files have been written to: /home/nahisaho/GitHub/kintsugi/build\n[  0%] Built target pottery_core_autogen_timestamp_deps\n[  3%] Built target pottery_core_autogen\n[ 48%] Built target pottery_core\n[ 48%] Built target pottery_tests_autogen_timestamp_deps\n[ 51%] Built target pottery_tests_autogen\n[100%] Built target pottery_tests\n[doctest] doctest version is \"2.4.11\"\n[doctest] run with \"--help\" for options\n===============================================================================\n[doctest] test cases:  39 |  39 passed | 0 failed | 0 skipped\n[doctest] assertions: 305 | 305 passed | 0 failed |\n[doctest] Status: SUCCESS!\n",
-      "stderr": "** WARNING ** io features related to pcap will be disabled\nCMake Warning (dev) at /usr/lib/x86_64-linux-gnu/cmake/pcl/Modules/FindFLANN.cmake:45 (find_package):\n  Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT\n  variables.  Run \"cmake --help-policy CMP0144\" for policy details.  Use the\n  cmake_policy command to set the policy and suppress this warning.\n\n  CMake variable FLANN_ROOT is set to:\n\n    /usr\n\n  For compatibility, find_package is ignoring the variable, but code in a\n  .cmake module might still use it.\nCall Stack (most recent call first):\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)\n  CMakeLists.txt:15 (find_package)\nThis warning is for project developers.  Use -Wno-dev to suppress it.\n\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n[pcl::PCDReader::readHeader] number of points is zero.\n[pcl::PCDReader::readHeader] no HEIGHT given, setting to 1 (unorganized).\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n\u001b[0m\u001b[31m2026-09-12 16:35:57.597 (   0.049s) [        DA825F80]       vtkSTLReader.cxx:657    ERR| vtkSTLReader (0x613e0a062020): STLReader: error while reading file tests/fixtures/corrupted.stl at line 1: Parse error. Expecting 'solid' found 'this'\u001b[0m\n\u001b[0m\u001b[31m2026-09-12 16:35:57.597 (   0.049s) [        DA825F80]       vtkExecutive.cxx:752    ERR| vtkCompositeDataPipeline (0x613e0a0619d0): Algorithm vtkSTLReader(0x613e0a062020) returned failure for request: vtkInformation (0x613e0a0685e0)\n  Debug: Off\n  Modified Time: 994\n  Reference Count: 1\n  Registered Events: (none)\n  Request: REQUEST_DATA\n  FROM_OUTPUT_PORT: 0\n  ALGORITHM_AFTER_FORWARD: 1\n  FORWARD_DIRECTION: 0\n\n\u001b[0m\n[pcl::io::vtk2mesh] Given vtkPolyData is misformed (contains nullpointer instead of points).\n[pcl::OBJReader::readHeader] No vertices found!\n[pcl::OBJReader::read] Problem reading header!\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n"
+      "stdout": "-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n-- Could NOT find Pcap (missing: PCAP_LIBRARIES PCAP_INCLUDE_DIRS) \n-- Found flann version 1.9.2\n-- looking for PCL_COMMON\n-- looking for PCL_OCTREE\n-- looking for PCL_IO\n-- looking for PCL_SAMPLE_CONSENSUS\n-- looking for PCL_FILTERS\n-- looking for PCL_2D\n-- looking for PCL_FEATURES\n-- looking for PCL_REGISTRATION\n-- looking for PCL_KDTREE\n-- looking for PCL_SEARCH\n-- Configuring done (52.9s)\n-- Generating done (0.0s)\n-- Build files have been written to: /home/nahisaho/GitHub/kintsugi/build\n[  0%] Built target pottery_core_autogen_timestamp_deps\n[  3%] Built target pottery_core_autogen\n[ 48%] Built target pottery_core\n[ 48%] Built target pottery_tests_autogen_timestamp_deps\n[ 51%] Built target pottery_tests_autogen\n[100%] Built target pottery_tests\n[doctest] doctest version is \"2.4.11\"\n[doctest] run with \"--help\" for options\n===============================================================================\n[doctest] test cases:  40 |  40 passed | 0 failed | 0 skipped\n[doctest] assertions: 310 | 310 passed | 0 failed |\n[doctest] Status: SUCCESS!\n",
+      "stderr": "** WARNING ** io features related to pcap will be disabled\nCMake Warning (dev) at /usr/lib/x86_64-linux-gnu/cmake/pcl/Modules/FindFLANN.cmake:45 (find_package):\n  Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT\n  variables.  Run \"cmake --help-policy CMP0144\" for policy details.  Use the\n  cmake_policy command to set the policy and suppress this warning.\n\n  CMake variable FLANN_ROOT is set to:\n\n    /usr\n\n  For compatibility, find_package is ignoring the variable, but code in a\n  .cmake module might still use it.\nCall Stack (most recent call first):\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)\n  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)\n  CMakeLists.txt:15 (find_package)\nThis warning is for project developers.  Use -Wno-dev to suppress it.\n\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n[pcl::PCDReader::readHeader] number of points is zero.\n[pcl::PCDReader::readHeader] no HEIGHT given, setting to 1 (unorganized).\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n\u001b[0m\u001b[31m2026-09-12 16:42:46.222 (   0.047s) [        6423EF80]       vtkSTLReader.cxx:657    ERR| vtkSTLReader (0x56651396a130): STLReader: error while reading file tests/fixtures/corrupted.stl at line 1: Parse error. Expecting 'solid' found 'this'\u001b[0m\n\u001b[0m\u001b[31m2026-09-12 16:42:46.222 (   0.047s) [        6423EF80]       vtkExecutive.cxx:752    ERR| vtkCompositeDataPipeline (0x566513969ae0): Algorithm vtkSTLReader(0x56651396a130) returned failure for request: vtkInformation (0x5665139966c0)\n  Debug: Off\n  Modified Time: 994\n  Reference Count: 1\n  Registered Events: (none)\n  Request: REQUEST_DATA\n  FROM_OUTPUT_PORT: 0\n  ALGORITHM_AFTER_FORWARD: 1\n  FORWARD_DIRECTION: 0\n\n\u001b[0m\n[pcl::io::vtk2mesh] Given vtkPolyData is misformed (contains nullpointer instead of points).\n[pcl::OBJReader::readHeader] No vertices found!\n[pcl::OBJReader::read] Problem reading header!\nFailed to find match for field 'normal_x'.\nFailed to find match for field 'normal_y'.\nFailed to find match for field 'normal_z'.\nFailed to find match for field 'rgb'.\nFailed to find match for field 'curvature'.\n"
     },
     {
       "name": "command:cpp-doctest-tdd",
       "required": false,
       "status": "pass",
       "summary": "scripts/run_tdd_test.sh: completed, exit 0.",
-      "durationMs": 7,
+      "durationMs": 6,
       "exitCode": 0,
       "stdout": "run_tdd_test.sh: no TEST-ID supplied; no-op (full suite covered by cpp-tests).\n",
       "stderr": ""
@@ -212,7 +212,7 @@
       "name": "test-identities",
       "required": false,
       "status": "pass",
-      "summary": "39/39 annotated test IDs passed in structured command reports.",
+      "summary": "40/40 annotated test IDs passed in structured command reports.",
       "diagnostics": []
     },
     {
@@ -291,13 +291,13 @@
           "code": "INPUT_MODIFIED",
           "severity": "error",
           "path": ".musubix/reports/tdd/cpp-tests.json",
-          "message": ".musubix/reports/tdd/cpp-tests.json was modified during gate execution; before=f62a493ed6b9f6e47b6052a3de1643be2bca171eb4be60f99acdbfd059324cf0; after=5f64d82b7cebe56b05b716a2e0b09dde14a05d418222666131b0c99029197118."
+          "message": ".musubix/reports/tdd/cpp-tests.json was modified during gate execution; before=5f64d82b7cebe56b05b716a2e0b09dde14a05d418222666131b0c99029197118; after=2f6d475fa4d8365cda0416f69fb75968ddad44994a774f77efdb323daf6e681b."
         },
         {
           "code": "INPUT_MODIFIED",
           "severity": "error",
           "path": ".musubix/reports/tdd/cpp-tests.xml",
-          "message": ".musubix/reports/tdd/cpp-tests.xml was modified during gate execution; before=5ebb018f80dbcccc65f0a7e6246366360fb99f2b1478ea458811463be35205ee; after=2eb0483fe38214c212427e8ef3eba02c353b7a1bd9e0fbd3e0f4f18a6f0d986c."
+          "message": ".musubix/reports/tdd/cpp-tests.xml was modified during gate execution; before=2eb0483fe38214c212427e8ef3eba02c353b7a1bd9e0fbd3e0f4f18a6f0d986c; after=bbcada455a29dc67dc93f391c9346f36668e2e2f03ef8fc72f4f06054c33ad25."
         }
       ]
     }
@@ -312,9 +312,9 @@
     "formal.modeledFraction": 0.25925925925925924,
     "commands.failures": 0,
     "commands.skipped": 0,
-    "tests.annotatedIds": 39,
-    "tests.executedIds": 39,
-    "tdd.cycles": 43,
+    "tests.annotatedIds": 40,
+    "tests.executedIds": 40,
+    "tdd.cycles": 44,
     "tdd.errors": 0,
     "changes.count": 0,
     "changes.errors": 0,
@@ -378,8 +378,8 @@
     ".musubix/features/pottery-fragment-reassembly/design.md": "4023397fbac23a89d74e5a6b9af23ae5bfc3a4ca45063bbffd86530a5b0c0bdb",
     ".musubix/features/pottery-fragment-reassembly/requirements.md": "db9423919b3371549baa1496ec12332d8127205abade237aeb64f3304d9bbcb5",
     ".musubix/policy-baseline.json": "ee0893b12f316ed75feb791bb987de9cec0af2f86c4d80a30384bced352a4e8c",
-    ".musubix/reports/tdd/cpp-tests.json": "5f64d82b7cebe56b05b716a2e0b09dde14a05d418222666131b0c99029197118",
-    ".musubix/reports/tdd/cpp-tests.xml": "2eb0483fe38214c212427e8ef3eba02c353b7a1bd9e0fbd3e0f4f18a6f0d986c",
+    ".musubix/reports/tdd/cpp-tests.json": "2f6d475fa4d8365cda0416f69fb75968ddad44994a774f77efdb323daf6e681b",
+    ".musubix/reports/tdd/cpp-tests.xml": "bbcada455a29dc67dc93f391c9346f36668e2e2f03ef8fc72f4f06054c33ad25",
     ".musubix/reports/tdd/TEST-POTTERY-001-001.build.log": "81c168c5ea8185653ed190b040f5ed0a7328d37bcdf118e0074c9cb4dc648eaf",
     ".musubix/reports/tdd/TEST-POTTERY-001-001.configure.log": "f76c555ab57f14eff84fc8f37495b87ff96aa6a2b64d4d2debe4f6c4c0f41277",
     ".musubix/reports/tdd/TEST-POTTERY-001-001.json": "34129b3d654a8dd66b7e3f0710d0faa5e86e1e696994c1363f05d9206388f633",
@@ -516,6 +516,10 @@
     ".musubix/reports/tdd/TEST-POTTERY-021-002.configure.log": "ecc450abf02e5fcd8f682a29caac211574849ff68954166a044bb13b55bad4dd",
     ".musubix/reports/tdd/TEST-POTTERY-021-002.json": "70b17796e26106199f0e3f2e5101c186e72e7765c0253937c98df728c8d6a91e",
     ".musubix/reports/tdd/TEST-POTTERY-021-002.out": "9827bb06d0a275f742d4af1e779b3a5d1b448f12339a7f898c8f4f33d766d8f3",
+    ".musubix/reports/tdd/TEST-POTTERY-021-003.build.log": "5931349769a273d30ed2c2069364a63562d4b506d96d1b3027fe4a8e61733e61",
+    ".musubix/reports/tdd/TEST-POTTERY-021-003.configure.log": "42dc93a686e7a9ed3d957b74bb961bec0f8dc123283a170927cf013d801c5198",
+    ".musubix/reports/tdd/TEST-POTTERY-021-003.json": "44367084c9646d2208a8c8dae65cf94915dee2c7545748faaeecea385fa2681d",
+    ".musubix/reports/tdd/TEST-POTTERY-021-003.out": "614f61b87a225f13eb87efbcd67cb4898e837bae3a31082cb8e1406dcbbb7de9",
     ".musubix/reports/tdd/TEST-POTTERY-022-001.build.log": "81c168c5ea8185653ed190b040f5ed0a7328d37bcdf118e0074c9cb4dc648eaf",
     ".musubix/reports/tdd/TEST-POTTERY-022-001.configure.log": "866d38267937d5ba1f459a9c258a616c247aa88767b9b85eb1e1ca8287adf86b",
     ".musubix/reports/tdd/TEST-POTTERY-022-001.json": "f449a68a6ecf4e69d6cb122a48b5a96a6376976c11c43c4714855a88bff706de",
@@ -548,8 +552,8 @@
     "src/core/assembly_orchestrator.hpp": "df6def172b86c5603233be5d682cc6efe4cf171df3fb52c521dc6beab37b227c",
     "src/core/fragment_clustering.cpp": "0b4fe4b8a30047005b8f7c8e8f5930de0670b89d72e906746fcd6960588589a2",
     "src/core/fragment_clustering.hpp": "cced8d51cfab39966329fe4af6e60138963616179a7711718e6f0edeb84cdf5e",
-    "src/core/fragment_matching.cpp": "ccedb14823ae36f1b4a32b25e31cc9ef7f9c8cfe5762ab01b550154c5f0bd20b",
-    "src/core/fragment_matching.hpp": "2389914cb1bb43b62c987077cd873d5e7d4e0ecf4ae2a9f854129ffa620aaa2e",
+    "src/core/fragment_matching.cpp": "8b7086ac0fddeda3a9c23f6d4696fa07ee6d17708028256213624f765f26ed9a",
+    "src/core/fragment_matching.hpp": "d6a6f58b22ea2a281ca6c9f4394ef0a263b3ce80ae04f5a3682990926e7b2002",
     "src/core/fragment_mesh.hpp": "90d450c9ed90230eb5530a36bd02ae36dd4bc6f757a1150124dcad394be9da99",
     "src/core/mesh_export.cpp": "64346c7226dbc8cadab4d888f18991b55c8691831c44ad395ed801e8b5eeb30e",
     "src/core/mesh_export.hpp": "25efec1b060571ffec4fbb7a682553dbd5caf9a79b1b6791911c828c2a92ce36",
@@ -582,7 +586,7 @@
     "tests/fixtures/textured_triangle.obj": "e432b6e7b0b048e203d8b887008a713938de4dfd87364c981ccd641c65d512b7",
     "tests/test_assembly_orchestrator.cpp": "7d138cad1e09e9b51b4193bb8368f380f935809c353e10ce8c2b8d93c5462212",
     "tests/test_fragment_clustering.cpp": "31950fe92d8f35a398e3706ce649e355ed24eb05285f3be48741746e71f8e8c5",
-    "tests/test_fragment_matching.cpp": "b2e79cd4742564790a00df10833bcde504c4640594153ca212d6ea57e25a8199",
+    "tests/test_fragment_matching.cpp": "cdf42cef1806fb5b47470c2571a64e7c9b3a5d5f10c7ca7be2012649c5a4626e",
     "tests/test_gui_command_dispatcher.cpp": "65110f666d34e3e018173e27b17dd1a6deb0285c8098a9e9f541ee597450b7a3",
     "tests/test_main.cpp": "7a777978fddee741f644764fde9e39d18f285b6073b63e87cfac4c729671440f",
     "tests/test_mesh_export.cpp": "b58774b092abb83c1320d3ec723f23376aede3df78e84b4ea2d9dd461308fa93",

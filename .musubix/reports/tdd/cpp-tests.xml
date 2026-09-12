@@ -47,6 +47,9 @@
     <TestCase name="TEST-POTTERY-018-002: ICP収束状態が接合候補の根拠として公開される" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="234">
       <OverallResultsAsserts successes="2" failures="0" test_case_success="true"/>
     </TestCase>
+    <TestCase name="TEST-POTTERY-021-003 computeJoinCandidates reports target and reason on internal error and remains operable afterward" filename="/home/nahisaho/GitHub/kintsugi/tests/test_fragment_matching.cpp" line="252">
+      <OverallResultsAsserts successes="5" failures="0" test_case_success="true"/>
+    </TestCase>
     <TestCase name="TEST-POTTERY-017-001 GuiCommandDispatcher delegates accept/reject/drag/undo/redo to the assembly orchestrator" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="36">
       <SubCase name="accepting a non-conflicting candidate updates the assembly state with no conflict warning" filename="/home/nahisaho/GitHub/kintsugi/tests/test_gui_command_dispatcher.cpp" line="42">
       </SubCase>
@@ -140,6 +143,6 @@
       <OverallResultsAsserts successes="11" failures="0" test_case_success="true"/>
     </TestCase>
   </TestSuite>
-  <OverallResultsAsserts successes="305" failures="0"/>
-  <OverallResultsTestCases successes="39" failures="0" skipped="0"/>
+  <OverallResultsAsserts successes="310" failures="0"/>
+  <OverallResultsTestCases successes="40" failures="0" skipped="0"/>
 </doctest>

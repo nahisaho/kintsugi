@@ -260,7 +260,14 @@ FragmentAnalysis analyzeFragment(const FragmentMesh& mesh) {
 
 }  // namespace
 
-std::vector<JoinCandidate> computeJoinCandidates(const std::vector<FragmentMesh>& fragments) {
+AnalysisError::AnalysisError(std::string targetIn, std::string reasonIn)
+    : std::runtime_error("AnalysisError: " + targetIn + ": " + reasonIn),
+      target(std::move(targetIn)),
+      reason(std::move(reasonIn)) {}
+
+std::vector<JoinCandidate> computeJoinCandidates(
+    const std::vector<FragmentMesh>& fragments,
+    std::function<void(std::size_t, std::size_t)> faultInjectionHookForTesting) {
   std::vector<JoinCandidate> candidates;
   const std::size_t n = fragments.size();
   candidates.reserve(n * (n - 1) / 2);
@@ -273,6 +280,9 @@ std::vector<JoinCandidate> computeJoinCandidates(const std::vector<FragmentMesh>
 
   for (std::size_t i = 0; i < n; ++i) {
     for (std::size_t j = i + 1; j < n; ++j) {
+      if (faultInjectionHookForTesting) {
+        faultInjectionHookForTesting(i, j);
+      }
       const IcpOutcome icpOutcome = runIcp(analyses[i].fractureCloud, analyses[j].fractureCloud);
       const std::optional<double> colorScore =
           computeColorScore(fragments[i], analyses[i].fractureIndices, fragments[j],

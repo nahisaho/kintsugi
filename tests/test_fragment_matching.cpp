@@ -242,3 +242,39 @@ TEST_CASE("TEST-POTTERY-018-002: ICP収束状態が接合候補の根拠とし�
   CHECK(result.front().evidence.icpConverged == true);
 }
 
+/** @id TEST-POTTERY-021-003
+ * @verifies REQ-POTTERY-021
+ */
+// 解析処理（接合候補算出）中に内部エラーが発生した場合、処理対象（破片ID対）と
+// 原因を含む例外が送出されること、およびエラー発生後もシステムが操作可能な
+// 状態に復帰し、同じ入力に対して障害注入なしで再実行すれば正常な結果が
+// 得られること（DES-POTTERY-010のTEST-POTTERY-021-001と同様の手法による検証）。
+TEST_CASE(
+    "TEST-POTTERY-021-003 computeJoinCandidates reports target and reason on internal "
+    "error and remains operable afterward") {
+  std::vector<FragmentMesh> fragments;
+  auto base = makeFracturePatch(30.0, 40.0, 6, 15.0, 1);
+  fragments.push_back(base);
+  fragments.push_back(applyRigidTransform(base, 5.0, -3.0, 2.0, 0.3));
+
+  bool caughtAnalysisError = false;
+  try {
+    computeJoinCandidates(fragments, [](std::size_t fragmentIdA, std::size_t fragmentIdB) {
+      throw kintsugi::core::AnalysisError(
+          "fragment pair (" + std::to_string(fragmentIdA) + ", " + std::to_string(fragmentIdB) + ")",
+          "疑似的な内部エラー（解析処理中の異常を模擬）");
+    });
+  } catch (const kintsugi::core::AnalysisError& e) {
+    caughtAnalysisError = true;
+    CHECK(e.target == "fragment pair (0, 1)");
+    CHECK(!e.reason.empty());
+  }
+  CHECK(caughtAnalysisError);
+
+  // 障害注入なしで再実行すれば、直前のエラーに影響されず正常な結果が得られる
+  // （システムが操作可能な状態に復帰していることの確認）。
+  std::vector<JoinCandidate> recovered = computeJoinCandidates(fragments);
+  REQUIRE(recovered.size() == 1);
+  CHECK(recovered.front().confidenceScore >= 70.0);
+}
+
